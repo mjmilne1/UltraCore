@@ -72,3 +72,4 @@ async def health_check():
         'database': 'connected'
     }
 
+
