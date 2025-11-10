@@ -3,9 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 import uvicorn
 
-# Domain APIs - Complete Financial Platform (9 Domains!)
+# Domain APIs
 from ultracore.domains.loan.api import router as loan_router
 from ultracore.domains.loan.integrated_api import router as integrated_loan_router
+from ultracore.domains.loan.servicing_api import router as loan_servicing_router
 from ultracore.domains.client.api import router as client_router
 from ultracore.domains.client.compliance_api import router as compliance_router
 from ultracore.domains.account.api import router as account_router
@@ -22,53 +23,69 @@ from ultracore.infrastructure.event_store.api import router as event_store_route
 from ultracore.ledger.api import router as ledger_router
 from ultracore.agentic_ai.mcp_api import router as mcp_router
 from ultracore.ml_models.api import router as ml_router
-from ultracore.infrastructure.event_store.store import get_event_store
 from ultracore.infrastructure.event_bus.api import router as event_bus_router
-from ultracore.infrastructure.event_bus.bus import initialize_event_bus, EventBusType
-from ultracore.infrastructure.event_bus.handlers import setup_event_handlers
+
+# Production Kafka
+from ultracore.infrastructure.kafka_event_store.production_store import get_production_kafka_store
+from ultracore.infrastructure.event_store.store import get_event_store
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
-    store = get_event_store()
-    await store.initialize()
-    print('✅ Event Store initialized')
+    print('🚀 Starting UltraCore V2...')
     
-    # Initialize Event Bus
-    event_bus = initialize_event_bus(EventBusType.IN_MEMORY)
-    await event_bus.start()
-    print('✅ Event Bus started')
+    # Initialize Production Kafka (PRIMARY)
+    kafka_store = get_production_kafka_store()
+    kafka_initialized = await kafka_store.initialize()
     
-    # Setup event handlers
-    await setup_event_handlers()
-    print('✅ Event handlers configured')
+    if kafka_initialized:
+        print('✅ Production Kafka Event Store initialized')
+        print('   ✓ Idempotent producers')
+        print('   ✓ Exactly-once semantics')
+        print('   ✓ Schema enforcement')
+        print('   ✓ DLQs configured')
+    else:
+        print('⚠️  Kafka not available - using PostgreSQL only')
+    
+    # Initialize PostgreSQL (SECONDARY - read models)
+    pg_store = get_event_store()
+    await pg_store.initialize()
+    print('✅ PostgreSQL Event Store initialized (read models)')
     
     print('✅ General Ledger ready')
     print('✅ All 9 Domains loaded')
     print('✅ AI Agents (Anya) ready')
     print('✅ ML Pipeline ready')
     print('✅ MCP Server ready')
-    print('🚀 UltraCore V2 - Complete Financial Platform ONLINE')
+    print('🚀 UltraCore V2 - Production Platform ONLINE')
     
     yield
     
     # Shutdown
-    await event_bus.stop()
-    print('✅ Event Bus stopped')
+    if kafka_initialized:
+        await kafka_store.stop()
+        print('✅ Kafka gracefully stopped')
 
 
 app = FastAPI(
-    title='UltraCore V2 - Complete Financial Services Platform',
+    title='UltraCore V2 - Production Financial Services Platform',
     version='2.0.0',
     lifespan=lifespan,
     description='''
-    🏦 Complete Financial Services Platform with Event Streaming
+    🏦 Production-Ready Financial Services Platform
+    
+    🎯 KAFKA-FIRST ARCHITECTURE:
+    - Every event written to Kafka FIRST (durable log)
+    - PostgreSQL as secondary (materialized views)
+    - Complete audit trail
+    - Event replay capability
+    - Time-travel queries
     
     🎯 9 COMPLETE DOMAINS:
     
     Core Banking:
-    - 💰 Loans: AI-powered underwriting
+    - 💰 Loans: Complete lifecycle (origination → servicing)
     - 👥 Clients: KYC & onboarding
     - 💳 Accounts: Deposits & withdrawals
     - 💸 Payments: Transfers & fraud detection
@@ -80,14 +97,20 @@ app = FastAPI(
     - 🛡️ Insurance: Life, health, property
     - 🏪 Merchant: Business banking & POS
     
-    🔧 Infrastructure:
-    - ⚡ Event Sourcing + Event Streaming
-    - 📊 General Ledger
+    🔧 Production Infrastructure:
+    - ⚡ Kafka Event Store (primary, durable)
+    - 📊 PostgreSQL (secondary, read models)
     - 🔗 Data Mesh
     - 🤖 AI Agents (Anya + MCP)
     - 🧠 ML Pipeline
     - 🇦🇺 Australian Compliance
-    - 📡 Event Bus (Kafka/Pulsar/Redpanda compatible)
+    
+    📡 Kafka Features:
+    - Idempotent producers
+    - Exactly-once semantics (ledger)
+    - Schema enforcement
+    - DLQs & retry logic
+    - Topic conventions
     '''
 )
 
@@ -102,6 +125,7 @@ app.add_middleware(
 # Core Banking Domains
 app.include_router(loan_router, prefix='/api/v1/loans', tags=['💰 Loans'])
 app.include_router(integrated_loan_router, prefix='/api/v1/loans', tags=['🚀 Integrated Loans'])
+app.include_router(loan_servicing_router, prefix='/api/v1/loans', tags=['💰 Loan Servicing'])
 app.include_router(client_router, prefix='/api/v1/clients', tags=['👥 Clients'])
 app.include_router(account_router, prefix='/api/v1/accounts', tags=['💳 Accounts'])
 app.include_router(payment_router, prefix='/api/v1/payments', tags=['💸 Payments'])
@@ -129,29 +153,16 @@ async def root():
         'service': 'UltraCore V2',
         'company': 'TuringDynamics / Richelou Pty Ltd',
         'version': '2.0.0',
-        'tagline': 'Complete Financial Services Platform',
-        'domains': {
-            'core_banking': [
-                'Loans', 'Clients', 'Accounts', 'Payments', 'Risk'
-            ],
-            'advanced_services': [
-                'Cards', 'Investments', 'Insurance', 'Merchants'
-            ],
-            'total_domains': 9
-        },
-        'infrastructure': {
-            'event_sourcing': 'PostgreSQL',
-            'event_bus': 'In-Memory (Kafka/Pulsar/Redpanda compatible)',
-            'general_ledger': 'Double-entry accounting',
-            'data_mesh': '15 data products',
-            'ai_agents': 'Anya + MCP',
-            'ml_pipeline': 'Credit + Fraud detection',
-            'compliance': 'Australian regulations'
-        },
-        'event_topics': [
-            'loans', 'clients', 'accounts', 'payments', 'cards',
-            'investments', 'insurance', 'merchants', 'risk',
-            'orders', 'fills', 'funding', 'compliance', 'fraud'
+        'tagline': 'Production Financial Services Platform',
+        'architecture': 'Kafka-First Event Sourcing',
+        'domains': 9,
+        'kafka_features': [
+            'Idempotent producers',
+            'Exactly-once semantics',
+            'Schema enforcement',
+            'DLQs & retry logic',
+            'Topic conventions',
+            'Transaction support'
         ],
         'docs': '/docs'
     }
@@ -159,13 +170,15 @@ async def root():
 
 @app.get('/health')
 async def health():
+    kafka_store = get_production_kafka_store()
+    
     return {
         'status': 'healthy',
         'version': '2.0.0',
         'domains': 9,
         'systems': {
-            'event_store': 'online',
-            'event_bus': 'online',
+            'kafka_event_store': 'online' if kafka_store.producer else 'offline',
+            'postgres_event_store': 'online',
             'general_ledger': 'online',
             'ai_agents': 'online',
             'ml_pipeline': 'online',

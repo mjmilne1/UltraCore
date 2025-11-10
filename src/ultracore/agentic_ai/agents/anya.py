@@ -7,7 +7,7 @@ from openai import OpenAI
 import os
 from decimal import Decimal
 
-client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+client = OpenAI(api_key=os.getenv('OPENAI_API_KEY', 'sk-dummy')) if os.getenv('OPENAI_API_KEY') else None
 
 
 class AnyaAgent:
@@ -174,3 +174,4 @@ Be warm, professional, and helpful. Use Australian terminology and references.""
 
 # Global Anya instance
 anya = AnyaAgent()
+

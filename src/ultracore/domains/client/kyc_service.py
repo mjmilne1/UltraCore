@@ -10,7 +10,7 @@ from ultracore.domains.client.compliance import (
     ComplianceService, AustralianKYCRequirements
 )
 
-client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+client = OpenAI(api_key=os.getenv('OPENAI_API_KEY', 'sk-dummy')) if os.getenv('OPENAI_API_KEY') else None
 
 
 class KYCVerificationService:
@@ -155,3 +155,4 @@ Provide JSON analysis (respond ONLY with valid JSON):
 
 
 kyc_service = KYCVerificationService()
+
