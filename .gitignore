@@ -1,56 +1,18 @@
-﻿# SECURITY - NEVER COMMIT
+﻿# NEVER COMMIT
 .env
-.env.*
-!.env.example
-*.key
-*.pem
-*.crt
-secrets/
-credentials/
-api_keys.txt
-private_keys/
-
-# Python
+*.db
+*.log
 __pycache__/
-*.py[cod]
-*.so
-*.egg-info/
-dist/
-build/
+*.pyc
 venv/
-env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
 # IDE
 .vscode/
 .idea/
-*.swp
-
-# Database
-*.db
-*.sqlite3
-postgresql_data/
-
-# Logs
-*.log
-logs/
-
-# ML Models
-*.pkl
-*.h5
-models/*.pkl
-
-# Docker
-docker-compose.override.yml
-
-# Testing
-.pytest_cache/
-.coverage
-htmlcov/
 
 # OS
 .DS_Store
 Thumbs.db
-
-# Backups
-*.bak
-*.backup
