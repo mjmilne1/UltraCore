@@ -167,6 +167,32 @@ class PortfolioAggregate:
             if self.holdings[symbol]['quantity'] == 0:
                 del self.holdings[symbol]
         
+        # Publish order event to Event Bus
+        from ultracore.infrastructure.event_bus.publishers import DomainEventPublisher
+        await DomainEventPublisher.publish_order_event(
+            event_type='OrderPlaced',
+            aggregate_id=self.portfolio_id,
+            event_data={
+                'order_id': order_id,
+                'symbol': symbol,
+                'side': order_side.value,
+                'quantity': quantity,
+                'order_type': order_type.value
+            }
+        )
+        
+        # Publish fill event
+        await DomainEventPublisher.publish_fill_event(
+            event_type='OrderFilled',
+            aggregate_id=order_id,
+            event_data={
+                'order_id': order_id,
+                'symbol': symbol,
+                'execution_price': str(execution_price),
+                'quantity': quantity
+            }
+        )
+        
         return order_id
     
     async def get_performance(self):
@@ -240,3 +266,4 @@ class PortfolioAggregate:
                         self.holdings[symbol]['quantity'] -= quantity
                         if self.holdings[symbol]['quantity'] <= 0:
                             del self.holdings[symbol]
+

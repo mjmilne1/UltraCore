@@ -1,5 +1,6 @@
 ﻿"""
 Payment Domain - Money Transfers & Payments
+Now with Event Bus integration
 """
 from typing import Optional, Dict
 from datetime import datetime
@@ -10,6 +11,7 @@ from enum import Enum
 from ultracore.infrastructure.event_store.store import get_event_store
 from ultracore.domains.account.aggregate import AccountAggregate
 from ultracore.ml_models.pipeline import ml_pipeline
+from ultracore.infrastructure.event_bus.publishers import DomainEventPublisher
 
 
 class PaymentType(str, Enum):
@@ -73,6 +75,13 @@ class PaymentAggregate:
             user_id='payment_system'
         )
         
+        # Publish to Event Bus
+        await DomainEventPublisher.publish_payment_event(
+            event_type='PaymentInitiated',
+            aggregate_id=self.payment_id,
+            event_data=event_data
+        )
+        
         self.from_account_id = from_account_id
         self.to_account_id = to_account_id
         self.amount = amount
@@ -105,7 +114,16 @@ class PaymentAggregate:
             user_id='fraud_system'
         )
         
+        # Publish fraud event if detected
         if fraud_result['is_fraudulent']:
+            await DomainEventPublisher.publish_fraud_event(
+                event_type='FraudDetected',
+                aggregate_id=self.payment_id,
+                event_data={
+                    **event_data,
+                    'fraud_flags': fraud_result['flags']
+                }
+            )
             self.status = PaymentStatus.FRAUD_HOLD
             return False
         
@@ -149,6 +167,13 @@ class PaymentAggregate:
             user_id='payment_system'
         )
         
+        # Publish to Event Bus
+        await DomainEventPublisher.publish_payment_event(
+            event_type='PaymentCompleted',
+            aggregate_id=self.payment_id,
+            event_data=event_data
+        )
+        
         self.status = PaymentStatus.COMPLETED
     
     async def fail(self, reason: str):
@@ -166,6 +191,13 @@ class PaymentAggregate:
             event_type='PaymentFailed',
             event_data=event_data,
             user_id='payment_system'
+        )
+        
+        # Publish to Event Bus
+        await DomainEventPublisher.publish_payment_event(
+            event_type='PaymentFailed',
+            aggregate_id=self.payment_id,
+            event_data=event_data
         )
         
         self.status = PaymentStatus.FAILED

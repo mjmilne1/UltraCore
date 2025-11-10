@@ -1,5 +1,6 @@
 ﻿from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
 import uvicorn
 
 # Domain APIs - Complete Financial Platform (9 Domains!)
@@ -22,12 +23,47 @@ from ultracore.ledger.api import router as ledger_router
 from ultracore.agentic_ai.mcp_api import router as mcp_router
 from ultracore.ml_models.api import router as ml_router
 from ultracore.infrastructure.event_store.store import get_event_store
+from ultracore.infrastructure.event_bus.api import router as event_bus_router
+from ultracore.infrastructure.event_bus.bus import initialize_event_bus, EventBusType
+from ultracore.infrastructure.event_bus.handlers import setup_event_handlers
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup
+    store = get_event_store()
+    await store.initialize()
+    print('✅ Event Store initialized')
+    
+    # Initialize Event Bus
+    event_bus = initialize_event_bus(EventBusType.IN_MEMORY)
+    await event_bus.start()
+    print('✅ Event Bus started')
+    
+    # Setup event handlers
+    await setup_event_handlers()
+    print('✅ Event handlers configured')
+    
+    print('✅ General Ledger ready')
+    print('✅ All 9 Domains loaded')
+    print('✅ AI Agents (Anya) ready')
+    print('✅ ML Pipeline ready')
+    print('✅ MCP Server ready')
+    print('🚀 UltraCore V2 - Complete Financial Platform ONLINE')
+    
+    yield
+    
+    # Shutdown
+    await event_bus.stop()
+    print('✅ Event Bus stopped')
+
 
 app = FastAPI(
     title='UltraCore V2 - Complete Financial Services Platform',
     version='2.0.0',
+    lifespan=lifespan,
     description='''
-    🏦 Complete Financial Services Platform
+    🏦 Complete Financial Services Platform with Event Streaming
     
     🎯 9 COMPLETE DOMAINS:
     
@@ -45,12 +81,13 @@ app = FastAPI(
     - 🏪 Merchant: Business banking & POS
     
     🔧 Infrastructure:
-    - ⚡ Event Sourcing
+    - ⚡ Event Sourcing + Event Streaming
     - 📊 General Ledger
     - 🔗 Data Mesh
-    - 🤖 AI Agents (Anya)
+    - 🤖 AI Agents (Anya + MCP)
     - 🧠 ML Pipeline
     - 🇦🇺 Australian Compliance
+    - 📡 Event Bus (Kafka/Pulsar/Redpanda compatible)
     '''
 )
 
@@ -79,23 +116,11 @@ app.include_router(merchant_router, prefix='/api/v1/merchants', tags=['🏪 Merc
 # Compliance & Infrastructure
 app.include_router(compliance_router, prefix='/api/v1', tags=['🇦🇺 Compliance'])
 app.include_router(event_store_router, tags=['⚡ Event Store'])
+app.include_router(event_bus_router, prefix='/api/v1', tags=['📡 Event Bus'])
 app.include_router(ledger_router, prefix='/api/v1/ledger', tags=['📊 General Ledger'])
 app.include_router(data_mesh_router, tags=['🔗 Data Mesh'])
 app.include_router(mcp_router, prefix='/api/v1', tags=['🤖 MCP'])
 app.include_router(ml_router, prefix='/api/v1', tags=['🧠 ML'])
-
-
-@app.on_event('startup')
-async def startup():
-    store = get_event_store()
-    await store.initialize()
-    print('✅ Event Store initialized')
-    print('✅ General Ledger ready')
-    print('✅ All 9 Domains loaded')
-    print('✅ AI Agents (Anya) ready')
-    print('✅ ML Pipeline ready')
-    print('✅ MCP Server ready')
-    print('🚀 UltraCore V2 - Complete Financial Platform ONLINE')
 
 
 @app.get('/')
@@ -114,20 +139,19 @@ async def root():
             ],
             'total_domains': 9
         },
-        'capabilities': [
-            'AI-Powered Loan Decisions',
-            'KYC & Compliance',
-            'Account Management',
-            'Payment Processing',
-            'Credit & Debit Cards',
-            'Investment Portfolio Management',
-            'Insurance Policies & Claims',
-            'Merchant Payment Processing',
-            'Risk Assessment',
-            'General Ledger Accounting',
-            'Event Sourcing & Audit Trail',
-            'ML Fraud Detection',
-            'Australian Regulatory Compliance'
+        'infrastructure': {
+            'event_sourcing': 'PostgreSQL',
+            'event_bus': 'In-Memory (Kafka/Pulsar/Redpanda compatible)',
+            'general_ledger': 'Double-entry accounting',
+            'data_mesh': '15 data products',
+            'ai_agents': 'Anya + MCP',
+            'ml_pipeline': 'Credit + Fraud detection',
+            'compliance': 'Australian regulations'
+        },
+        'event_topics': [
+            'loans', 'clients', 'accounts', 'payments', 'cards',
+            'investments', 'insurance', 'merchants', 'risk',
+            'orders', 'fills', 'funding', 'compliance', 'fraud'
         ],
         'docs': '/docs'
     }
@@ -141,6 +165,7 @@ async def health():
         'domains': 9,
         'systems': {
             'event_store': 'online',
+            'event_bus': 'online',
             'general_ledger': 'online',
             'ai_agents': 'online',
             'ml_pipeline': 'online',
