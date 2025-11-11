@@ -1,0 +1,16 @@
+﻿# UltraCore Audit & Compliance System - Dependencies
+
+# Core
+asyncio
+dataclasses
+
+# API Server
+fastapi>=0.100.0
+uvicorn[standard]>=0.23.0
+pydantic>=2.0.0
+
+# Kafka (Event Store)
+aiokafka>=0.8.0
+
+# Data Processing
+statistics

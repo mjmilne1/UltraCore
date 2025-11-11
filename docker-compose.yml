@@ -1,12 +1,6 @@
-﻿# UltraCore Banking Platform - Docker Compose
-# Kafka-first event sourcing infrastructure
-
-version: '3.8'
+﻿version: '3.8'
 
 services:
-  # ============================================================================
-  # ZOOKEEPER - Kafka coordination
-  # ============================================================================
   zookeeper:
     image: confluentinc/cp-zookeeper:7.5.0
     hostname: zookeeper
@@ -21,15 +15,7 @@ services:
       - zookeeper-logs:/var/lib/zookeeper/log
     networks:
       - ultracore-network
-    healthcheck:
-      test: echo stat | nc localhost 2181
-      interval: 10s
-      timeout: 5s
-      retries: 3
 
-  # ============================================================================
-  # KAFKA - Event streaming platform
-  # ============================================================================
   kafka:
     image: confluentinc/cp-kafka:7.5.0
     hostname: kafka
@@ -38,7 +24,6 @@ services:
       - zookeeper
     ports:
       - "9092:9092"
-      - "9101:9101"
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
@@ -48,66 +33,25 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
-      KAFKA_JMX_PORT: 9101
-      KAFKA_JMX_HOSTNAME: localhost
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
-      KAFKA_LOG_RETENTION_HOURS: 168
-      KAFKA_LOG_RETENTION_BYTES: 1073741824
-      KAFKA_LOG_SEGMENT_BYTES: 1073741824
     volumes:
       - kafka-data:/var/lib/kafka/data
     networks:
       - ultracore-network
-    healthcheck:
-      test: kafka-broker-api-versions --bootstrap-server localhost:9092
-      interval: 10s
-      timeout: 5s
-      retries: 3
 
-  # ============================================================================
-  # SCHEMA REGISTRY - Schema management
-  # ============================================================================
-  schema-registry:
-    image: confluentinc/cp-schema-registry:7.5.0
-    hostname: schema-registry
-    container_name: ultracore-schema-registry
-    depends_on:
-      - kafka
-    ports:
-      - "8081:8081"
-    environment:
-      SCHEMA_REGISTRY_HOST_NAME: schema-registry
-      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'kafka:29092'
-      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
-    networks:
-      - ultracore-network
-    healthcheck:
-      test: curl -f http://localhost:8081/subjects
-      interval: 10s
-      timeout: 5s
-      retries: 3
-
-  # ============================================================================
-  # KAFKA UI - Management interface
-  # ============================================================================
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
     container_name: ultracore-kafka-ui
     depends_on:
       - kafka
-      - schema-registry
     ports:
-      - "8080:8080"
+      - "8082:8080"
     environment:
       KAFKA_CLUSTERS_0_NAME: ultracore
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
-      KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://schema-registry:8081
     networks:
       - ultracore-network
 
-  # ============================================================================
-  # POSTGRESQL - Read model (materialized view)
-  # ============================================================================
   postgres:
     image: postgres:16-alpine
     container_name: ultracore-postgres
@@ -117,20 +61,11 @@ services:
       POSTGRES_DB: ultracore
       POSTGRES_USER: ultracore
       POSTGRES_PASSWORD: ultracore_password
-      POSTGRES_INITDB_ARGS: "-E UTF8"
     volumes:
       - postgres-data:/var/lib/postgresql/data
     networks:
       - ultracore-network
-    healthcheck:
-      test: pg_isready -U ultracore
-      interval: 10s
-      timeout: 5s
-      retries: 3
 
-  # ============================================================================
-  # REDIS - Caching layer
-  # ============================================================================
   redis:
     image: redis:7-alpine
     container_name: ultracore-redis
@@ -140,30 +75,14 @@ services:
       - redis-data:/data
     networks:
       - ultracore-network
-    healthcheck:
-      test: redis-cli ping
-      interval: 10s
-      timeout: 5s
-      retries: 3
 
-# ============================================================================
-# VOLUMES
-# ============================================================================
 volumes:
   zookeeper-data:
-    driver: local
   zookeeper-logs:
-    driver: local
   kafka-data:
-    driver: local
   postgres-data:
-    driver: local
   redis-data:
-    driver: local
 
-# ============================================================================
-# NETWORKS
-# ============================================================================
 networks:
   ultracore-network:
     driver: bridge

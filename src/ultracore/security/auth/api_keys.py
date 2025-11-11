@@ -2,7 +2,7 @@
 API Key Management System
 For service-to-service authentication and external integrations
 """
-from typing import Optional, Dict, List
+from typing import Optional, Dict, List, Tuple
 from datetime import datetime, timedelta
 import secrets
 import hashlib
@@ -175,3 +175,4 @@ def get_api_key_manager() -> APIKeyManager:
     if _api_key_manager is None:
         _api_key_manager = APIKeyManager()
     return _api_key_manager
+

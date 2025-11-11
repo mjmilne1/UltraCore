@@ -10,7 +10,7 @@ Base classes and utilities for AI agents:
 """
 
 from datetime import datetime
-from typing import Dict, List, Optional, Any, Callable
+from typing import Dict, List, Optional, Any, Callable, Tuple
 from dataclasses import dataclass, field
 from enum import Enum
 from abc import ABC, abstractmethod
@@ -482,3 +482,5 @@ def check_human_review_required(
             return True, f"High risk flag: {flag}"
     
     return False, None
+
+
