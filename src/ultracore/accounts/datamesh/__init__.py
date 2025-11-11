@@ -1,2 +1,2 @@
 ﻿"""Data Mesh Integration"""
-# Data mesh components
+__all__ = []

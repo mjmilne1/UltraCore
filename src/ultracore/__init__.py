@@ -25,12 +25,6 @@ __all__ = [
     'accounts',
 ]
 
-# Core imports for convenience
-from ultracore.accounting.general_ledger import get_general_ledger
-from ultracore.audit.audit_core import get_audit_store
-from ultracore.customers.core.customer_manager import get_customer_manager
-from ultracore.accounts.core.account_manager import get_account_manager
-
 # Version info
 def get_version():
     """Get UltraCore version"""
@@ -45,3 +39,29 @@ def get_info():
         'author': __author__,
         'license': __license__
     }
+
+# Lazy imports - only import when needed to avoid circular dependencies
+def get_general_ledger():
+    """Get general ledger instance"""
+    from ultracore.accounting import general_ledger
+    return general_ledger.get_general_ledger()
+
+def get_audit_store():
+    """Get audit store instance"""
+    from ultracore.audit import audit_core
+    return audit_core.get_audit_store()
+
+def get_customer_manager():
+    """Get customer manager instance"""
+    from ultracore.customers.core import customer_manager
+    return customer_manager.get_customer_manager()
+
+def get_account_manager():
+    """Get account manager instance"""
+    from ultracore.accounts.core import account_manager
+    return account_manager.get_account_manager()
+
+def get_loan_manager():
+    """Get loan manager instance"""
+    from ultracore.lending import loan_manager
+    return loan_manager.get_loan_manager()

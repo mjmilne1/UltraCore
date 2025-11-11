@@ -5,115 +5,44 @@ Deposits, Transactions, Interest, ML, AI Agents, Payment Rails
 """
 
 __version__ = "1.0.0"
+__all__ = []
 
-# Core exports
-from ultracore.accounts.core.account_models import (
-    Account,
-    AccountType,
-    AccountStatus,
-    Transaction,
-    TransactionType,
-    TransactionStatus,
-    AccountBalance,
-    AccountHold,
-    HoldType,
-    InterestRate,
-    InterestCalculationMethod
-)
+# Core
+try:
+    from ultracore.accounts.core import account_models
+    __all__.append('account_models')
+except ImportError:
+    pass
 
-from ultracore.accounts.core.account_manager import (
-    get_account_manager,
-    AccountManager,
-    TransactionEngine
-)
+try:
+    from ultracore.accounts.core import account_manager
+    __all__.append('account_manager')
+except ImportError:
+    pass
 
-from ultracore.accounts.core.interest_engine import (
-    get_interest_engine,
-    InterestEngine,
-    InterestAccrual,
-    InterestPayment
-)
+try:
+    from ultracore.accounts.core import interest_engine
+    __all__.append('interest_engine')
+except ImportError:
+    pass
 
-# ML Models
-from ultracore.accounts.ml.account_ml_models import (
-    get_ml_model_manager,
-    MLModelManager,
-    BalancePredictionModel,
-    TransactionCategorizationModel,
-    ChurnPredictionModel,
-    AnomalyDetectionModel,
-    LifetimeValueModel
-)
+# ML
+try:
+    from ultracore.accounts.ml import account_ml_models
+    __all__.append('account_ml_models')
+except ImportError:
+    pass
 
-# AI Agents
-from ultracore.accounts.agents.account_agents import (
-    get_account_agent_manager,
-    AccountAgentManager,
-    AccountOptimizationAgent,
-    BalanceForecastingAgent,
-    FeeOptimizationAgent,
-    LiquidityManagementAgent
-)
+# Agents
+try:
+    from ultracore.accounts.agents import account_agents
+    __all__.append('account_agents')
+except ImportError:
+    pass
 
-# Payment Rails
-from ultracore.accounts.mcp.mcp_payment_rails import (
-    get_payment_rail_manager,
-    PaymentRailManager,
-    PaymentRail,
-    PaymentRequest,
-    PaymentResponse,
-    NPPConnector,
-    BPAYConnector,
-    SWIFTConnector
-)
-
-__all__ = [
-    # Core Models
-    'Account',
-    'AccountType',
-    'AccountStatus',
-    'Transaction',
-    'TransactionType',
-    'TransactionStatus',
-    'AccountBalance',
-    'AccountHold',
-    'HoldType',
-    'InterestRate',
-    'InterestCalculationMethod',
-    
-    # Managers
-    'get_account_manager',
-    'AccountManager',
-    'TransactionEngine',
-    'get_interest_engine',
-    'InterestEngine',
-    'InterestAccrual',
-    'InterestPayment',
-    
-    # ML Models
-    'get_ml_model_manager',
-    'MLModelManager',
-    'BalancePredictionModel',
-    'TransactionCategorizationModel',
-    'ChurnPredictionModel',
-    'AnomalyDetectionModel',
-    'LifetimeValueModel',
-    
-    # AI Agents
-    'get_account_agent_manager',
-    'AccountAgentManager',
-    'AccountOptimizationAgent',
-    'BalanceForecastingAgent',
-    'FeeOptimizationAgent',
-    'LiquidityManagementAgent',
-    
-    # Payment Rails
-    'get_payment_rail_manager',
-    'PaymentRailManager',
-    'PaymentRail',
-    'PaymentRequest',
-    'PaymentResponse',
-    'NPPConnector',
-    'BPAYConnector',
-    'SWIFTConnector',
-]
+# MCP
+try:
+    from ultracore.accounts.mcp import mcp_payment_rails
+    __all__.append('mcp_payment_rails')
+except ImportError:
+    pass

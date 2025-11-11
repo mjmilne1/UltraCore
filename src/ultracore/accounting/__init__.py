@@ -5,23 +5,11 @@ General Ledger, Chart of Accounts, Journal Entries
 """
 
 __version__ = "1.0.0"
+__all__ = []
 
-from ultracore.accounting.general_ledger import (
-    get_general_ledger,
-    GeneralLedger,
-    ChartOfAccounts,
-    JournalEntry,
-    JournalEntryType,
-    AccountType,
-    AccountClass
-)
-
-__all__ = [
-    'get_general_ledger',
-    'GeneralLedger',
-    'ChartOfAccounts',
-    'JournalEntry',
-    'JournalEntryType',
-    'AccountType',
-    'AccountClass',
-]
+# Import what actually exists
+try:
+    from ultracore.accounting import general_ledger
+    __all__.extend(['general_ledger'])
+except ImportError:
+    pass

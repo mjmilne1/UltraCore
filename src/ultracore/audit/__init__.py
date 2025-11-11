@@ -5,23 +5,11 @@ Audit trails, compliance frameworks, regulatory reporting
 """
 
 __version__ = "1.0.0"
+__all__ = []
 
-from ultracore.audit.audit_core import (
-    get_audit_store,
-    AuditStore,
-    AuditEvent,
-    AuditEventType,
-    AuditCategory,
-    AuditSeverity,
-    ComplianceFramework
-)
-
-__all__ = [
-    'get_audit_store',
-    'AuditStore',
-    'AuditEvent',
-    'AuditEventType',
-    'AuditCategory',
-    'AuditSeverity',
-    'ComplianceFramework',
-]
+# Import what actually exists
+try:
+    from ultracore.audit import audit_core
+    __all__.extend(['audit_core'])
+except ImportError:
+    pass
