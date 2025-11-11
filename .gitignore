@@ -1,23 +1,63 @@
-﻿# NEVER COMMIT
-.env
-*.db
-*.log
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+*.so
+.Python
 venv/
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-
-# API Keys - NEVER COMMIT
-**/config.py
-.env.local
-.env.production
+env/
+ENV/
+.venv
 
 # IDE
 .vscode/
 .idea/
+*.swp
+*.swo
+*~
+
+# Environment
+.env
+*.env
+.env.*
+
+# API Keys
+*api_key*
+*secret*
+config/secrets.yaml
+
+# Models
+models/*.joblib
+models/*.pkl
+models/*.h5
+*.pth
+
+# Data
+data/
+*.csv
+*.xlsx
+*.db
+*.sqlite
+
+# Logs
+logs/
+*.log
 
 # OS
 .DS_Store
 Thumbs.db
+
+# Test
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build
+build/
+dist/
+*.egg-info/
+
+# Deployment
+*.pem
+*.key
+*.crt
