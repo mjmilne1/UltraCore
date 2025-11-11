@@ -1,0 +1,18 @@
+﻿# UltraCore Database Requirements
+# Database drivers and ORMs
+
+# PostgreSQL
+sqlalchemy>=2.0.25
+psycopg2-binary>=2.9.9
+alembic>=1.13.0
+
+# Redis (caching, sessions)
+redis>=5.0.1
+hiredis>=2.3.0
+
+# Neo4j (graph database)
+neo4j>=5.16.0
+
+# Database utilities
+databases>=0.8.0
+asyncpg>=0.29.0

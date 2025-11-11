@@ -1,14 +1,96 @@
-﻿# UltraCore Banking Platform - Core Requirements
+﻿# UltraCore Banking Platform - All Requirements
+# Complete dependency list for production deployment
 
-# Core dependencies
+# ============================================================================
+# CORE DEPENDENCIES
+# ============================================================================
+
+# Python version compatibility
 python-dateutil>=2.8.2
+
+# Async support
 asyncio>=3.4.3
-networkx>=3.0
-python-dotenv>=1.0.0
+
+# Graph processing
+networkx>=3.2
 
 # Data validation
-pydantic>=2.0.0
+pydantic>=2.5.0
 
-# Optional but recommended
-numpy>=1.24.0
-pandas>=2.0.0
+# Environment variables
+python-dotenv>=1.0.0
+
+# ============================================================================
+# API DEPENDENCIES (FastAPI)
+# ============================================================================
+
+# FastAPI & Server
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+python-multipart>=0.0.6
+
+# Pydantic settings
+pydantic-settings>=2.1.0
+email-validator>=2.1.0
+
+# Security
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+
+# HTTP Client
+httpx>=0.26.0
+aiohttp>=3.9.0
+
+# System monitoring
+psutil>=5.9.0
+
+# ============================================================================
+# DATABASE DEPENDENCIES (Optional - install separately)
+# ============================================================================
+
+# Uncomment if using databases:
+# sqlalchemy>=2.0.25
+# psycopg2-binary>=2.9.9
+# alembic>=1.13.0
+# redis>=5.0.1
+# neo4j>=5.16.0
+
+# ============================================================================
+# ML DEPENDENCIES (Optional - install separately)
+# ============================================================================
+
+# Uncomment if using ML features:
+# numpy>=1.26.0
+# pandas>=2.1.0
+# scikit-learn>=1.4.0
+# xgboost>=2.0.0
+# tensorflow>=2.15.0
+
+# ============================================================================
+# MONITORING DEPENDENCIES (Optional - install separately)
+# ============================================================================
+
+# Uncomment if using monitoring:
+# prometheus-client>=0.19.0
+# opentelemetry-api>=1.22.0
+# sentry-sdk[fastapi]>=1.40.0
+
+# ============================================================================
+# INSTALLATION GUIDE
+# ============================================================================
+#
+# Install minimal (core + API):
+#   pip install -r requirements.txt
+#
+# Install with databases:
+#   pip install -r requirements.txt -r requirements-db.txt
+#
+# Install with ML:
+#   pip install -r requirements.txt -r requirements-ml.txt
+#
+# Install everything:
+#   pip install -r requirements.txt -r requirements-db.txt -r requirements-ml.txt -r requirements-monitoring.txt
+#
+# Install for development:
+#   pip install -r requirements.txt -r requirements-dev.txt
+#
