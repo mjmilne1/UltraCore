@@ -1,6 +1,6 @@
 ﻿"""
 UltraCore Financial API - Complete Platform
-Version 6.0.0 with Australian Compliance
+Version 7.0.0 with Cash Management
 """
 
 from fastapi import FastAPI
@@ -15,11 +15,12 @@ from ultracore.api.v1.holdings.routes import router as holdings_router
 from ultracore.api.v1.transactions.routes import router as transactions_router
 from ultracore.api.v1.accounting.routes import router as accounting_router
 from ultracore.api.v1.compliance.routes import router as compliance_router
+from ultracore.api.v1.cash.routes import router as cash_router
 
 app = FastAPI(
     title="UltraCore Financial Platform",
-    description="Complete wealth management platform with full Australian compliance",
-    version="6.0.0"
+    description="Complete wealth management platform with cash management",
+    version="7.0.0"
 )
 
 app.add_middleware(
@@ -37,31 +38,35 @@ app.include_router(holdings_router)
 app.include_router(transactions_router)
 app.include_router(accounting_router)
 app.include_router(compliance_router)
+app.include_router(cash_router)
 
 @app.get("/")
 async def root():
     return {
         "message": "UltraCore Financial Platform",
-        "version": "6.0.0",
+        "version": "7.0.0",
         "modules": {
-            "financial": "Global financial data (Yahoo Finance)",
+            "financial": "Global financial data",
             "ultrawealth": "Australian ETFs (100+)",
-            "clients": "Client management, KYC, Onboarding",
-            "holdings": "Positions, Portfolio, Rebalancing",
+            "clients": "Client management, KYC",
+            "holdings": "Positions, Portfolio",
             "transactions": "Orders, Trading, Settlement",
-            "accounting": "Double-Entry Bookkeeping, Financial Statements",
-            "compliance": "Australian Regulatory Compliance (NEW!)"
+            "accounting": "Double-Entry Bookkeeping",
+            "compliance": "Australian Regulatory Compliance",
+            "cash": "Cash Management Accounts (NEW!)"
         },
-        "australian_compliance": {
-            "asic": "Securities & Investments Commission",
-            "austrac": "AML/CTF Requirements",
-            "asx": "Trading Rules",
-            "ato": "Taxation (CGT, TFN, ABN)",
-            "privacy_act": "Data Protection",
-            "corporations_act": "Company Law",
-            "aasb": "Accounting Standards",
-            "superannuation": "Super Compliance",
-            "fcs": "Financial Claims Scheme"
+        "cash_management": {
+            "event_sourcing": "Complete audit trail",
+            "kafka_streaming": "Real-time event processing",
+            "data_mesh": "Quality, lineage, governance",
+            "agentic_ai": "Fraud detection & validation",
+            "reinforcement_learning": "Cash optimization",
+            "bank_integration": "NPP, BPAY, Direct Debit/Credit",
+            "interest": "Tiered interest calculations",
+            "fees": "Automated fee management",
+            "reconciliation": "Daily reconciliation",
+            "limits": "Transaction controls",
+            "compliance": "AUSTRAC & ASIC integration"
         },
         "docs": "/docs",
         "health": "/health"
@@ -73,10 +78,11 @@ async def health():
         "status": "healthy",
         "services": [
             "financial", "ultrawealth", "clients",
-            "holdings", "transactions", "accounting", "compliance"
+            "holdings", "transactions", "accounting",
+            "compliance", "cash"
         ],
-        "version": "6.0.0",
-        "australian_compliant": True
+        "version": "7.0.0",
+        "cash_enabled": True
     }
 
 if __name__ == "__main__":
