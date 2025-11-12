@@ -61,3 +61,6 @@ dist/
 *.pem
 *.key
 *.crt
+
+# Fiscal.ai MCP
+fiscal_ai_mcp/.env

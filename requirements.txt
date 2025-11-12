@@ -94,3 +94,7 @@ psutil>=5.9.0
 # Install for development:
 #   pip install -r requirements.txt -r requirements-dev.txt
 #
+
+# Fiscal.ai Integration
+httpx>=0.25.0
+python-dotenv>=1.0.0
