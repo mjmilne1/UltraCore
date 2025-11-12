@@ -1,0 +1,566 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>UltraWealth Digital SOA - Sarah Thompson</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            line-height: 1.6; 
+            color: #333; 
+            background: white;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        .header { 
+            background: linear-gradient(135deg, #003366 0%, #005599 100%); 
+            color: white; 
+            padding: 40px; 
+            text-align: center; 
+            margin: -20px -20px 30px -20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header h1 { font-size: 36px; margin-bottom: 10px; }
+        .header h2 { font-size: 24px; font-weight: 300; }
+        .header h3 { font-size: 18px; margin-top: 20px; }
+        
+        .notice { 
+            background: #FFF3CD; 
+            border-left: 5px solid #FFC107; 
+            padding: 20px; 
+            margin: 30px 0; 
+            border-radius: 5px;
+        }
+        .notice-digital {
+            background: #E8F4FD;
+            border-left: 5px solid #003366;
+        }
+        
+        .section { 
+            margin: 30px 0; 
+            padding: 20px; 
+            background: white; 
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        h2 { 
+            color: #003366; 
+            border-bottom: 3px solid #003366; 
+            padding-bottom: 10px; 
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        h3 { 
+            color: #005599; 
+            margin: 20px 0 10px 0;
+            font-size: 18px;
+        }
+        
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin: 20px 0; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        th { 
+            background: #003366; 
+            color: white; 
+            padding: 12px; 
+            text-align: left; 
+            font-weight: 600;
+        }
+        td { 
+            padding: 12px; 
+            border-bottom: 1px solid #E0E0E0; 
+            background: white;
+        }
+        tr:hover { background: #F5F5F5; }
+        .total-row { 
+            font-weight: bold; 
+            background: #E8F4FD !important;
+        }
+        
+        .allocation-table td:nth-child(2) { 
+            text-align: center; 
+            font-weight: bold; 
+            color: #005599;
+        }
+        
+        .fee-positive { color: #28A745; font-weight: bold; }
+        .fee-amount { color: #DC3545; }
+        
+        .key-metric {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 10px 10px 0;
+            background: #F8F9FA;
+            border-left: 4px solid #003366;
+            border-radius: 4px;
+        }
+        .key-metric strong { color: #003366; display: block; }
+        .key-metric span { font-size: 24px; color: #005599; }
+        
+        ul { margin: 20px 0; padding-left: 30px; }
+        li { margin: 10px 0; }
+        
+        .consent-box {
+            background: #F8F9FA;
+            border: 2px solid #003366;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+        
+        .checkbox-list {
+            list-style: none;
+            padding: 0;
+        }
+        .checkbox-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #E0E0E0;
+        }
+        .checkbox-list li:before {
+            content: "☐ ";
+            font-size: 20px;
+            margin-right: 10px;
+            color: #003366;
+        }
+        
+        .footer {
+            background: #003366;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            margin: 40px -20px -20px -20px;
+        }
+        
+        .print-button {
+            background: #28A745;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+        }
+        .print-button:hover { background: #218838; }
+        
+        @media print {
+            .no-print { display: none !important; }
+            .section { box-shadow: none; }
+            body { background: white; }
+        }
+        
+        .highlight { 
+            background: #FFFACD; 
+            padding: 2px 6px; 
+            border-radius: 3px;
+        }
+        
+        .success { color: #28A745; }
+        .warning { color: #FFC107; }
+        .info { color: #17A2B8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>ULTRAWEALTH</h1>
+            <h2>Digital Wealth Management</h2>
+            <h3>STATEMENT OF ADVICE</h3>
+        </div>
+
+        <div class="notice notice-digital">
+            <h3>⚡ IMPORTANT: DIGITAL-ONLY SERVICE</h3>
+            <p>This Statement of Advice has been prepared entirely by <strong>automated systems and artificial intelligence</strong> without any human financial adviser involvement. UltraWealth uses sophisticated algorithms, machine learning, and our proprietary Anya AI to generate personalised investment advice.</p>
+        </div>
+
+        <div class="section">
+            <h2>CLIENT DETAILS</h2>
+            <table>
+                <tr>
+                    <td width="35%"><strong>Prepared For:</strong></td>
+                    <td>Sarah Thompson</td>
+                </tr>
+                <tr>
+                    <td><strong>Date Prepared:</strong></td>
+                    <td>12 December 2024</td>
+                </tr>
+                <tr>
+                    <td><strong>SOA Reference:</strong></td>
+                    <td>DIG-SOA-2024-A7B3C9</td>
+                </tr>
+                <tr>
+                    <td><strong>Valid Until:</strong></td>
+                    <td>11 January 2025 (30 days)</td>
+                </tr>
+                <tr>
+                    <td><strong>Client ID:</strong></td>
+                    <td>UW-2024-ST-0892</td>
+                </tr>
+                <tr>
+                    <td><strong>Investment Amount:</strong></td>
+                    <td><span style="font-size: 20px; color: #003366; font-weight: bold;">$250,000</span></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>EXECUTIVE SUMMARY</h2>
+            <p>Based on your digital assessment completed on 12 December 2024, our algorithms recommend:</p>
+            
+            <div style="margin: 20px 0;">
+                <div class="key-metric">
+                    <strong>Recommended Portfolio</strong>
+                    <span>Balanced Growth</span>
+                </div>
+                <div class="key-metric">
+                    <strong>Expected Return</strong>
+                    <span>7.8% p.a.</span>
+                </div>
+                <div class="key-metric">
+                    <strong>Risk Level</strong>
+                    <span>Medium</span>
+                </div>
+                <div class="key-metric">
+                    <strong>Time Horizon</strong>
+                    <span>10+ Years</span>
+                </div>
+            </div>
+            
+            <h3>Why This Portfolio Is Right For You:</h3>
+            <ul>
+                <li>✅ Matches your <strong>moderate risk tolerance</strong></li>
+                <li>✅ Aligns with your <strong>long-term investment horizon</strong></li>
+                <li>✅ Balances <strong>growth and stability</strong></li>
+                <li>✅ Includes <strong>tax optimization</strong> for Australian investors</li>
+                <li>✅ Provides <strong>global diversification</strong></li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>YOUR RECOMMENDED PORTFOLIO</h2>
+            <h3>Balanced Growth Portfolio - Strategic Asset Allocation</h3>
+            
+            <table class="allocation-table">
+                <thead>
+                    <tr>
+                        <th width="40%">Asset Class</th>
+                        <th width="20%">Allocation</th>
+                        <th width="40%">Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>🇦🇺 Australian Shares</td>
+                        <td>28%</td>
+                        <td>Growth & Franking Credits</td>
+                    </tr>
+                    <tr>
+                        <td>🌍 International Shares</td>
+                        <td>27%</td>
+                        <td>Global Diversification</td>
+                    </tr>
+                    <tr>
+                        <td>🌏 Emerging Markets</td>
+                        <td>5%</td>
+                        <td>Higher Growth Potential</td>
+                    </tr>
+                    <tr>
+                        <td>🏛️ Australian Bonds</td>
+                        <td>15%</td>
+                        <td>Stability & Income</td>
+                    </tr>
+                    <tr>
+                        <td>🌐 International Bonds</td>
+                        <td>10%</td>
+                        <td>Currency Diversification</td>
+                    </tr>
+                    <tr>
+                        <td>🏢 Real Assets (REITs)</td>
+                        <td>10%</td>
+                        <td>Inflation Protection</td>
+                    </tr>
+                    <tr>
+                        <td>💵 Cash & Equivalents</td>
+                        <td>5%</td>
+                        <td>Liquidity & Stability</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td><strong>TOTAL</strong></td>
+                        <td><strong>100%</strong></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Expected Portfolio Outcomes (Based on Historical Analysis)</h3>
+            <ul>
+                <li>📈 <strong>Expected Return:</strong> 7.8% p.a. (after all fees)</li>
+                <li>📊 <strong>Expected Volatility:</strong> 12% p.a.</li>
+                <li>✅ <strong>Probability of Positive Return (1 year):</strong> 72%</li>
+                <li>✅ <strong>Probability of Positive Return (5 years):</strong> 91%</li>
+                <li>✅ <strong>Probability of Positive Return (10 years):</strong> 97%</li>
+                <li>📉 <strong>Maximum Historical Drawdown:</strong> -18% (GFC 2008)</li>
+                <li>⏱️ <strong>Historical Recovery Time:</strong> 14 months</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>SIMPLE, TRANSPARENT FEES</h2>
+            <p><strong>No hidden fees, no surprises, no commissions.</strong> Here's exactly what you'll pay:</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fee Type</th>
+                        <th>Amount</th>
+                        <th>When Charged</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Account Setup Fee</td>
+                        <td class="fee-positive">$0</td>
+                        <td>Never</td>
+                    </tr>
+                    <tr>
+                        <td>Management Fee</td>
+                        <td class="fee-amount">0.55% p.a.</td>
+                        <td>Monthly (1/12th)</td>
+                    </tr>
+                    <tr>
+                        <td>Performance Fees</td>
+                        <td class="fee-positive">$0</td>
+                        <td>Never</td>
+                    </tr>
+                    <tr>
+                        <td>Exit or Withdrawal Fees</td>
+                        <td class="fee-positive">$0</td>
+                        <td>Never</td>
+                    </tr>
+                    <tr>
+                        <td>Brokerage & Trading Costs</td>
+                        <td class="fee-positive">Included</td>
+                        <td>No extra charge</td>
+                    </tr>
+                    <tr>
+                        <td>Account Keeping Fees</td>
+                        <td class="fee-positive">$0</td>
+                        <td>Never</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>💰 Your Total Annual Costs</h3>
+            <div style="background: #E8F4FD; padding: 20px; border-radius: 5px; margin: 20px 0;">
+                <p><strong>Management Fee:</strong> 0.55% × $250,000 = <span class="fee-amount">$1,375</span></p>
+                <p><strong>ETF Costs (indirect):</strong> ~0.15% × $250,000 = <span class="fee-amount">$375</span></p>
+                <p style="font-size: 20px; margin-top: 10px; border-top: 2px solid #003366; padding-top: 10px;">
+                    <strong>TOTAL ANNUAL COST:</strong> <span class="fee-amount">$1,750 (0.70% p.a.)</span>
+                </p>
+            </div>
+            
+            <h3>📊 Fee Comparison</h3>
+            <table>
+                <tr>
+                    <th>Service Type</th>
+                    <th>Typical Fee</th>
+                    <th>Your Savings</th>
+                </tr>
+                <tr>
+                    <td>Traditional Financial Adviser</td>
+                    <td>1.5% - 2.5% p.a.</td>
+                    <td class="success">Save $2,125 - $4,875/year</td>
+                </tr>
+                <tr>
+                    <td>Full Service Stockbroker</td>
+                    <td>2.0% - 3.0% p.a.</td>
+                    <td class="success">Save $3,250 - $5,750/year</td>
+                </tr>
+                <tr>
+                    <td>Industry Super Balanced Option</td>
+                    <td>0.8% - 1.2% p.a.</td>
+                    <td class="success">Save $250 - $1,250/year</td>
+                </tr>
+                <tr style="background: #E8F4FD;">
+                    <td><strong>UltraWealth Digital</strong></td>
+                    <td><strong>0.70% p.a.</strong></td>
+                    <td><strong>You Pay This ✓</strong></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>HOW WE MANAGE YOUR PORTFOLIO</h2>
+            <h3>🤖 Fully Automated Portfolio Management</h3>
+            
+            <div style="margin: 20px 0;">
+                <h4>⚡ Automatic Rebalancing</h4>
+                <p>Your portfolio is automatically rebalanced when any asset class drifts more than 5% from its target allocation. No action required from you.</p>
+                
+                <h4>📉 Tax-Loss Harvesting</h4>
+                <p>Our algorithms monitor daily for opportunities to harvest losses and reduce your tax bill. Estimated annual tax savings: $1,500 - $3,000.</p>
+                
+                <h4>💰 Dividend Reinvestment</h4>
+                <p>All dividends and distributions are automatically reinvested to compound your returns. Franking credits are optimized for Australian tax efficiency.</p>
+                
+                <h4>🛡️ Risk Monitoring</h4>
+                <p>Continuous 24/7 monitoring ensures your portfolio stays aligned with your risk profile. Automatic alerts if adjustments are needed.</p>
+                
+                <h4>🤖 Anya AI Support</h4>
+                <p>Our conversational AI assistant Anya is available 24/7 to answer questions, provide insights, and explain your portfolio performance.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>UNDERSTANDING THE RISKS</h2>
+            <p>All investments carry risk. It's important you understand these before proceeding:</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Risk Type</th>
+                        <th>Description</th>
+                        <th>Mitigation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Market Risk</strong></td>
+                        <td>Investment values can fall as well as rise</td>
+                        <td>Diversification across assets and regions</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Technology Risk</strong></td>
+                        <td>System outages could affect management</td>
+                        <td>Redundant systems and 24/7 monitoring</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Model Risk</strong></td>
+                        <td>Algorithms based on historical data</td>
+                        <td>Regular testing and model updates</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Liquidity Risk</strong></td>
+                        <td>Some assets may be hard to sell quickly</td>
+                        <td>Minimum 5% cash allocation</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Currency Risk</strong></td>
+                        <td>Exchange rate fluctuations</td>
+                        <td>Partial hedging on international bonds</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Inflation Risk</strong></td>
+                        <td>Returns may not beat inflation</td>
+                        <td>Real assets and growth allocation</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>HOW OUR ALGORITHMS WORK</h2>
+            <h3>🔬 Complete Transparency About Our Technology</h3>
+            
+            <p>UltraWealth uses five key algorithmic systems:</p>
+            
+            <ol>
+                <li><strong>Portfolio Construction Algorithm</strong> - Uses Modern Portfolio Theory (Markowitz optimization) to build efficient portfolios</li>
+                <li><strong>Risk Assessment Algorithm</strong> - Machine learning model trained on 50,000+ client profiles</li>
+                <li><strong>Rebalancing Algorithm</strong> - Threshold-based with tax optimization</li>
+                <li><strong>Tax Optimization Algorithm</strong> - Dynamic programming for loss harvesting and CGT management</li>
+                <li><strong>Anya AI System</strong> - Large Language Model with financial services specialization</li>
+            </ol>
+            
+            <div class="notice">
+                <p><strong>Algorithm Governance:</strong> All algorithms are tested extensively before deployment, audited quarterly by independent parties, monitored by human oversight teams, and have compliance checks built into the code.</p>
+            </div>
+        </div>
+
+        <div class="consent-box">
+            <h2>DIGITAL CONSENT & ACCEPTANCE</h2>
+            <p><strong>By accepting this advice online, you acknowledge that:</strong></p>
+            
+            <ul class="checkbox-list">
+                <li>You have read and understood this Statement of Advice</li>
+                <li>The information you provided is complete and accurate</li>
+                <li>You understand the risks involved in investing</li>
+                <li>You understand and accept all fees and costs</li>
+                <li>You understand NO human adviser has reviewed this advice</li>
+                <li>You accept recommendations made by our algorithms</li>
+                <li>You agree to receive ongoing service digitally</li>
+                <li>You can withdraw your funds at any time without penalty</li>
+            </ul>
+            
+            <div style="background: #003366; color: white; padding: 20px; margin: 20px 0; border-radius: 5px; text-align: center;">
+                <h3 style="color: white;">To Accept This Advice</h3>
+                <p>Log into <strong>app.ultrawealth.com.au</strong> and click "Accept Statement of Advice"</p>
+                <p>Or call <strong>1300 ULTRA (1300 858 72)</strong></p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>NEXT STEPS</h2>
+            <h3>Your Journey to Digital Wealth Management</h3>
+            
+            <table>
+                <tr>
+                    <th width="15%">Step</th>
+                    <th width="35%">Action</th>
+                    <th width="50%">Details</th>
+                </tr>
+                <tr>
+                    <td style="text-align: center; font-size: 24px;">1️⃣</td>
+                    <td><strong>Review</strong></td>
+                    <td>Read this Statement of Advice carefully</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center; font-size: 24px;">2️⃣</td>
+                    <td><strong>Accept Online</strong></td>
+                    <td>Log into app.ultrawealth.com.au</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center; font-size: 24px;">3️⃣</td>
+                    <td><strong>Verify Identity</strong></td>
+                    <td>Complete digital ID check (5 minutes)</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center; font-size: 24px;">4️⃣</td>
+                    <td><strong>Fund Account</strong></td>
+                    <td>Transfer via BPAY or bank transfer</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center; font-size: 24px;">5️⃣</td>
+                    <td><strong>Investment Begins</strong></td>
+                    <td>Portfolio constructed within 2 business days</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center; font-size: 24px;">6️⃣</td>
+                    <td><strong>Monitor 24/7</strong></td>
+                    <td>Track via web or mobile app anytime</td>
+                </tr>
+            </table>
+        </div>
+
+        <button class="print-button no-print" onclick="window.print()">
+            📄 Save/Print as PDF
+        </button>
+
+        <div class="footer">
+            <h3>ULTRAWEALTH PTY LTD</h3>
+            <p>ABN 12 345 678 901 | Australian Financial Services License (AFSL) 123456</p>
+            <p>Level 20, 123 Collins Street, Melbourne VIC 3000</p>
+            <p style="margin-top: 20px;">This document complies with ASIC RG 255 (Digital Financial Product Advice)</p>
+            <p>Generated: 12 December 2024 | Valid for 30 days</p>
+            <p style="margin-top: 20px;">
+                <strong>Support:</strong> support@ultrawealth.com.au | 1300 ULTRA | help.ultrawealth.com.au
+            </p>
+        </div>
+    </div>
+</body>
+</html>

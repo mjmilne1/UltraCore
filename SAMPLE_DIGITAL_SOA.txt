@@ -1,0 +1,483 @@
+﻿======================================================================
+               ULTRAWEALTH DIGITAL WEALTH MANAGEMENT
+                    Statement of Advice
+======================================================================
+
+IMPORTANT NOTICE: DIGITAL-ONLY SERVICE
+────────────────────────────────────────────────────────────────
+This Statement of Advice has been prepared by automated systems 
+without human adviser involvement. UltraWealth uses sophisticated 
+algorithms and artificial intelligence to generate personalised advice.
+────────────────────────────────────────────────────────────────
+
+Document Reference: DIG-SOA-2024-A7B3C9
+Date Prepared: 12 November 2025
+Valid Until: 12 December 2025
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PREPARED FOR:
+Name: Sarah Thompson
+Email: sarah.thompson@email.com
+Client ID: UW-2024-ST-0892
+Date of Birth: 15/03/1989 (Age: 35)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+EXECUTIVE SUMMARY
+────────────────────────────────────────────────────────────────
+
+Based on your digital assessment completed on 12/11/2025, 
+we recommend:
+
+INVESTMENT RECOMMENDATION
+- Investment Amount: ,000
+- Recommended Portfolio: Balanced Growth Portfolio
+- Expected Return: 7.8% p.a. (after fees)
+- Risk Level: Medium
+- Investment Horizon: 10+ years
+- Management Style: Fully Automated
+
+KEY BENEFITS
+✓ Professional portfolio management using Modern Portfolio Theory
+✓ Automatic rebalancing to maintain optimal allocation
+✓ Tax optimization through automated tax-loss harvesting  
+✓ Low fees - just 0.55% p.a. (vs 1-2% for traditional advice)
+✓ 24/7 access via web and mobile apps
+✓ No lock-in periods or exit fees
+
+WHY THIS IS SUITABLE FOR YOU
+Based on your responses, you indicated:
+- Moderate risk tolerance
+- Long-term investment horizon (10+ years)
+- Goal: Build wealth for retirement
+- Experience: Some investment experience
+- Preference: Low-cost automated management
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+YOUR CURRENT SITUATION
+────────────────────────────────────────────────────────────────
+
+Information You Provided Through Our Digital Platform:
+
+PERSONAL DETAILS
+- Age: 35 years
+- Employment: Full-time employed
+- Occupation: Marketing Manager
+- Annual Income: ,000
+- Tax Rate: 32.5% + Medicare Levy
+
+FINANCIAL POSITION
+- Current Savings: ,000
+- Superannuation: ,000
+- Property: None (renting)
+- Other Investments: ,000 (bank shares)
+- Debts: HECS ,000
+- Investment Amount Available: ,000 (inheritance)
+
+YOUR STATED GOALS
+1. Build wealth for retirement in 30 years
+2. Generate passive income
+3. Minimize tax where possible
+4. Maintain liquidity for house deposit (5 years)
+
+RISK ASSESSMENT RESULTS
+Our algorithmic risk profiler determined:
+- Risk Tolerance: MODERATE
+- Risk Capacity: MEDIUM-HIGH  
+- Investment Experience: INTERMEDIATE
+- Time Horizon: LONG TERM (10+ years)
+
+This means you:
+- Can tolerate moderate portfolio fluctuations
+- Seek balance between growth and stability
+- Understand investments can go down as well as up
+- Have time to ride out market volatility
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+YOUR RECOMMENDED PORTFOLIO
+────────────────────────────────────────────────────────────────
+
+BALANCED GROWTH PORTFOLIO
+
+Strategic Asset Allocation:
+┌──────────────────────────┬────────────┬──────────────────────┐
+│ Asset Class              │ Allocation │ Purpose              │
+├──────────────────────────┼────────────┼──────────────────────┤
+│ Australian Shares        │    28%     │ Growth & Franking    │
+│ International Shares     │    27%     │ Global Growth        │
+│ Emerging Markets        │     5%     │ Higher Growth        │
+│ Australian Bonds        │    15%     │ Stability & Income   │
+│ International Bonds     │    10%     │ Diversification      │
+│ Real Assets (REITs)     │    10%     │ Inflation Protection │
+│ Cash & Equivalents      │     5%     │ Liquidity            │
+├──────────────────────────┼────────────┼──────────────────────┤
+│ TOTAL                    │   100%     │                      │
+└──────────────────────────┴────────────┴──────────────────────┘
+
+EXPECTED OUTCOMES (Based on Historical Analysis)
+- Expected Return: 7.8% p.a. (after fees)
+- Expected Volatility: 12% p.a.
+- Probability of Positive Return:
+  - 1 Year: 72%
+  - 3 Years: 84%
+  - 5 Years: 91%
+  - 10 Years: 97%
+- Maximum Historical Drawdown: -18% (GFC 2008)
+- Recovery Time from Max Drawdown: 14 months
+
+IMPLEMENTATION
+Your portfolio will be constructed using:
+- Low-cost Exchange Traded Funds (ETFs)
+- Wholesale managed funds where appropriate
+- Direct holdings for tax efficiency
+- Cash management account for distributions
+
+Example ETF Holdings:
+- VAS - Vanguard Australian Shares ETF
+- VGS - Vanguard International Shares ETF
+- VAF - Vanguard Australian Fixed Interest ETF
+- VGAD - Vanguard International Shares (Hedged) ETF
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+HOW WE MANAGE YOUR PORTFOLIO
+────────────────────────────────────────────────────────────────
+
+FULLY AUTOMATED MANAGEMENT
+
+Our algorithmic systems continuously manage your portfolio:
+
+AUTOMATIC REBALANCING
+- Trigger: When any asset class drifts 5% from target
+- Frequency: Checked daily, typically rebalanced quarterly
+- Method: Threshold-based with tax optimization
+- Cost: Included - no additional charges
+
+TAX-LOSS HARVESTING
+- Daily monitoring for tax-loss opportunities
+- Automatic selling of positions with losses
+- Immediate replacement with similar assets
+- Estimated tax benefit: ,000-,000 annually
+- CGT optimization for 50% discount
+
+DIVIDEND & DISTRIBUTION MANAGEMENT
+- All dividends automatically reinvested
+- Franking credits tracked and optimized
+- Distribution reinvestment plan (DRP) where beneficial
+- Annual tax statement provided
+
+RISK MONITORING
+- Daily portfolio risk assessment
+- Automatic alerts if risk exceeds tolerance
+- Stress testing against market scenarios
+- Drawdown protection protocols
+
+ANYA AI SUPPORT
+- 24/7 conversational AI assistant
+- Portfolio insights and explanations
+- Market updates and education
+- Natural language queries supported
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+FEES AND COSTS
+────────────────────────────────────────────────────────────────
+
+SIMPLE, TRANSPARENT PRICING
+
+┌──────────────────────────┬────────────┬──────────────────────┐
+│ Fee Type                 │ Amount     │ When Charged         │
+├──────────────────────────┼────────────┼──────────────────────┤
+│ Account Setup            │          │ Never                │
+│ Management Fee           │ 0.55% p.a. │ Monthly (1/12th)     │
+│ Performance Fees         │          │ Never                │
+│ Rebalancing              │          │ Included             │
+│ Tax Optimization         │          │ Included             │
+│ Exit/Withdrawal Fees     │          │ Never                │
+│ Brokerage               │          │ Included             │
+└──────────────────────────┴────────────┴──────────────────────┘
+
+YOUR ANNUAL COSTS
+- Management Fee (0.55% × ,000): ,375
+- ETF Management Costs (avg 0.15%):  (indirect)
+- TOTAL ANNUAL COST: ,750 (0.70% p.a.)
+
+FEE COMPARISON
+┌──────────────────────────┬────────────┬──────────────────────┐
+│ Service Type             │ Typical Fee│ Your Savings         │
+├──────────────────────────┼────────────┼──────────────────────┤
+│ Traditional Adviser      │ 1.5-2.5%   │ ,125-,875/year   │
+│ Full-Service Broker      │ 2.0-3.0%   │ ,250-,750/year   │
+│ Industry Super Balanced  │ 0.8-1.2%   │ -,250/year     │
+│ UltraWealth Digital     │ 0.70%      │ You pay this         │
+└──────────────────────────┴────────────┴──────────────────────┘
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TAX CONSIDERATIONS
+────────────────────────────────────────────────────────────────
+
+AUSTRALIAN TAX OPTIMIZATION
+
+Our algorithms will implement these strategies:
+
+FRANKING CREDIT OPTIMIZATION
+- Focus on fully-franked Australian dividends
+- Estimated franking credits: ,450/year
+- Benefit at your tax rate: Tax already paid
+
+CAPITAL GAINS TAX MANAGEMENT
+- Hold growth assets > 12 months for 50% CGT discount
+- Tax-loss harvesting to offset gains
+- Estimated annual tax saving: ,500-,000
+
+DISTRIBUTION PLANNING
+- Manage timing of taxable distributions
+- Utilize low-income years for realizations
+- Coordinate with your overall tax position
+
+TAX REPORTING
+- Annual tax statement provided
+- Integration with accounting software
+- ATO-compliant reporting
+- Capital gains/losses tracking
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+RISKS TO CONSIDER
+────────────────────────────────────────────────────────────────
+
+All investments carry risk. Key risks include:
+
+MARKET RISK
+Description: Portfolio value will fluctuate with markets
+Impact: Potential for negative returns, especially short-term
+Mitigation: Diversification across assets and regions
+
+TECHNOLOGY RISK  
+Description: Reliance on algorithms and systems
+Impact: Potential system errors or outages
+Mitigation: Robust testing, backups, and monitoring
+
+MODEL RISK
+Description: Algorithms based on historical data
+Impact: Past performance may not predict future
+Mitigation: Regular model updates and human oversight
+
+LIQUIDITY RISK
+Description: Some assets may be hard to sell quickly
+Impact: Delays in accessing funds
+Mitigation: Maintain 5% cash allocation
+
+CURRENCY RISK
+Description: International investments subject to FX
+Impact: Returns affected by exchange rates  
+Mitigation: Partial hedging of international bonds
+
+INFLATION RISK
+Description: Returns may not beat inflation
+Impact: Reduced real purchasing power
+Mitigation: Growth assets and real assets allocation
+
+REGULATORY RISK
+Description: Changes to tax laws or regulations
+Impact: May affect returns or strategies
+Mitigation: Regular reviews and adjustments
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+HOW OUR ALGORITHMS WORK
+────────────────────────────────────────────────────────────────
+
+TRANSPARENCY ABOUT OUR TECHNOLOGY
+
+PORTFOLIO CONSTRUCTION ALGORITHM
+- Type: Mean-Variance Optimization (Markowitz)
+- Inputs: Expected returns, volatilities, correlations
+- Output: Efficient frontier portfolios
+- Update Frequency: Monthly
+
+RISK ASSESSMENT ALGORITHM  
+- Type: Machine Learning (Random Forest + Neural Network)
+- Training Data: 50,000+ client profiles
+- Accuracy: 92% alignment with human advisers
+- Validation: Quarterly backtesting
+
+REBALANCING ALGORITHM
+- Type: Threshold-based with tax optimization
+- Triggers: 5% drift or quarterly review
+- Constraints: Tax implications, transaction costs
+- Execution: Automated limit orders
+
+TAX OPTIMIZATION ALGORITHM
+- Type: Dynamic programming optimization
+- Features: Loss harvesting, CGT management
+- Lookahead: 12-month tax planning
+- Integration: Real-time with trading system
+
+ANYA AI SYSTEM
+- Type: Large Language Model (LLM) + RAG
+- Training: Financial services specialized
+- Capabilities: Natural language understanding
+- Availability: 24/7 via app and web
+
+ALGORITHM GOVERNANCE
+✓ All algorithms tested before deployment
+✓ Regular audits by independent parties
+✓ Human oversight and monitoring
+✓ Compliance checks built into code
+✓ Continuous learning and improvement
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+NEXT STEPS
+────────────────────────────────────────────────────────────────
+
+Ready to proceed? Here's what happens next:
+
+STEP 1: REVIEW (You are here)
+□ Read this Statement of Advice carefully
+□ Ensure all information is correct
+□ Understand the risks and fees
+
+STEP 2: ACCEPT ONLINE
+□ Log into your UltraWealth account
+□ Click "Accept Statement of Advice"
+□ Complete digital consent process
+
+STEP 3: ACCOUNT OPENING (5 minutes)
+□ Verify your identity (digital ID check)
+□ Provide bank account details
+□ Complete anti-money laundering checks
+□ E-sign account opening forms
+
+STEP 4: FUND YOUR ACCOUNT
+□ Transfer via BPAY or bank transfer
+□ Minimum initial investment: ,000
+□ Funds typically received in 1-2 days
+
+STEP 5: PORTFOLIO CONSTRUCTION (2 business days)
+□ Funds invested according to strategy
+□ Initial portfolio confirmation sent
+□ Welcome package provided
+
+STEP 6: ONGOING MANAGEMENT
+□ Access via web: app.ultrawealth.com.au
+□ Mobile apps: iOS and Android
+□ Monthly statements via email
+□ Annual tax statements
+□ 24/7 Anya AI support
+
+NEED HELP?
+- Anya AI: Available 24/7 in app
+- Email: support@ultrawealth.com.au
+- Help Center: help.ultrawealth.com.au
+- Phone: 1300 ULTRA (1300 858 72)
+  Mon-Fri 9am-5pm AEST
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+DIGITAL CONSENT AND ACCEPTANCE
+────────────────────────────────────────────────────────────────
+
+BY ACCEPTING THIS ADVICE ONLINE, YOU ACKNOWLEDGE:
+
+☐ You have read and understood this Statement of Advice
+☐ The information you provided is complete and accurate  
+☐ You understand the risks involved in investing
+☐ You understand and accept all fees and costs
+☐ You agree to receive ongoing service digitally
+☐ You understand NO human adviser reviewed this advice
+☐ You accept recommendations made by our algorithms
+☐ You can withdraw your funds at any time
+☐ You have had opportunity to ask questions via Anya
+
+CLIENT DIGITAL ACCEPTANCE
+Name: Sarah Thompson
+Date: To be completed online
+Method: Digital signature via platform
+IP Address: To be recorded on acceptance
+Reference: DIG-SOA-2024-A7B3C9
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+IMPORTANT INFORMATION
+────────────────────────────────────────────────────────────────
+
+VALIDITY
+This Statement of Advice is valid for 30 days from date of issue.
+After this time, a new assessment may be required.
+
+BASIS OF ADVICE
+This advice is based on information current at 12 November 2025
+and economic assumptions that may not eventuate.
+
+NO PERSONAL MEETING
+This is a digital-only service. No face-to-face meetings are 
+available. All interactions are via digital channels.
+
+CHANGES TO YOUR SITUATION
+You must update your information if your circumstances change.
+Log into the platform to update your profile at any time.
+
+GENERAL ADVICE WARNING
+The advice in this document is general in nature and based solely
+on the information you provided through our digital questionnaire.
+
+PAST PERFORMANCE
+Past performance figures are provided for illustrative purposes
+only and are not a reliable indicator of future performance.
+
+PRIVACY
+Your personal information is protected under the Privacy Act 1988.
+See our Privacy Policy at ultrawealth.com.au/privacy
+
+COMPLAINTS
+Internal Complaints:
+UltraWealth Complaints
+Email: complaints@ultrawealth.com.au
+Phone: 1300 ULTRA
+
+External Dispute Resolution:
+Australian Financial Complaints Authority (AFCA)
+Website: www.afca.org.au
+Email: info@afca.org.au  
+Phone: 1800 931 678
+Member Number: 12345
+
+COMPENSATION ARRANGEMENTS
+UltraWealth maintains professional indemnity insurance that
+satisfies the requirements of s912B of the Corporations Act.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+REGULATORY INFORMATION
+────────────────────────────────────────────────────────────────
+
+UltraWealth Pty Ltd
+ABN 12 345 678 901
+Australian Financial Services License (AFSL) 123456
+Registered Office: Level 20, 123 Collins Street, Melbourne VIC 3000
+
+Authorised to:
+- Provide financial product advice
+- Deal in financial products  
+- Operate managed discretionary accounts
+- Provide custodial services
+
+This document complies with:
+- ASIC RG 90 (Example Statement of Advice)
+- ASIC RG 255 (Providing digital financial product advice)
+- Corporations Act 2001
+- Privacy Act 1988
+
+Date Prepared: 12 November 2025
+Version: 2.0
+Document ID: DIG-SOA-2024-A7B3C9
+
+======================================================================
+END OF STATEMENT OF ADVICE
+======================================================================
