@@ -1,0 +1,161 @@
+version: '3.8'
+
+services:
+  # OpenMarkets Integration Service
+  openmarkets-integration:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ultracore-openmarkets
+    environment:
+      - OPENMARKETS_API_KEY=\
+      - OPENMARKETS_API_SECRET=\
+      - OPENMARKETS_ENVIRONMENT=\
+      - OPENMARKETS_BASE_URL=\
+      - OPENMARKETS_WEBSOCKET_URL=\
+      - OPENMARKETS_EVENT_STORE_ENABLED=true
+      - OPENMARKETS_DATA_MESH_ENABLED=true
+      - OPENMARKETS_ML_ENABLED=true
+      - OPENMARKETS_RL_ENABLED=true
+      - OPENMARKETS_MCP_ENABLED=true
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - POSTGRES_HOST=postgres
+      - POSTGRES_DB=ultracore
+      - REDIS_HOST=redis
+    ports:
+      - "8100:8100"  # MCP server
+    depends_on:
+      - kafka
+      - postgres
+      - redis
+    networks:
+      - ultracore-network
+    volumes:
+      - ./logs:/app/logs
+      - ./models:/app/models  # Persist ML models
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+        reservations:
+          cpus: '1.0'
+          memory: 2G
+
+  # ML Training Service
+  openmarkets-ml-trainer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ultracore-openmarkets-ml
+    command: python -m ultracore.integrations.openmarkets.ml.train
+    environment:
+      - OPENMARKETS_API_KEY=\
+      - OPENMARKETS_API_SECRET=\
+      - POSTGRES_HOST=postgres
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - ML_TRAINING_SCHEDULE=0 2 * * *  # Daily at 2 AM
+    depends_on:
+      - postgres
+      - kafka
+    networks:
+      - ultracore-network
+    volumes:
+      - ./models:/app/models
+    restart: unless-stopped
+
+  # RL Training Service
+  openmarkets-rl-trainer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ultracore-openmarkets-rl
+    command: python -m ultracore.integrations.openmarkets.rl.train
+    environment:
+      - OPENMARKETS_API_KEY=\
+      - OPENMARKETS_API_SECRET=\
+      - RL_TRAINING_EPISODES=10000
+      - RL_ENVIRONMENT=TradingEnvironment
+    depends_on:
+      - postgres
+      - kafka
+    networks:
+      - ultracore-network
+    volumes:
+      - ./models:/app/models
+    restart: "no"  # Run on-demand for training
+
+  # Market Data Streamer
+  openmarkets-market-data:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ultracore-openmarkets-streaming
+    command: python -m ultracore.integrations.openmarkets.streaming.market_data
+    environment:
+      - OPENMARKETS_API_KEY=\
+      - OPENMARKETS_API_SECRET=\
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - MARKET_DATA_SYMBOLS=BHP,CBA,WES,TLS,ANZ,NAB,WBC,CSL,BXB,RIO
+    depends_on:
+      - kafka
+    networks:
+      - ultracore-network
+    restart: unless-stopped
+
+  # Kafka for event streaming
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: ultracore-kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper
+    networks:
+      - ultracore-network
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: ultracore-zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - ultracore-network
+
+  # PostgreSQL for persistence
+  postgres:
+    image: postgres:16
+    container_name: ultracore-postgres
+    environment:
+      POSTGRES_DB: ultracore
+      POSTGRES_USER: ultracore
+      POSTGRES_PASSWORD: \
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - ultracore-network
+
+  # Redis for caching
+  redis:
+    image: redis:7-alpine
+    container_name: ultracore-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - ultracore-network
+
+networks:
+  ultracore-network:
+    driver: bridge
+
+volumes:
+  postgres-data:

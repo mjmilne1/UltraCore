@@ -1,0 +1,14 @@
+apiVersion: v2
+name: openmarkets-integration
+description: OpenMarkets Integration for UltraCore
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+keywords:
+  - trading
+  - openmarkets
+  - asx
+  - fintech
+maintainers:
+  - name: UltraCore Team
+    email: dev@turingdynamics.com.au
