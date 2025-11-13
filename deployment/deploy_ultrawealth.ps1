@@ -29,17 +29,17 @@ function Write-Step {
 
 function Write-Success {
     param([string]$Message)
-    Write-Host "✓ $Message" -ForegroundColor Green
+    Write-Host "[OK] $Message" -ForegroundColor Green
 }
 
 function Write-Warning-Message {
     param([string]$Message)
-    Write-Host "⚠ $Message" -ForegroundColor Yellow
+    Write-Host "[WARN] $Message" -ForegroundColor Yellow
 }
 
 function Write-Error-Message {
     param([string]$Message)
-    Write-Host "✗ $Message" -ForegroundColor Red
+    Write-Host "[ERROR] $Message" -ForegroundColor Red
 }
 
 # Check Docker
@@ -86,18 +86,18 @@ function Start-UltraWealth {
     if ($LASTEXITCODE -eq 0) {
         Write-Success "UltraWealth started successfully!"
         Write-Host ""
-        Write-Host "🚀 UltraWealth is running!" -ForegroundColor Green
+        Write-Host "UltraWealth is running!" -ForegroundColor Green
         Write-Host ""
         Write-Host "Services:"
-        Write-Host "  • API:          http://localhost:8891"
-        Write-Host "  • API Docs:     http://localhost:8891/docs"
-        Write-Host "  • Kafka UI:     http://localhost:8082"
-        Write-Host "  • Prometheus:   http://localhost:9090"
-        Write-Host "  • Grafana:      http://localhost:3000 (admin/admin)"
+        Write-Host "  - API:          http://localhost:8891"
+        Write-Host "  - API Docs:     http://localhost:8891/docs"
+        Write-Host "  - Kafka UI:     http://localhost:8082"
+        Write-Host "  - Prometheus:   http://localhost:9090"
+        Write-Host "  - Grafana:      http://localhost:3000 (admin/admin)"
         Write-Host ""
         Write-Host "Database:"
-        Write-Host "  • PostgreSQL:   localhost:5432"
-        Write-Host "  • Redis:        localhost:6379"
+        Write-Host "  - PostgreSQL:   localhost:5432"
+        Write-Host "  - Redis:        localhost:6379"
         Write-Host ""
     } else {
         Write-Error-Message "Failed to start UltraWealth"
@@ -159,10 +159,10 @@ function Initialize-Database {
 
 # Main execution
 Write-Host ""
-Write-Host "╔════════════════════════════════════════╗" -ForegroundColor Blue
-Write-Host "║   UltraWealth Deployment Manager      ║" -ForegroundColor Blue
-Write-Host "║   Automated Investment System         ║" -ForegroundColor Blue
-Write-Host "╚════════════════════════════════════════╝" -ForegroundColor Blue
+Write-Host "========================================" -ForegroundColor Blue
+Write-Host "   UltraWealth Deployment Manager      " -ForegroundColor Blue
+Write-Host "   Automated Investment System         " -ForegroundColor Blue
+Write-Host "========================================" -ForegroundColor Blue
 Write-Host ""
 
 switch ($Action) {
