@@ -112,3 +112,7 @@ async def get_db_session() -> AsyncGenerator[AsyncSession, None]:
     db_config = get_database_config()
     async for session in db_config.get_session():
         yield session
+
+
+# Alias for consistency
+get_async_session = get_db_session
