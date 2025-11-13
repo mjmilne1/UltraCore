@@ -26,7 +26,7 @@ aiohttp==3.9.1
 # In production: kafka-python==2.0.2
 
 # Development & Testing
-pytest==8.0.0
+pytest==7.4.4
 pytest-asyncio==0.23.4
 
 # Documentation
