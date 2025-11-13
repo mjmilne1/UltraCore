@@ -1,0 +1,39 @@
+Australian ETF Dataset Summary
+================================================================================
+
+Download Date: 2025-11-13 00:13:09
+Total ETFs Attempted: 78
+Successfully Downloaded: 72
+Failed: 6
+
+Total Rows: 213,820
+Date Range: 2008-01-02 00:00:00+11:00 to 2025-11-12 00:00:00-05:00
+Unique Tickers: 72
+
+Columns:
+  - Date
+  - Open
+  - High
+  - Low
+  - Close
+  - Volume
+  - Dividends
+  - Stock Splits
+  - Capital Gains
+  - Ticker
+  - Name
+  - Category
+  - Currency
+
+First few rows:
+                        Date      Open      High       Low     Close  Volume  Dividends  Stock Splits  Capital Gains   Ticker                                    Name Category Currency
+0  2015-06-10 00:00:00+10:00  5.730364  5.730364  5.730364  5.730364       0        0.0           0.0            0.0  ZYAU.AX  Global X S&P/ASX 200 High Dividend ETF  Unknown      AUD
+1  2015-06-11 00:00:00+10:00  5.814777  5.814777  5.814777  5.814777       0        0.0           0.0            0.0  ZYAU.AX  Global X S&P/ASX 200 High Dividend ETF  Unknown      AUD
+2  2015-06-12 00:00:00+10:00  5.810089  5.810089  5.810089  5.810089       0        0.0           0.0            0.0  ZYAU.AX  Global X S&P/ASX 200 High Dividend ETF  Unknown      AUD
+3  2015-06-15 00:00:00+10:00  5.792586  5.792586  5.792586  5.792586       0        0.0           0.0            0.0  ZYAU.AX  Global X S&P/ASX 200 High Dividend ETF  Unknown      AUD
+4  2015-06-16 00:00:00+10:00  5.753468  5.753468  5.753468  5.753468       0        0.0           0.0            0.0  ZYAU.AX  Global X S&P/ASX 200 High Dividend ETF  Unknown      AUD
+5  2015-06-17 00:00:00+10:00  5.810603  5.810603  5.799165  5.799165    1505        0.0           0.0            0.0  ZYAU.AX  Global X S&P/ASX 200 High Dividend ETF  Unknown      AUD
+6  2015-06-18 00:00:00+10:00  5.730537  5.730537  5.713379  5.713379    2554        0.0           0.0            0.0  ZYAU.AX  Global X S&P/ASX 200 High Dividend ETF  Unknown      AUD
+7  2015-06-19 00:00:00+10:00  5.782235  5.782235  5.782235  5.782235       0        0.0           0.0            0.0  ZYAU.AX  Global X S&P/ASX 200 High Dividend ETF  Unknown      AUD
+8  2015-06-22 00:00:00+10:00  5.787897  5.787897  5.787897  5.787897       0        0.0           0.0            0.0  ZYAU.AX  Global X S&P/ASX 200 High Dividend ETF  Unknown      AUD
+9  2015-06-23 00:00:00+10:00  5.850464  5.850464  5.850464  5.850464       0        0.0           0.0            0.0  ZYAU.AX  Global X S&P/ASX 200 High Dividend ETF  Unknown      AUD
