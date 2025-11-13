@@ -22,6 +22,7 @@ class TestPodLifecycle:
         """Test creating a first home Pod"""
         # Create Pod
         pod = PodAggregate.create(
+            tenant_id="ultrawealth",
             client_id="client_123",
             goal_type=GoalType.FIRST_HOME,
             goal_name="First Home Deposit",
@@ -41,6 +42,7 @@ class TestPodLifecycle:
     def test_optimize_allocation(self):
         """Test portfolio optimization"""
         pod = PodAggregate.create(
+            tenant_id="ultrawealth",
             client_id="client_123",
             goal_type=GoalType.WEALTH_ACCUMULATION,
             goal_name="Wealth Building",
@@ -76,6 +78,7 @@ class TestPodLifecycle:
     def test_glide_path_transition(self):
         """Test glide path transition"""
         pod = PodAggregate.create(
+            tenant_id="ultrawealth",
             client_id="client_123",
             goal_type=GoalType.RETIREMENT,
             goal_name="Retirement Fund",
@@ -104,6 +107,7 @@ class TestPodLifecycle:
     def test_circuit_breaker(self):
         """Test circuit breaker activation"""
         pod = PodAggregate.create(
+            tenant_id="ultrawealth",
             client_id="client_123",
             goal_type=GoalType.WEALTH_ACCUMULATION,
             goal_name="Growth Portfolio",

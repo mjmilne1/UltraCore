@@ -44,6 +44,7 @@ class RiskTolerance(Enum):
 class PodCreated:
     """Event: Pod created"""
     pod_id: str
+    tenant_id: str
     client_id: str
     goal_type: str  # GoalType
     goal_name: str
@@ -60,6 +61,7 @@ class PodCreated:
 class PodOptimized:
     """Event: Pod allocation optimized"""
     pod_id: str
+    tenant_id: str
     optimization_id: str
     etf_allocation: List[Dict]  # [{"etf_code": "VAS", "weight": 30.0, "expense_ratio": 0.10}]
     expected_return: Decimal
@@ -76,6 +78,7 @@ class PodOptimized:
 class PodActivated:
     """Event: Pod activated and investments made"""
     pod_id: str
+    tenant_id: str
     initial_trades: List[Dict]  # [{"etf_code": "VAS", "units": 100, "price": 85.50}]
     total_invested: Decimal
     activated_at: datetime
@@ -85,6 +88,7 @@ class PodActivated:
 class GlidePathTransitionScheduled:
     """Event: Glide path transition scheduled"""
     pod_id: str
+    tenant_id: str
     transition_id: str
     current_allocation: Dict  # {"equity": 80, "defensive": 20}
     target_allocation: Dict  # {"equity": 60, "defensive": 40}
@@ -98,6 +102,7 @@ class GlidePathTransitionScheduled:
 class GlidePathTransitionExecuted:
     """Event: Glide path transition executed"""
     pod_id: str
+    tenant_id: str
     transition_id: str
     from_allocation: Dict
     to_allocation: Dict
@@ -110,6 +115,7 @@ class GlidePathTransitionExecuted:
 class DownsideRiskDetected:
     """Event: Downside risk threshold breached"""
     pod_id: str
+    tenant_id: str
     alert_id: str
     current_drawdown: Decimal
     max_allowed_drawdown: Decimal
@@ -122,6 +128,7 @@ class DownsideRiskDetected:
 class CircuitBreakerTriggered:
     """Event: Circuit breaker triggered, defensive shift executed"""
     pod_id: str
+    tenant_id: str
     circuit_breaker_id: str
     trigger_reason: str  # "downside_breach", "volatility_spike"
     drawdown_at_trigger: Decimal
@@ -135,6 +142,7 @@ class CircuitBreakerTriggered:
 class PodRebalanced:
     """Event: Pod rebalanced due to 5% drift"""
     pod_id: str
+    tenant_id: str
     rebalance_id: str
     drift_detected: List[Dict]  # [{"etf_code": "VAS", "current_weight": 35, "target_weight": 30, "drift": 5}]
     trades_executed: List[Dict]
@@ -146,6 +154,7 @@ class PodRebalanced:
 class ContributionMade:
     """Event: Client made contribution to Pod"""
     pod_id: str
+    tenant_id: str
     contribution_id: str
     amount: Decimal
     contribution_type: str  # "monthly", "ad_hoc", "lump_sum"
@@ -158,6 +167,7 @@ class ContributionMade:
 class WithdrawalRequested:
     """Event: Client requested withdrawal"""
     pod_id: str
+    tenant_id: str
     withdrawal_id: str
     amount: Decimal
     reason: str
@@ -170,6 +180,7 @@ class WithdrawalRequested:
 class WithdrawalExecuted:
     """Event: Withdrawal executed"""
     pod_id: str
+    tenant_id: str
     withdrawal_id: str
     amount: Decimal
     trades_executed: List[Dict]
@@ -181,6 +192,7 @@ class WithdrawalExecuted:
 class UnderperformanceDetected:
     """Event: Pod underperforming goal"""
     pod_id: str
+    tenant_id: str
     alert_id: str
     current_value: Decimal
     projected_value: Decimal
@@ -194,6 +206,7 @@ class UnderperformanceDetected:
 class GoalParametersUpdated:
     """Event: Goal parameters changed"""
     pod_id: str
+    tenant_id: str
     update_id: str
     old_parameters: Dict
     new_parameters: Dict
@@ -206,6 +219,7 @@ class GoalParametersUpdated:
 class PodProgressUpdated:
     """Event: Monthly progress update"""
     pod_id: str
+    tenant_id: str
     update_id: str
     current_value: Decimal
     target_value: Decimal
@@ -221,6 +235,7 @@ class PodProgressUpdated:
 class TaxOptimizationApplied:
     """Event: Tax optimization applied"""
     pod_id: str
+    tenant_id: str
     optimization_id: str
     optimization_type: str  # "franking_credits", "cgt_discount", "fhss", "smsf"
     estimated_benefit: Decimal
@@ -232,6 +247,7 @@ class TaxOptimizationApplied:
 class AnyaInteraction:
     """Event: Client interacted with Anya"""
     pod_id: Optional[str]
+    tenant_id: str
     interaction_id: str
     client_id: str
     interaction_type: str  # "question", "pod_creation", "goal_update"
@@ -245,6 +261,7 @@ class AnyaInteraction:
 class PodCompleted:
     """Event: Pod reached goal"""
     pod_id: str
+    tenant_id: str
     final_value: Decimal
     target_value: Decimal
     total_return: Decimal
@@ -259,6 +276,7 @@ class PodCompleted:
 class PodClosed:
     """Event: Pod closed"""
     pod_id: str
+    tenant_id: str
     closure_reason: str  # "goal_completed", "client_request", "goal_abandoned"
     final_value: Decimal
     liquidation_trades: List[Dict]

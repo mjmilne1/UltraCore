@@ -21,6 +21,7 @@ class PodMCPTools:
     
     def create_goal_pod(
         self,
+        tenant_id: str,
         client_id: str,
         goal_type: str,
         goal_name: str,
@@ -33,6 +34,7 @@ class PodMCPTools:
         Create a new goal-based investment Pod
         
         Args:
+            tenant_id: Tenant identifier (e.g., 'ultrawealth')
             client_id: Client identifier
             goal_type: Type of goal (first_home, retirement, wealth_accumulation, etc.)
             goal_name: Name of the goal
@@ -45,6 +47,7 @@ class PodMCPTools:
             Dict with pod_id, optimization_result, and anya_response
         """
         result = self.pod_service.create_pod(
+            tenant_id=tenant_id,
             client_id=client_id,
             goal_type=goal_type,
             goal_name=goal_name,
@@ -271,6 +274,7 @@ MCP_TOOLS = {
     "create_goal_pod": {
         "description": "Create a new goal-based investment Pod",
         "parameters": {
+            "tenant_id": "string (e.g., 'ultrawealth')",
             "client_id": "string",
             "goal_type": "string (first_home, retirement, wealth_accumulation, etc.)",
             "goal_name": "string",

@@ -56,6 +56,7 @@ class PodAggregate:
     """
     # Identity
     pod_id: str
+    tenant_id: str
     client_id: str
     
     # Goal parameters
@@ -132,6 +133,7 @@ class PodAggregate:
     @classmethod
     def create(
         cls,
+        tenant_id: str,
         client_id: str,
         goal_type: GoalType,
         goal_name: str,
@@ -146,6 +148,7 @@ class PodAggregate:
         
         event = PodCreated(
             pod_id=pod_id,
+            tenant_id=tenant_id,
             client_id=client_id,
             goal_type=goal_type.value,
             goal_name=goal_name,
@@ -160,6 +163,7 @@ class PodAggregate:
         
         pod = cls(
             pod_id=pod_id,
+            tenant_id=tenant_id,
             client_id=client_id,
             goal_type=goal_type,
             goal_name=goal_name,
@@ -188,6 +192,7 @@ class PodAggregate:
         
         event = PodOptimized(
             pod_id=self.pod_id,
+            tenant_id=self.tenant_id,
             optimization_id=optimization_id,
             etf_allocation=etf_allocation,
             expected_return=expected_return,
@@ -206,6 +211,7 @@ class PodAggregate:
         """Activate Pod with initial investments"""
         event = PodActivated(
             pod_id=self.pod_id,
+            tenant_id=self.tenant_id,
             initial_trades=initial_trades,
             total_invested=total_invested,
             activated_at=datetime.utcnow()
@@ -225,6 +231,7 @@ class PodAggregate:
         
         event = GlidePathTransitionScheduled(
             pod_id=self.pod_id,
+            tenant_id=self.tenant_id,
             transition_id=transition_id,
             current_allocation=current_allocation,
             target_allocation=target_allocation,
@@ -247,6 +254,7 @@ class PodAggregate:
         """Execute glide path transition"""
         event = GlidePathTransitionExecuted(
             pod_id=self.pod_id,
+            tenant_id=self.tenant_id,
             transition_id=transition_id,
             from_allocation=from_allocation,
             to_allocation=to_allocation,
@@ -268,6 +276,7 @@ class PodAggregate:
         
         event = DownsideRiskDetected(
             pod_id=self.pod_id,
+            tenant_id=self.tenant_id,
             alert_id=alert_id,
             current_drawdown=current_drawdown,
             max_allowed_drawdown=self.max_allowed_drawdown,
@@ -289,6 +298,7 @@ class PodAggregate:
         
         event = CircuitBreakerTriggered(
             pod_id=self.pod_id,
+            tenant_id=self.tenant_id,
             circuit_breaker_id=circuit_breaker_id,
             trigger_reason=trigger_reason,
             drawdown_at_trigger=drawdown_at_trigger,
@@ -311,6 +321,7 @@ class PodAggregate:
         
         event = PodRebalanced(
             pod_id=self.pod_id,
+            tenant_id=self.tenant_id,
             rebalance_id=rebalance_id,
             drift_detected=drift_detected,
             trades_executed=trades_executed,
@@ -331,6 +342,7 @@ class PodAggregate:
         
         event = ContributionMade(
             pod_id=self.pod_id,
+            tenant_id=self.tenant_id,
             contribution_id=contribution_id,
             amount=amount,
             contribution_type=contribution_type,
@@ -353,6 +365,7 @@ class PodAggregate:
         
         event = GoalParametersUpdated(
             pod_id=self.pod_id,
+            tenant_id=self.tenant_id,
             update_id=update_id,
             old_parameters=old_parameters,
             new_parameters=new_parameters,
@@ -377,6 +390,7 @@ class PodAggregate:
         
         event = PodProgressUpdated(
             pod_id=self.pod_id,
+            tenant_id=self.tenant_id,
             update_id=update_id,
             current_value=current_value,
             target_value=self.target_amount,
@@ -401,6 +415,7 @@ class PodAggregate:
         
         event = TaxOptimizationApplied(
             pod_id=self.pod_id,
+            tenant_id=self.tenant_id,
             optimization_id=optimization_id,
             optimization_type=optimization_type,
             estimated_benefit=estimated_benefit,
@@ -419,6 +434,7 @@ class PodAggregate:
         """Complete Pod (goal reached)"""
         event = PodCompleted(
             pod_id=self.pod_id,
+            tenant_id=self.tenant_id,
             final_value=final_value,
             target_value=self.target_amount,
             total_return=total_return,
@@ -441,6 +457,7 @@ class PodAggregate:
         """Close Pod"""
         event = PodClosed(
             pod_id=self.pod_id,
+            tenant_id=self.tenant_id,
             closure_reason=closure_reason,
             final_value=final_value,
             liquidation_trades=liquidation_trades,

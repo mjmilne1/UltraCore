@@ -54,6 +54,7 @@ class AnyaService:
     
     def create_pod_conversational(
         self,
+        tenant_id: str,
         client_id: str,
         conversation_context: Dict
     ) -> Dict:
@@ -107,6 +108,7 @@ class AnyaService:
         
         # Create Pod
         pod = PodAggregate.create(
+            tenant_id=tenant_id,
             client_id=client_id,
             goal_type=goal_type,
             goal_name=goal_name,
