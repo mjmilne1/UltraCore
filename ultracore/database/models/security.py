@@ -48,6 +48,7 @@ class User(Base):
     # MFA
     mfa_enabled = Column(Boolean, default=False)
     mfa_secret = Column(String(255))  # TOTP secret (encrypted)
+    mfa_last_used_timestamp = Column(Integer)  # Last TOTP timestamp (for replay protection)
     
     # Password policy
     password_changed_at = Column(DateTime)

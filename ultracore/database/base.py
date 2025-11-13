@@ -25,11 +25,8 @@ class Base(DeclarativeBase):
         """Generate table name from class name"""
         return cls.__name__.lower()
     
-    # Common columns for all tables
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
-    created_by = Column(String(255))
-    updated_by = Column(String(255))
+    # Common columns for all tables (can be overridden in subclasses)
+    pass
 
 
 class DatabaseConfig:
