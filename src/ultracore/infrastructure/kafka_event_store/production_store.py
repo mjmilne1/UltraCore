@@ -126,7 +126,7 @@ class ProductionKafkaEventStore:
             raise
         
         # Build event envelope
-        event_id = idempotency_key or f"{entity}-{aggregate_id}-{datetime.utcnow().timestamp()}"
+        event_id = idempotency_key or f"{entity}-{aggregate_id}-{datetime.now(timezone.utc).timestamp()}"
         
         event = {
             'event_id': event_id,
@@ -135,7 +135,7 @@ class ProductionKafkaEventStore:
             'event_type': event_type,
             'event_data': event_data,
             'user_id': user_id,
-            'timestamp': datetime.utcnow().isoformat(),
+            'timestamp': datetime.now(timezone.utc).isoformat(),
             'version': 1
         }
         
@@ -191,7 +191,7 @@ class ProductionKafkaEventStore:
             'dlq_metadata': {
                 'original_topic': original_topic,
                 'error': error,
-                'dlq_timestamp': datetime.utcnow().isoformat()
+                'dlq_timestamp': datetime.now(timezone.utc).isoformat()
             }
         }
         

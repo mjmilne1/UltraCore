@@ -278,7 +278,7 @@ async def main():
     print("-" * 80)
     
     start_date = datetime(2025, 1, 1)
-    end_date = datetime.utcnow()
+    end_date = datetime.now(timezone.utc)
     
     income_statement = financial_statements.generate_income_statement(start_date, end_date)
     

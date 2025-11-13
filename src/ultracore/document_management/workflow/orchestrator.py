@@ -209,7 +209,7 @@ class WorkflowOrchestrator:
                 'document_id': document_id,
                 'pipeline_stages': len(results),
                 'final_status': fraud_result['action'],
-                'completed_at': datetime.utcnow().isoformat()
+                'completed_at': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=document_id
         )

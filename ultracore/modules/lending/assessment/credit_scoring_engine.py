@@ -76,7 +76,7 @@ class CreditScoringEngine:
             "risk_band": risk_band,
             "model_version": self.model_version,
             "contributing_factors": factors,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         }
         
     def _assess_payment_history(self, data: Dict) -> Tuple[float, List[str]]:
@@ -291,7 +291,7 @@ class AffordabilityAssessmentEngine:
             "dsr_ratio": float(dsr_ratio),
             "buffer_months": buffer_months,
             "risk_level": risk_level,
-            "assessment_date": datetime.utcnow().isoformat()
+            "assessment_date": datetime.now(timezone.utc).isoformat()
         }
         
     def _calculate_monthly_income(self, data: Dict) -> Decimal:
@@ -432,7 +432,7 @@ class FraudDetectionEngine:
             "flags": flags,
             "requires_manual_review": risk_score >= 40,
             "model_version": self.model_version,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         }
         
     def _check_income_anomalies(self, data: Dict) -> Tuple[float, List[str]]:

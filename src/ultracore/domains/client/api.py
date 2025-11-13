@@ -6,7 +6,7 @@ from pydantic import BaseModel
 from typing import List, Dict
 import uuid
 
-from ultracore.domains.client.complete_aggregate import (
+# from ultracore.domains.client.complete_aggregate import (  # TODO: Fix import path
     CompleteClientAggregate,
     ClientStatus,
     KYCStatus

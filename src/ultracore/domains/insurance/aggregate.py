@@ -87,7 +87,7 @@ class PolicyAggregate:
             'term_years': term_years,
             'annual_premium': str(annual_premium),
             'monthly_premium': str(monthly_premium),
-            'quoted_at': datetime.utcnow().isoformat()
+            'quoted_at': datetime.now(timezone.utc).isoformat()
         }
         
         await store.append(
@@ -110,8 +110,8 @@ class PolicyAggregate:
         
         event_data = {
             'policy_id': self.policy_id,
-            'activated_at': datetime.utcnow().isoformat(),
-            'expires_at': (datetime.utcnow() + timedelta(days=365)).isoformat()
+            'activated_at': datetime.now(timezone.utc).isoformat(),
+            'expires_at': (datetime.now(timezone.utc) + timedelta(days=365)).isoformat()
         }
         
         await store.append(
@@ -148,7 +148,7 @@ class PolicyAggregate:
             'incident_description': incident_description,
             'claim_amount': str(claim_amount),
             'claim_status': claim_status.value,
-            'filed_at': datetime.utcnow().isoformat()
+            'filed_at': datetime.now(timezone.utc).isoformat()
         }
         
         await store.append(

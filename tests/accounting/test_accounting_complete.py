@@ -159,7 +159,7 @@ class TestFinancialStatements:
     def test_income_statement(self):
         """Test income statement generation"""
         start = datetime(2025, 1, 1)
-        end = datetime.utcnow()
+        end = datetime.now(timezone.utc)
         
         income_stmt = financial_statements.generate_income_statement(start, end)
         
@@ -171,7 +171,7 @@ class TestFinancialStatements:
     def test_cash_flow_statement(self):
         """Test cash flow statement generation"""
         start = datetime(2025, 1, 1)
-        end = datetime.utcnow()
+        end = datetime.now(timezone.utc)
         
         cash_flow = financial_statements.generate_cash_flow_statement(start, end)
         
@@ -222,7 +222,7 @@ class TestReconciliation:
     @pytest.mark.asyncio
     async def test_cash_reconciliation(self):
         """Test cash reconciliation"""
-        recon = await reconciliation_service.reconcile_cash(datetime.utcnow())
+        recon = await reconciliation_service.reconcile_cash(datetime.now(timezone.utc))
         
         assert recon["type"] == "cash"
         assert "ledger_balance" in recon

@@ -79,7 +79,7 @@ class NotificationPreferences:
         self.global_opt_out = False
         
         # Last updated
-        self.updated_at = datetime.utcnow()
+        self.updated_at = datetime.now(timezone.utc)
     
     def allows_notification(
         self,
@@ -154,7 +154,7 @@ class PreferencesService:
         """Update channel preference"""
         prefs = await self.get_preferences(customer_id)
         prefs.channel_preferences[channel] = preference
-        prefs.updated_at = datetime.utcnow()
+        prefs.updated_at = datetime.now(timezone.utc)
         
         # Publish event
         kafka_store = get_production_kafka_store()
@@ -198,7 +198,7 @@ class PreferencesService:
             }
         
         prefs.category_preferences[category] = preference
-        prefs.updated_at = datetime.utcnow()
+        prefs.updated_at = datetime.now(timezone.utc)
         
         # Publish event
         kafka_store = get_production_kafka_store()
@@ -237,7 +237,7 @@ class PreferencesService:
         if end_time:
             prefs.quiet_hours_end = end_time
         
-        prefs.updated_at = datetime.utcnow()
+        prefs.updated_at = datetime.now(timezone.utc)
         
         # Publish event
         kafka_store = get_production_kafka_store()
@@ -268,7 +268,7 @@ class PreferencesService:
         """
         prefs = await self.get_preferences(customer_id)
         prefs.global_opt_out = True
-        prefs.updated_at = datetime.utcnow()
+        prefs.updated_at = datetime.now(timezone.utc)
         
         # Publish event
         kafka_store = get_production_kafka_store()

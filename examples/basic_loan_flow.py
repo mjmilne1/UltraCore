@@ -4,7 +4,7 @@ Copyright (c) 2025 Richelou Pty Ltd. All Rights Reserved.
 TuringDynamics Division
 """
 
-from ultracore.domains.loan.aggregates import Loan
+# from ultracore.domains.loan.aggregates import Loan  # TODO: Fix import path
 
 def main():
     print("🏦 UltraCore - Loan Example")

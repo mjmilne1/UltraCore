@@ -170,7 +170,7 @@ class TestTransactionAgent:
             "ticker": "VAS.AX",
             "quantity": 10000,
             "limit_price": 100.00,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         }
         
         client_history = []
@@ -435,7 +435,7 @@ class TestSettlement:
             "quantity": 100,
             "price": 100.00,
             "value": 10000,
-            "executed_at": datetime.utcnow().isoformat()
+            "executed_at": datetime.now(timezone.utc).isoformat()
         }
         
         settlement = await settlement_engine.create_settlement(
@@ -469,7 +469,7 @@ class TestSettlement:
             "quantity": 50,
             "price": 150.00,
             "value": 7500,
-            "executed_at": (datetime.utcnow() - timedelta(days=3)).isoformat()
+            "executed_at": (datetime.now(timezone.utc) - timedelta(days=3)).isoformat()
         }
         
         await settlement_engine.create_settlement("TRD-TEST-002", trade_data)

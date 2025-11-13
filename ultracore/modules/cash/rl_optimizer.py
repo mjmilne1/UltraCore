@@ -382,7 +382,7 @@ class CashOptimizationRL:
             "episode_id": len(self.episodes) + 1,
             "total_reward": total_reward,
             "final_balances": balances,
-            "trained_at": datetime.utcnow().isoformat()
+            "trained_at": datetime.now(timezone.utc).isoformat()
         })
         
         self.rewards_history.append(total_reward)

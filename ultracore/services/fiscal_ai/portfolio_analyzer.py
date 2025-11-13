@@ -88,7 +88,7 @@ class PortfolioAnalyzer:
                 "roe": statistics.mean(roe_values) if roe_values else None,
                 "debt": statistics.mean(debt_to_equity) if debt_to_equity else None,
             }),
-            "analyzed_at": datetime.utcnow().isoformat()
+            "analyzed_at": datetime.now(timezone.utc).isoformat()
         }
     
     def _generate_health_insights(

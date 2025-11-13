@@ -44,8 +44,8 @@ class ClientService:
             "client_type": client_type,
             "status": ClientStatus.PROSPECT,
             "email": email,
-            "created_at": datetime.utcnow(),
-            "updated_at": datetime.utcnow(),
+            "created_at": datetime.now(timezone.utc),
+            "updated_at": datetime.now(timezone.utc),
             "created_by": created_by,
             **kwargs
         }
@@ -119,7 +119,7 @@ class ClientService:
             if hasattr(client, key):
                 setattr(client, key, value)
         
-        client.updated_at = datetime.utcnow()
+        client.updated_at = datetime.now(timezone.utc)
         
         # Update in Data Mesh
         mesh_result = client_data_mesh.update_client_data(

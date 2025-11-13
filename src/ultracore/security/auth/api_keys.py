@@ -39,7 +39,7 @@ class APIKey:
         self.scopes = scopes
         self.environment = environment
         self.is_active = True
-        self.created_at = datetime.utcnow()
+        self.created_at = datetime.now(timezone.utc)
         self.last_used: Optional[datetime] = None
         self.expires_at: Optional[datetime] = None
         self.rate_limit_per_minute = 100
@@ -90,7 +90,7 @@ class APIKeyManager:
         )
         
         if expires_in_days:
-            api_key.expires_at = datetime.utcnow() + timedelta(days=expires_in_days)
+            api_key.expires_at = datetime.now(timezone.utc) + timedelta(days=expires_in_days)
         
         if allowed_ips:
             api_key.allowed_ips = allowed_ips
@@ -135,7 +135,7 @@ class APIKeyManager:
             return None
         
         # Check expiry
-        if api_key.expires_at and datetime.utcnow() > api_key.expires_at:
+        if api_key.expires_at and datetime.now(timezone.utc) > api_key.expires_at:
             return None
         
         # Check IP whitelist (zero-trust)
@@ -144,7 +144,7 @@ class APIKeyManager:
                 return None
         
         # Update last used
-        api_key.last_used = datetime.utcnow()
+        api_key.last_used = datetime.now(timezone.utc)
         
         return api_key
     
@@ -160,7 +160,7 @@ class APIKeyManager:
                 event_type='api_key_revoked',
                 event_data={
                     'key_id': key_id,
-                    'revoked_at': datetime.utcnow().isoformat()
+                    'revoked_at': datetime.now(timezone.utc).isoformat()
                 },
                 aggregate_id=key_id
             ))

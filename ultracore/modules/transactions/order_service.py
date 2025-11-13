@@ -64,8 +64,8 @@ class OrderManagementService:
             "stop_price": stop_price,
             "time_in_force": time_in_force,
             "status": OrderStatus.DRAFT,
-            "created_at": datetime.utcnow().isoformat(),
-            "updated_at": datetime.utcnow().isoformat(),
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "updated_at": datetime.now(timezone.utc).isoformat(),
             **kwargs
         }
         
@@ -191,7 +191,7 @@ class OrderManagementService:
         await self._update_order_status(order_id, OrderStatus.CANCELLED)
         
         order["cancellation_reason"] = reason
-        order["cancelled_at"] = datetime.utcnow().isoformat()
+        order["cancelled_at"] = datetime.now(timezone.utc).isoformat()
         
         # Produce cancellation event
         await transaction_kafka.produce_order_event(
@@ -227,7 +227,7 @@ class OrderManagementService:
         order["filled_quantity"] = new_filled
         order["remaining_quantity"] = order["quantity"] - new_filled
         order["avg_fill_price"] = avg_price
-        order["updated_at"] = datetime.utcnow().isoformat()
+        order["updated_at"] = datetime.now(timezone.utc).isoformat()
         
         # Determine new status
         if new_filled >= order["quantity"]:
@@ -308,7 +308,7 @@ class OrderManagementService:
         order = self.orders.get(order_id)
         if order:
             order["status"] = new_status
-            order["updated_at"] = datetime.utcnow().isoformat()
+            order["updated_at"] = datetime.now(timezone.utc).isoformat()
             
             # Update in Data Mesh
             await transaction_data_mesh.ingest_order(

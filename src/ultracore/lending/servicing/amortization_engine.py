@@ -132,7 +132,7 @@ class AmortizationEngine:
     ) -> AmortizationSchedule:
         """Generate amortization schedule for loan"""
         
-        schedule_id = f"SCH-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        schedule_id = f"SCH-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         
         terms = loan_account.terms
         
@@ -200,7 +200,7 @@ class AmortizationEngine:
         schedule = AmortizationSchedule(
             schedule_id=schedule_id,
             loan_account_id=loan_account.account_id,
-            generated_date=datetime.utcnow(),
+            generated_date=datetime.now(timezone.utc),
             principal_amount=terms.principal_amount,
             interest_rate=terms.interest_rate,
             term_months=terms.term_months,
@@ -300,7 +300,7 @@ class AmortizationEngine:
         schedule = AmortizationSchedule(
             schedule_id=schedule_id,
             loan_account_id=loan_account.account_id,
-            generated_date=datetime.utcnow(),
+            generated_date=datetime.now(timezone.utc),
             principal_amount=terms.principal_amount,
             interest_rate=terms.interest_rate,
             term_months=terms.term_months,
@@ -453,7 +453,7 @@ class AmortizationEngine:
         schedule = AmortizationSchedule(
             schedule_id=schedule_id,
             loan_account_id=loan_account.account_id,
-            generated_date=datetime.utcnow(),
+            generated_date=datetime.now(timezone.utc),
             principal_amount=terms.principal_amount,
             interest_rate=terms.interest_rate,
             term_months=terms.term_months,

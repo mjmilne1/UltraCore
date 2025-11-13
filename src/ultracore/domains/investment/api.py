@@ -6,7 +6,7 @@ from pydantic import BaseModel
 from decimal import Decimal
 import uuid
 
-from ultracore.domains.investment.complete_aggregate import (
+# from ultracore.domains.investment.complete_aggregate import (  # TODO: Fix import path
     CompleteInvestmentAggregate,
     OrderSide,
     OrderType

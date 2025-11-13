@@ -10,7 +10,7 @@ from enum import Enum
 import random
 
 from ultracore.infrastructure.event_store.store import get_event_store
-from ultracore.domains.account.aggregate import AccountAggregate
+# from ultracore.domains.account.aggregate import AccountAggregate  # TODO: Fix import path
 
 
 class SecurityType(str, Enum):
@@ -76,7 +76,7 @@ class PortfolioAggregate:
             'client_id': client_id,
             'portfolio_name': portfolio_name,
             'initial_cash': str(initial_cash),
-            'created_at': datetime.utcnow().isoformat()
+            'created_at': datetime.now(timezone.utc).isoformat()
         }
         
         await store.append(
@@ -131,7 +131,7 @@ class PortfolioAggregate:
             'quantity': quantity,
             'execution_price': str(execution_price),
             'total_value': str(total_cost),
-            'executed_at': datetime.utcnow().isoformat()
+            'executed_at': datetime.now(timezone.utc).isoformat()
         }
         
         await store.append(

@@ -322,7 +322,7 @@ class TradeExecutionEngine:
             "quantity": quantity,
             "price": price,
             "value": quantity * price,
-            "executed_at": datetime.utcnow().isoformat(),
+            "executed_at": datetime.now(timezone.utc).isoformat(),
             "market_data": {
                 "mid_price": market_data.get("mid_price"),
                 "spread": market_data.get("spread"),

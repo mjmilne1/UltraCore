@@ -77,7 +77,7 @@ class CompleteClientAggregate:
             'phone': phone,
             'date_of_birth': date_of_birth,
             'address': address,
-            'onboarded_at': datetime.utcnow().isoformat()
+            'onboarded_at': datetime.now(timezone.utc).isoformat()
         }
         
         # Write to Kafka FIRST
@@ -113,7 +113,7 @@ class CompleteClientAggregate:
         event_data = {
             'client_id': self.client_id,
             'documents': documents,
-            'submitted_at': datetime.utcnow().isoformat()
+            'submitted_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -148,7 +148,7 @@ class CompleteClientAggregate:
             'kyc_approved': is_approved,
             'aml_result': aml_result,
             'risk_assessment': risk_assessment,
-            'verified_at': datetime.utcnow().isoformat()
+            'verified_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -193,7 +193,7 @@ class CompleteClientAggregate:
         
         event_data = {
             'client_id': self.client_id,
-            'activated_at': datetime.utcnow().isoformat()
+            'activated_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -212,7 +212,7 @@ class CompleteClientAggregate:
         event_data = {
             'client_id': self.client_id,
             'account_id': account_id,
-            'linked_at': datetime.utcnow().isoformat()
+            'linked_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -231,7 +231,7 @@ class CompleteClientAggregate:
         event_data = {
             'client_id': self.client_id,
             'loan_id': loan_id,
-            'linked_at': datetime.utcnow().isoformat()
+            'linked_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -284,7 +284,7 @@ class CompleteClientAggregate:
         return {
             'is_suspicious': is_suspicious,
             'aml_flags': aml_flags,
-            'checked_at': datetime.utcnow().isoformat()
+            'checked_at': datetime.now(timezone.utc).isoformat()
         }
     
     async def _assess_client_risk(self) -> Dict:

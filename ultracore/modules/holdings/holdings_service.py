@@ -50,7 +50,7 @@ class HoldingsService:
         position_id = f"POS-{self.position_counter:08d}"
         
         if purchase_date is None:
-            purchase_date = datetime.utcnow()
+            purchase_date = datetime.now(timezone.utc)
         
         cost_basis = quantity * purchase_price
         
@@ -67,8 +67,8 @@ class HoldingsService:
             "unrealized_gl": 0,
             "unrealized_gl_pct": 0,
             "status": "open",
-            "created_at": datetime.utcnow().isoformat(),
-            "last_updated": datetime.utcnow().isoformat(),
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "last_updated": datetime.now(timezone.utc).isoformat(),
             "transaction_id": transaction_id
         }
         
@@ -123,7 +123,7 @@ class HoldingsService:
             return {"error": "Position not found"}
         
         if sale_date is None:
-            sale_date = datetime.utcnow()
+            sale_date = datetime.now(timezone.utc)
         
         quantity = position["quantity"]
         cost_basis = position["cost_basis"]
@@ -140,8 +140,8 @@ class HoldingsService:
             "sale_proceeds": sale_proceeds,
             "realized_gl": realized_gl,
             "realized_gl_pct": realized_gl_pct,
-            "closed_at": datetime.utcnow().isoformat(),
-            "last_updated": datetime.utcnow().isoformat(),
+            "closed_at": datetime.now(timezone.utc).isoformat(),
+            "last_updated": datetime.now(timezone.utc).isoformat(),
             "closing_transaction_id": transaction_id
         })
         
@@ -209,7 +209,7 @@ class HoldingsService:
             "market_value": market_value,
             "unrealized_gl": unrealized_gl,
             "unrealized_gl_pct": unrealized_gl_pct,
-            "last_updated": datetime.utcnow().isoformat()
+            "last_updated": datetime.now(timezone.utc).isoformat()
         })
         
         # Update in Data Mesh
@@ -344,7 +344,7 @@ class HoldingsService:
             "return_pct": (unrealized_gl / total_cost * 100) if total_cost > 0 else 0,
             "positions_count": len(positions),
             "positions": positions,
-            "last_updated": datetime.utcnow().isoformat()
+            "last_updated": datetime.now(timezone.utc).isoformat()
         }
         
         # Produce valuation event

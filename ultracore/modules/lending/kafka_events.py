@@ -49,7 +49,7 @@ class LendingKafkaProducer:
             "requested_amount": str(requested_amount),
             "term_months": term_months,
             "applicant_id": applicant_id,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         })
         
     def publish_application_submitted(
@@ -62,7 +62,7 @@ class LendingKafkaProducer:
             "event_type": "application.submitted",
             "application_id": application_id,
             "applicant_id": applicant_id,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         })
         
     def publish_credit_score_calculated(
@@ -79,7 +79,7 @@ class LendingKafkaProducer:
             "credit_score": credit_score,
             "risk_band": risk_band,
             "model_version": model_version,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         })
         
     def publish_affordability_assessed(
@@ -98,7 +98,7 @@ class LendingKafkaProducer:
             "monthly_surplus": str(monthly_surplus),
             "dti_ratio": str(dti_ratio),
             "risk_level": risk_level,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         })
         
     def publish_fraud_risk_assessed(
@@ -115,7 +115,7 @@ class LendingKafkaProducer:
             "fraud_risk_score": fraud_risk_score,
             "fraud_risk_level": fraud_risk_level,
             "flags": flags,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         })
         
     def publish_application_approved(
@@ -132,7 +132,7 @@ class LendingKafkaProducer:
             "approved_amount": str(approved_amount),
             "interest_rate": str(interest_rate),
             "approved_by": approved_by,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         })
         
     def publish_application_declined(
@@ -147,7 +147,7 @@ class LendingKafkaProducer:
             "application_id": application_id,
             "decline_reason": decline_reason,
             "declined_by": declined_by,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         })
         
     # ========================================================================
@@ -174,7 +174,7 @@ class LendingKafkaProducer:
             "principal_amount": str(principal_amount),
             "interest_rate": str(interest_rate),
             "term_months": term_months,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         })
         
     def publish_loan_disbursed(
@@ -193,7 +193,7 @@ class LendingKafkaProducer:
             "amount": str(amount),
             "disbursement_method": disbursement_method,
             "disbursement_date": disbursement_date.isoformat(),
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         })
         
     def publish_repayment_received(
@@ -214,7 +214,7 @@ class LendingKafkaProducer:
             "principal_portion": str(principal_portion),
             "interest_portion": str(interest_portion),
             "repayment_date": repayment_date.isoformat(),
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         })
         
     def publish_repayment_failed(
@@ -231,7 +231,7 @@ class LendingKafkaProducer:
             "repayment_id": repayment_id,
             "amount": str(amount),
             "failure_reason": failure_reason,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         })
         
     def publish_account_in_arrears(
@@ -248,7 +248,7 @@ class LendingKafkaProducer:
             "days_in_arrears": days_in_arrears,
             "arrears_amount": str(arrears_amount),
             "repayment_status": repayment_status,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         })
         
     def publish_account_defaulted(
@@ -263,7 +263,7 @@ class LendingKafkaProducer:
             "account_id": account_id,
             "outstanding_amount": str(outstanding_amount),
             "days_overdue": days_overdue,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         })
         
     def publish_hardship_arrangement_created(
@@ -280,7 +280,7 @@ class LendingKafkaProducer:
             "arrangement_id": arrangement_id,
             "arrangement_type": arrangement_type,
             "duration_months": duration_months,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         })
         
     def publish_loan_paid_off(
@@ -297,7 +297,7 @@ class LendingKafkaProducer:
             "final_payment_amount": str(final_payment_amount),
             "total_interest_paid": str(total_interest_paid),
             "payoff_date": payoff_date.isoformat(),
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         })
         
     # ========================================================================
@@ -318,7 +318,7 @@ class LendingKafkaProducer:
             "collateral_type": collateral_type,
             "current_value": str(current_value),
             "owner_id": owner_id,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         })
         
     def publish_collateral_valued(
@@ -335,7 +335,7 @@ class LendingKafkaProducer:
             "valuation_id": valuation_id,
             "valued_amount": str(valued_amount),
             "valuation_method": valuation_method,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         })
         
     def publish_collateral_linked_to_loan(
@@ -352,7 +352,7 @@ class LendingKafkaProducer:
             "account_id": account_id,
             "allocated_value": str(allocated_value),
             "lvr": str(lvr),
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         })
         
     def publish_ppsr_registered(
@@ -367,7 +367,7 @@ class LendingKafkaProducer:
             "collateral_id": collateral_id,
             "ppsr_registration_number": ppsr_registration_number,
             "registration_date": registration_date.isoformat(),
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         })
         
     # ========================================================================
@@ -390,7 +390,7 @@ class LendingKafkaProducer:
             "product_name": product_name,
             "product_type": product_type,
             "base_interest_rate": str(base_interest_rate),
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         })
         
     def publish_interest_rate_changed(
@@ -407,7 +407,7 @@ class LendingKafkaProducer:
             "old_rate": str(old_rate),
             "new_rate": str(new_rate),
             "effective_date": effective_date.isoformat(),
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         })
 
 

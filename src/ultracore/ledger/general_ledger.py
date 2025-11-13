@@ -87,7 +87,7 @@ class GeneralLedger:
                 for c in entry.credits
             ],
             'total_amount': str(total_debits),
-            'posted_at': datetime.utcnow().isoformat()
+            'posted_at': datetime.now(timezone.utc).isoformat()
         }
         
         await store.append(
@@ -120,7 +120,7 @@ class GeneralLedger:
         """
         entry = JournalEntry(
             entry_id=f'JE-LOAN-{loan_id}',
-            date=datetime.utcnow().isoformat(),
+            date=datetime.now(timezone.utc).isoformat(),
             description=f'Loan disbursement to customer {customer_id}',
             reference=loan_id,
             debits=[
@@ -145,8 +145,8 @@ class GeneralLedger:
         CR: Interest Income
         """
         entry = JournalEntry(
-            entry_id=f'JE-INT-{loan_id}-{datetime.utcnow().timestamp()}',
-            date=datetime.utcnow().isoformat(),
+            entry_id=f'JE-INT-{loan_id}-{datetime.now(timezone.utc).timestamp()}',
+            date=datetime.now(timezone.utc).isoformat(),
             description=f'Interest income accrual for loan {loan_id}',
             reference=loan_id,
             debits=[
@@ -210,7 +210,7 @@ class GeneralLedger:
         total_credits = sum(b['credit'] for b in balances.values())
         
         return {
-            'as_of': datetime.utcnow().isoformat(),
+            'as_of': datetime.now(timezone.utc).isoformat(),
             'accounts': {
                 code: {
                     'account_name': data['account_name'],

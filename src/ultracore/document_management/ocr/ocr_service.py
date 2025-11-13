@@ -61,7 +61,7 @@ class OCRService:
                 'document_id': document.document_id,
                 'confidence': ocr_result['confidence'],
                 'text_length': len(ocr_result['text']),
-                'processed_at': datetime.utcnow().isoformat()
+                'processed_at': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=document.document_id
         )

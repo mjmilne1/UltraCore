@@ -66,7 +66,7 @@ class RiskAggregate:
             'risk_type': risk_type.value,
             'risk_score': risk_result['risk_score'],
             'risk_level': risk_result['risk_level'].value,
-            'assessed_at': datetime.utcnow().isoformat()
+            'assessed_at': datetime.now(timezone.utc).isoformat()
         }
         
         await store.append(

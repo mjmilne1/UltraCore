@@ -193,7 +193,7 @@ class CollectionsManager:
     
     async def create_collections_case(self, loan_account: LoanAccount) -> CollectionsCase:
         """Create collections case for delinquent account"""
-        case_id = f"CASE-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        case_id = f"CASE-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         dpd = loan_account.days_past_due
         
         if dpd <= 30:
@@ -218,14 +218,14 @@ class CollectionsManager:
     async def send_payment_reminder(self, loan_account: LoanAccount, reminder_type: str = "EMAIL") -> CollectionsActionRecord:
         """Send automated payment reminder"""
         case = await self._get_or_create_case(loan_account)
-        action_id = f"ACT-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        action_id = f"ACT-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         
         action = CollectionsActionRecord(
             action_id=action_id,
             case_id=case.case_id,
             loan_account_id=loan_account.account_id,
             action_type=CollectionsAction.PAYMENT_REMINDER,
-            action_date=datetime.utcnow(),
+            action_date=datetime.now(timezone.utc),
             description=f"Payment reminder sent via {reminder_type}",
             outcome="SENT",
             agent_id="SYSTEM"
@@ -233,9 +233,9 @@ class CollectionsManager:
         
         self.actions[action_id] = action
         case.action_count += 1
-        case.last_action_date = datetime.utcnow()
+        case.last_action_date = datetime.now(timezone.utc)
         case.next_action_date = date.today() + timedelta(days=7)
-        case.updated_at = datetime.utcnow()
+        case.updated_at = datetime.now(timezone.utc)
         
         await self.delinquency_tracker.record_contact_attempt(
             loan_account_id=loan_account.account_id,
@@ -250,14 +250,14 @@ class CollectionsManager:
     async def schedule_phone_call(self, loan_account: LoanAccount, agent_id: str, call_date: date) -> CollectionsActionRecord:
         """Schedule phone call with customer"""
         case = await self._get_or_create_case(loan_account)
-        action_id = f"ACT-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        action_id = f"ACT-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         
         action = CollectionsActionRecord(
             action_id=action_id,
             case_id=case.case_id,
             loan_account_id=loan_account.account_id,
             action_type=CollectionsAction.PHONE_CALL,
-            action_date=datetime.utcnow(),
+            action_date=datetime.now(timezone.utc),
             description="Phone call scheduled",
             agent_id=agent_id,
             follow_up_required=True,
@@ -266,7 +266,7 @@ class CollectionsManager:
         
         self.actions[action_id] = action
         case.next_action_date = call_date
-        case.updated_at = datetime.utcnow()
+        case.updated_at = datetime.now(timezone.utc)
         
         return action
     
@@ -310,14 +310,14 @@ class CollectionsManager:
     async def send_demand_letter(self, loan_account: LoanAccount, agent_id: str) -> CollectionsActionRecord:
         """Send formal demand letter"""
         case = await self._get_or_create_case(loan_account)
-        action_id = f"ACT-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        action_id = f"ACT-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         
         action = CollectionsActionRecord(
             action_id=action_id,
             case_id=case.case_id,
             loan_account_id=loan_account.account_id,
             action_type=CollectionsAction.DEMAND_LETTER,
-            action_date=datetime.utcnow(),
+            action_date=datetime.now(timezone.utc),
             description="Formal demand letter sent",
             outcome="SENT",
             agent_id=agent_id,
@@ -326,9 +326,9 @@ class CollectionsManager:
         
         self.actions[action_id] = action
         case.action_count += 1
-        case.last_action_date = datetime.utcnow()
+        case.last_action_date = datetime.now(timezone.utc)
         case.next_action_date = date.today() + timedelta(days=14)
-        case.updated_at = datetime.utcnow()
+        case.updated_at = datetime.now(timezone.utc)
         
         return action
     
@@ -338,8 +338,8 @@ class CollectionsManager:
         
         case.stage = CollectionsStage.LEGAL
         case.escalated = True
-        case.escalation_date = datetime.utcnow()
-        case.updated_at = datetime.utcnow()
+        case.escalation_date = datetime.now(timezone.utc)
+        case.updated_at = datetime.now(timezone.utc)
         case.notes.append(f"Escalated to legal by {escalated_by}")
         
         await self.audit_store.log_event(
@@ -371,7 +371,7 @@ class CollectionsManager:
         requested_resolution: HardshipResolution
     ) -> HardshipApplication:
         """Submit financial hardship application"""
-        app_id = f"HARD-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        app_id = f"HARD-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         
         application = HardshipApplication(
             application_id=app_id,
@@ -401,12 +401,12 @@ class CollectionsManager:
             raise ValueError(f"Application {application_id} not found")
         
         application.assessed = True
-        application.assessed_date = datetime.utcnow()
+        application.assessed_date = datetime.now(timezone.utc)
         application.assessed_by = assessed_by
         application.approved = approved
         
         if approved:
-            application.approval_date = datetime.utcnow()
+            application.approval_date = datetime.now(timezone.utc)
             application.approved_resolution = approved_resolution or application.requested_resolution
             application.active = True
             application.end_date = date.today() + timedelta(days=application.expected_duration_months * 30)
@@ -441,7 +441,7 @@ class CollectionsManager:
         notes: Optional[str] = None
     ) -> WriteOff:
         """Write off uncollectable loan"""
-        writeoff_id = f"WO-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        writeoff_id = f"WO-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         balance = loan_account.current_balance
         
         writeoff = WriteOff(
@@ -475,7 +475,7 @@ class CollectionsManager:
         if case:
             case.active = False
             case.closed = True
-            case.closed_date = datetime.utcnow()
+            case.closed_date = datetime.now(timezone.utc)
             case.close_reason = f"Write-off: {writeoff_reason.value}"
         
         await self.audit_store.log_event(

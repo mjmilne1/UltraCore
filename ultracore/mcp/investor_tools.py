@@ -55,7 +55,7 @@ class InvestorMCPTools:
         from ..modules.investor_management.models import CreateInvestorRequest, InvestorType
         
         request = CreateInvestorRequest(
-            external_id=f"EXT-{datetime.utcnow().timestamp()}",
+            external_id=f"EXT-{datetime.now(timezone.utc).timestamp()}",
             investor_name=investor_name,
             investor_type=InvestorType(investor_type),
             email=email,

@@ -85,7 +85,7 @@ class InvestorKafkaProducer:
         event_record = {
             "topic": topic,
             "event": event,
-            "published_at": datetime.utcnow().isoformat()
+            "published_at": datetime.now(timezone.utc).isoformat()
         }
         self.events_published.append(event_record)
         
@@ -105,9 +105,9 @@ class InvestorKafkaProducer:
         """Publish investor created event"""
         
         event = {
-            "event_id": f"evt_inv_{datetime.utcnow().timestamp()}",
+            "event_id": f"evt_inv_{datetime.now(timezone.utc).timestamp()}",
             "event_type": InvestorEventType.INVESTOR_CREATED,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "investor_id": investor_id,
             "external_id": external_id,
             "investor_name": investor_name,
@@ -116,7 +116,7 @@ class InvestorKafkaProducer:
             "metadata": {
                 "source": "investor_management_service",
                 "version": "1.0",
-                "correlation_id": f"corr_{datetime.utcnow().timestamp()}"
+                "correlation_id": f"corr_{datetime.now(timezone.utc).timestamp()}"
             }
         }
         
@@ -138,9 +138,9 @@ class InvestorKafkaProducer:
         """Publish transfer initiated event"""
         
         event = {
-            "event_id": f"evt_trf_{datetime.utcnow().timestamp()}",
+            "event_id": f"evt_trf_{datetime.now(timezone.utc).timestamp()}",
             "event_type": InvestorEventType.TRANSFER_INITIATED,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "transfer_id": transfer_id,
             "loan_id": loan_id,
             "from_investor_id": from_investor_id,
@@ -154,7 +154,7 @@ class InvestorKafkaProducer:
             "metadata": {
                 "source": "investor_management_service",
                 "version": "1.0",
-                "correlation_id": f"corr_{datetime.utcnow().timestamp()}"
+                "correlation_id": f"corr_{datetime.now(timezone.utc).timestamp()}"
             }
         }
         
@@ -170,9 +170,9 @@ class InvestorKafkaProducer:
         """Publish transfer approved event"""
         
         event = {
-            "event_id": f"evt_trf_{datetime.utcnow().timestamp()}",
+            "event_id": f"evt_trf_{datetime.now(timezone.utc).timestamp()}",
             "event_type": InvestorEventType.TRANSFER_APPROVED,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "transfer_id": transfer_id,
             "loan_id": loan_id,
             "to_investor_id": to_investor_id,
@@ -197,9 +197,9 @@ class InvestorKafkaProducer:
         """Publish loan ownership transferred event"""
         
         event = {
-            "event_id": f"evt_own_{datetime.utcnow().timestamp()}",
+            "event_id": f"evt_own_{datetime.now(timezone.utc).timestamp()}",
             "event_type": InvestorEventType.LOAN_OWNERSHIP_TRANSFERRED,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "loan_id": loan_id,
             "transfer_id": transfer_id,
             "from_owner": from_owner or "ORIGINATOR",
@@ -226,9 +226,9 @@ class InvestorKafkaProducer:
         """Publish payment routing activated event"""
         
         event = {
-            "event_id": f"evt_rte_{datetime.utcnow().timestamp()}",
+            "event_id": f"evt_rte_{datetime.now(timezone.utc).timestamp()}",
             "event_type": InvestorEventType.PAYMENT_ROUTING_ACTIVATED,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "routing_id": routing_id,
             "loan_id": loan_id,
             "investor_id": investor_id,
@@ -255,9 +255,9 @@ class InvestorKafkaProducer:
         """Publish payment routed to investor event"""
         
         event = {
-            "event_id": f"evt_pay_{datetime.utcnow().timestamp()}",
+            "event_id": f"evt_pay_{datetime.now(timezone.utc).timestamp()}",
             "event_type": InvestorEventType.PAYMENT_ROUTED_TO_INVESTOR,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "payment_id": payment_id,
             "loan_id": loan_id,
             "investor_id": investor_id,
@@ -282,9 +282,9 @@ class InvestorKafkaProducer:
         """Publish AI investor matching event"""
         
         event = {
-            "event_id": f"evt_ai_{datetime.utcnow().timestamp()}",
+            "event_id": f"evt_ai_{datetime.now(timezone.utc).timestamp()}",
             "event_type": InvestorEventType.INVESTOR_MATCHED,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "loan_id": loan_id,
             "matched_investors": matched_investors,
             "match_score": match_score,
@@ -307,9 +307,9 @@ class InvestorKafkaProducer:
         """Publish AI pricing recommendation event"""
         
         event = {
-            "event_id": f"evt_ai_{datetime.utcnow().timestamp()}",
+            "event_id": f"evt_ai_{datetime.now(timezone.utc).timestamp()}",
             "event_type": InvestorEventType.PRICING_RECOMMENDED,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "loan_id": loan_id,
             "recommended_price_ratio": str(recommended_price_ratio),
             "confidence_score": confidence_score,
@@ -332,9 +332,9 @@ class InvestorKafkaProducer:
         """Publish securitization pool created event"""
         
         event = {
-            "event_id": f"evt_sec_{datetime.utcnow().timestamp()}",
+            "event_id": f"evt_sec_{datetime.now(timezone.utc).timestamp()}",
             "event_type": InvestorEventType.SECURITIZATION_POOL_CREATED,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "pool_id": pool_id,
             "pool_name": pool_name,
             "spv_investor_id": spv_investor_id,

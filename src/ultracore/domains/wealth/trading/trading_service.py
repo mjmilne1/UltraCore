@@ -8,7 +8,7 @@ from ultracore.infrastructure.event_store import EventStore
 from ultracore.infrastructure.kafka_event_store import KafkaEventStore
 from ..events import TradeExecutedEvent, PortfolioFundedEvent
 from ..models import Trade, TradeSide
-from ultracore.domains.accounts.ledger import UltraLedgerService
+# from ultracore.domains.accounts.ledger import UltraLedgerService  # TODO: Fix import path
 
 
 class TradingService:
@@ -98,7 +98,7 @@ class TradingService:
             total_cost=total_cost,
             trade_date=trade_date,
             settlement_date=settlement_date,
-            executed_at=datetime.utcnow(),
+            executed_at=datetime.now(timezone.utc),
             executed_by=customer_id,
             order_type=order_type
         )
@@ -119,7 +119,7 @@ class TradingService:
             total_cost=total_cost,
             trade_date=trade_date,
             settlement_date=settlement_date,
-            executed_at=datetime.utcnow(),
+            executed_at=datetime.now(timezone.utc),
             executed_by=customer_id
         )
         
@@ -243,5 +243,5 @@ class TradingService:
             "pe_ratio": 16.5,
             "dividend_yield": 4.2,
             "exchange": "ASX",
-            "last_updated": datetime.utcnow().isoformat()
+            "last_updated": datetime.now(timezone.utc).isoformat()
         }

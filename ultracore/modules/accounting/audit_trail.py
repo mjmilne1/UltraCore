@@ -35,7 +35,7 @@ class AuditTrail:
         
         audit_entry = {
             "audit_id": f"AUDIT-{self.log_counter:08d}",
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "event_type": event_type,
             "entity_type": entity_type,
             "entity_id": entity_id,

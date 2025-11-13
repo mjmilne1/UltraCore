@@ -85,7 +85,7 @@ class AuditLogger:
         """
         event_data = {
             'event_type': event_type.value,
-            'timestamp': datetime.utcnow().isoformat(),
+            'timestamp': datetime.now(timezone.utc).isoformat(),
             'user_id': user_id,
             'resource_type': resource_type,
             'resource_id': resource_id,
@@ -102,13 +102,13 @@ class AuditLogger:
             entity='audit',
             event_type='audit_log',
             event_data=event_data,
-            aggregate_id=f"{user_id or 'system'}_{datetime.utcnow().timestamp()}"
+            aggregate_id=f"{user_id or 'system'}_{datetime.now(timezone.utc).timestamp()}"
         )
         
         # Also publish to Data Mesh for analytics
         from ultracore.data_mesh.integration import DataMeshPublisher
         await DataMeshPublisher.publish_transaction_data(
-            f"AUDIT-{datetime.utcnow().timestamp()}",
+            f"AUDIT-{datetime.now(timezone.utc).timestamp()}",
             {
                 **event_data,
                 'data_classification': 'CONFIDENTIAL'

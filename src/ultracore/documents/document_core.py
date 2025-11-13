@@ -171,7 +171,7 @@ class DocumentStore:
         """Create a new document with initial version"""
         
         # Generate document ID
-        document_id = f"DOC-{datetime.utcnow().strftime('%Y%m%d%H%M%S')}"
+        document_id = f"DOC-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}"
         
         # Calculate content hash
         content_hash = hashlib.sha256(content).hexdigest()
@@ -185,7 +185,7 @@ class DocumentStore:
             content_hash=content_hash,
             file_size_bytes=len(content),
             mime_type=mime_type,
-            created_at=datetime.utcnow(),
+            created_at=datetime.now(timezone.utc),
             created_by=created_by,
             change_summary="Initial version",
             storage_path=storage_path
@@ -261,7 +261,7 @@ class DocumentStore:
             content_hash=content_hash,
             file_size_bytes=len(content),
             mime_type=mime_type,
-            created_at=datetime.utcnow(),
+            created_at=datetime.now(timezone.utc),
             created_by=created_by,
             change_summary=change_summary,
             storage_path=storage_path
@@ -270,7 +270,7 @@ class DocumentStore:
         # Update document
         document.versions.append(version)
         document.current_version = version.version_number
-        document.updated_at = datetime.utcnow()
+        document.updated_at = datetime.now(timezone.utc)
         document.processing_status = ProcessingStatus.PENDING  # Reprocess
         
         # Publish event
@@ -296,7 +296,7 @@ class DocumentStore:
         if document:
             # Record access
             document.accessed_by.append({
-                'timestamp': datetime.utcnow().isoformat(),
+                'timestamp': datetime.now(timezone.utc).isoformat(),
                 'action': 'READ'
             })
         
@@ -360,7 +360,7 @@ class DocumentStore:
         
         old_status = document.status
         document.status = new_status
-        document.updated_at = datetime.utcnow()
+        document.updated_at = datetime.now(timezone.utc)
         
         # Publish event
         kafka_store = get_production_kafka_store()
@@ -392,7 +392,7 @@ class DocumentStore:
         
         if user_id not in document.access_list:
             document.access_list.append(user_id)
-            document.updated_at = datetime.utcnow()
+            document.updated_at = datetime.now(timezone.utc)
             
             # Publish event
             kafka_store = get_production_kafka_store()

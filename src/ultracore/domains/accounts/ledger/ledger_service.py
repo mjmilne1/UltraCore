@@ -138,7 +138,7 @@ class UltraLedgerService:
         Bank sees liability increase (owes customer more).
         """
         
-        transaction_time = transaction_time or datetime.utcnow()
+        transaction_time = transaction_time or datetime.now(timezone.utc)
         valid_time = valid_time or transaction_time
         
         entry_id = f"DEP-{uuid.uuid4().hex[:12].upper()}"
@@ -204,7 +204,7 @@ class UltraLedgerService:
         Bank sees liability decrease (owes customer less).
         """
         
-        transaction_time = transaction_time or datetime.utcnow()
+        transaction_time = transaction_time or datetime.now(timezone.utc)
         valid_time = valid_time or transaction_time
         
         entry_id = f"WDL-{uuid.uuid4().hex[:12].upper()}"
@@ -263,7 +263,7 @@ class UltraLedgerService:
         - CREDIT: From Account (liability decreases)
         """
         
-        transaction_time = transaction_time or datetime.utcnow()
+        transaction_time = transaction_time or datetime.now(timezone.utc)
         valid_time = valid_time or transaction_time
         
         entry_id = f"TRF-{uuid.uuid4().hex[:12].upper()}"

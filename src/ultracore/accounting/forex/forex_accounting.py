@@ -278,7 +278,7 @@ class ForexAccountingEngine:
         Automatically calculates and posts realized gain/loss
         """
         
-        transaction_id = f"FX-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        transaction_id = f"FX-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         
         # Get exchange rate
         if rate:
@@ -314,7 +314,7 @@ class ForexAccountingEngine:
         # Create transaction record
         transaction = ForexTransaction(
             transaction_id=transaction_id,
-            transaction_date=datetime.utcnow(),
+            transaction_date=datetime.now(timezone.utc),
             from_currency=from_currency,
             to_currency=to_currency,
             from_amount=from_amount,
@@ -469,7 +469,7 @@ class ForexAccountingEngine:
         Tracks foreign currency holdings
         """
         
-        position_id = f"POS-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        position_id = f"POS-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         
         # Get current rate if not provided
         if not rate:
@@ -529,7 +529,7 @@ class ForexAccountingEngine:
         
         position.foreign_currency_amount += amount_change
         position.base_currency_amount = position.foreign_currency_amount * position.original_rate
-        position.updated_at = datetime.utcnow()
+        position.updated_at = datetime.now(timezone.utc)
         
         # Recalculate unrealized gain/loss
         await self.revalue_position(position_id)
@@ -575,7 +575,7 @@ class ForexAccountingEngine:
         
         # Update valuation date
         position.valuation_date = val_date
-        position.updated_at = datetime.utcnow()
+        position.updated_at = datetime.now(timezone.utc)
         
         return position
     
@@ -645,7 +645,7 @@ class ForexAccountingEngine:
                 )
                 position.last_revaluation_date = revaluation_date
                 position.last_revaluation_rate = rate_obj.rate
-                position.updated_at = datetime.utcnow()
+                position.updated_at = datetime.now(timezone.utc)
                 
                 # Accumulate totals
                 total_foreign_amount += position.foreign_currency_amount
@@ -657,7 +657,7 @@ class ForexAccountingEngine:
             unrealized_gain_loss = total_new_base - total_previous_base
             
             # Create revaluation entry
-            revaluation_id = f"REVAL-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+            revaluation_id = f"REVAL-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
             
             previous_rate = positions[0].current_rate if positions else Decimal('1.0')
             rate_change = float((rate_obj.rate - previous_rate) / previous_rate * 100) if previous_rate else 0.0

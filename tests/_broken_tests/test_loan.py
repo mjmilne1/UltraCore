@@ -5,7 +5,7 @@ TuringDynamics Division
 """
 
 import pytest
-from ultracore.domains.loan.aggregates import Loan, LoanStatus
+# from ultracore.domains.loan.aggregates import Loan, LoanStatus  # TODO: Fix import path
 
 def test_create_loan():
     loan = Loan("LOAN-001")

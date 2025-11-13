@@ -11,8 +11,8 @@ sys.path.insert(0, 'src')
 # Set your API key here for testing
 # os.environ["OPENAI_API_KEY"] = "sk-your-key-here"
 
-from ultracore.payments.openai_assistant import OpenAIPaymentAssistant
-from ultracore.payments.agentic_orchestrator import AgenticPaymentOrchestrator
+# from ultracore.payments.openai_assistant import OpenAIPaymentAssistant  # TODO: Fix import path
+# from ultracore.payments.agentic_orchestrator import AgenticPaymentOrchestrator  # TODO: Fix import path
 
 async def test_openai_system():
     print("\n" + "="*60)

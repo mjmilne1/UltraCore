@@ -22,8 +22,8 @@ from enum import Enum
 import json
 from pydantic import BaseModel, ValidationError
 
-from ultracore.general_ledger.journal import JournalService
-from ultracore.payments.payment_service import PaymentService
+from ultracore.modules.accounting.general_ledger.journal import JournalService
+# from ultracore.payments.payment_service import PaymentService  # TODO: Fix import path
 from ultracore.notifications.notification_service import NotificationService
 from ultracore.document_management.storage.document_storage import DocumentStorage
 
@@ -50,7 +50,7 @@ class ContractTestResult:
         self.provider = provider
         self.status = status
         self.error_message = error_message
-        self.tested_at = datetime.utcnow()
+        self.tested_at = datetime.now(timezone.utc)
     
     def to_dict(self) -> Dict:
         return {
@@ -266,7 +266,7 @@ class TestPaymentEventContract:
             'currency': 'AUD',
             'payment_method': 'CARD',
             'status': 'INITIATED',
-            'initiated_at': datetime.utcnow().isoformat()
+            'initiated_at': datetime.now(timezone.utc).isoformat()
         }
         
         # Verify schema compliance
@@ -377,7 +377,7 @@ class TestDocumentUploadContract:
             'file_name': 'passport.jpg',
             'document_type': 'PASSPORT',
             'status': 'UPLOADED',
-            'uploaded_at': datetime.utcnow().isoformat()
+            'uploaded_at': datetime.now(timezone.utc).isoformat()
         }
         
         # Verify contract
@@ -422,7 +422,7 @@ class TestDataMeshContract:
             'customer_id': 'CUST-001',
             'amount': '100.00',
             'transaction_type': 'PAYMENT',
-            'timestamp': datetime.utcnow().isoformat(),
+            'timestamp': datetime.now(timezone.utc).isoformat(),
             'metadata': {'channel': 'mobile'}
         }
         

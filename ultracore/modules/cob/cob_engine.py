@@ -303,13 +303,13 @@ class COBEngine:
         try:
             # Update status
             cob_run.status = COBRunStatus.IN_PROGRESS
-            cob_run.start_time = datetime.utcnow()
+            cob_run.start_time = datetime.now(timezone.utc)
             
             # Execute tasks with dependency resolution
             await self._execute_tasks_with_dependencies(run_id, business_date)
             
             # Calculate results
-            cob_run.end_time = datetime.utcnow()
+            cob_run.end_time = datetime.now(timezone.utc)
             cob_run.duration_seconds = (cob_run.end_time - cob_run.start_time).total_seconds()
             
             # Count task statuses
@@ -395,14 +395,14 @@ class COBEngine:
             run_id=run_id,
             task_id=task_id,
             task_type=task.task_type,
-            scheduled_time=datetime.utcnow(),
+            scheduled_time=datetime.now(timezone.utc),
             status=COBTaskStatus.RUNNING
         )
         
         self.executions[execution_id] = execution
         
         try:
-            execution.start_time = datetime.utcnow()
+            execution.start_time = datetime.now(timezone.utc)
             
             # Execute task based on type
             if task.task_type == COBTaskType.INTEREST_ACCRUAL:
@@ -426,7 +426,7 @@ class COBEngine:
             else:
                 records_processed = 0
             
-            execution.end_time = datetime.utcnow()
+            execution.end_time = datetime.now(timezone.utc)
             execution.duration_seconds = (execution.end_time - execution.start_time).total_seconds()
             execution.records_processed = records_processed
             execution.status = COBTaskStatus.COMPLETED
@@ -434,7 +434,7 @@ class COBEngine:
             return True
             
         except Exception as e:
-            execution.end_time = datetime.utcnow()
+            execution.end_time = datetime.now(timezone.utc)
             execution.status = COBTaskStatus.FAILED
             execution.error_message = str(e)
             
@@ -451,7 +451,7 @@ class COBEngine:
             run_id=run_id,
             task_id=task_id,
             task_type=self.tasks[task_id].task_type,
-            scheduled_time=datetime.utcnow(),
+            scheduled_time=datetime.now(timezone.utc),
             status=COBTaskStatus.SKIPPED,
             error_message=reason
         )

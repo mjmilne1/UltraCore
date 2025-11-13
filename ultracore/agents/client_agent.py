@@ -319,7 +319,7 @@ class ClientManagementAgent:
         if not date_of_birth:
             return 0
         from datetime import datetime
-        today = datetime.utcnow()
+        today = datetime.now(timezone.utc)
         return today.year - date_of_birth.year
     
     def _calculate_confidence(self, features: Dict[str, Any]) -> float:
@@ -376,7 +376,7 @@ class ClientManagementAgent:
         """Record agent decision for audit"""
         self.decision_history.append({
             "type": decision_type,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "decision": decision
         })
 

@@ -161,7 +161,7 @@ class FiscalAIService:
             ) if total_cost_basis > 0 else 0,
             "sector_allocation": sector_allocation,
             "holdings_count": len(enriched),
-            "calculated_at": datetime.utcnow().isoformat()
+            "calculated_at": datetime.now(timezone.utc).isoformat()
         }
     
     async def get_stock_performance(

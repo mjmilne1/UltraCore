@@ -96,8 +96,8 @@ class AccountService:
             overdraft_limit=Decimal("0.00"),
             tfn_provided=tfn is not None,
             opened_date=date.today(),
-            created_at=datetime.utcnow(),
-            updated_at=datetime.utcnow()
+            created_at=datetime.now(timezone.utc),
+            updated_at=datetime.now(timezone.utc)
         )
         
         # Publish event
@@ -123,7 +123,7 @@ class AccountService:
             customer_type="individual",
             opening_channel=kwargs.get("channel", "online"),
             opened_by=kwargs.get("opened_by", "system"),
-            opened_at=datetime.utcnow(),
+            opened_at=datetime.now(timezone.utc),
             ledger_account_id=account_id,
             ledger_entry_id=f"OPEN-{account_id}"
         )
@@ -203,8 +203,8 @@ class AccountService:
             interest_payment_frequency="monthly",
             linked_transactional_account=linked_transactional_account,
             opened_date=date.today(),
-            created_at=datetime.utcnow(),
-            updated_at=datetime.utcnow()
+            created_at=datetime.now(timezone.utc),
+            updated_at=datetime.now(timezone.utc)
         )
         
         # Publish event (similar to transactional)
@@ -228,7 +228,7 @@ class AccountService:
             customer_type="individual",
             opening_channel=kwargs.get("channel", "online"),
             opened_by=kwargs.get("opened_by", "system"),
-            opened_at=datetime.utcnow(),
+            opened_at=datetime.now(timezone.utc),
             ledger_account_id=account_id,
             ledger_entry_id=f"OPEN-{account_id}"
         )
@@ -288,7 +288,7 @@ class AccountService:
             source_account=source_account,
             deposit_method=kwargs.get("method", "transfer"),
             deposited_by=deposited_by,
-            deposited_at=datetime.utcnow(),
+            deposited_at=datetime.now(timezone.utc),
             ledger_entry_id=ledger_entry.entry_id,
             large_cash_transaction=is_large_cash,
             austrac_reportable=is_large_cash
@@ -357,7 +357,7 @@ class AccountService:
             destination_account=destination_account,
             withdrawal_method=kwargs.get("method", "transfer"),
             withdrawn_by=withdrawn_by,
-            withdrawn_at=datetime.utcnow(),
+            withdrawn_at=datetime.now(timezone.utc),
             ledger_entry_id=ledger_entry.entry_id
         )
         

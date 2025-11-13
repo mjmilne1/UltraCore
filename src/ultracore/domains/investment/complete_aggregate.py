@@ -48,7 +48,7 @@ class CompleteInvestmentAggregate:
             'portfolio_id': self.portfolio_id,
             'account_id': account_id,
             'initial_cash': str(initial_cash),
-            'created_at': datetime.utcnow().isoformat()
+            'created_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -72,7 +72,7 @@ class CompleteInvestmentAggregate:
         """Place investment order"""
         kafka_store = get_production_kafka_store()
         
-        order_id = f'ORD-{self.portfolio_id}-{datetime.utcnow().timestamp()}'
+        order_id = f'ORD-{self.portfolio_id}-{datetime.now(timezone.utc).timestamp()}'
         execution_price = limit_price or Decimal('100')
         
         event_data = {
@@ -84,7 +84,7 @@ class CompleteInvestmentAggregate:
             'order_type': order_type.value,
             'limit_price': str(limit_price) if limit_price else None,
             'status': OrderStatus.PLACED.value,
-            'placed_at': datetime.utcnow().isoformat()
+            'placed_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -128,7 +128,7 @@ class CompleteInvestmentAggregate:
             'execution_price': str(execution_price),
             'quantity': quantity,
             'total_cost': str(total_cost),
-            'filled_at': datetime.utcnow().isoformat()
+            'filled_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -172,7 +172,7 @@ class CompleteInvestmentAggregate:
         event_data = {
             'portfolio_id': self.portfolio_id,
             'optimization': optimization,
-            'optimized_at': datetime.utcnow().isoformat()
+            'optimized_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(

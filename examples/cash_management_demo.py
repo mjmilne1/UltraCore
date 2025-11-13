@@ -83,7 +83,7 @@ async def main():
         "account_id": account.account_id,
         "amount": float(deposit_amount),
         "transaction_type": "deposit",
-        "timestamp": datetime.utcnow().isoformat()
+        "timestamp": datetime.now(timezone.utc).isoformat()
     }
     
     fraud_analysis = fraud_detector_agent.analyze_transaction(
@@ -245,14 +245,14 @@ async def main():
         account_id=account.account_id,
         balance=balance_for_interest,
         annual_rate=3.5,
-        period_start=datetime.utcnow() - timedelta(days=30),
-        period_end=datetime.utcnow()
+        period_start=datetime.now(timezone.utc) - timedelta(days=30),
+        period_end=datetime.now(timezone.utc)
     )
     
     cash_account_service.credit_interest(
         account_id=account.account_id,
-        period_start=datetime.utcnow() - timedelta(days=30),
-        period_end=datetime.utcnow()
+        period_start=datetime.now(timezone.utc) - timedelta(days=30),
+        period_end=datetime.now(timezone.utc)
     )
     
     print(f"\n   ✅ Interest credited to account")

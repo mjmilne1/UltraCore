@@ -47,7 +47,7 @@ class AdditionalModulesKafkaProducer:
         event = {
             "event_type": "share_product_created",
             "event_id": self._generate_event_id(),
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "product_id": product_id,
             "product_code": product_code,
             "product_name": product_name,
@@ -66,7 +66,7 @@ class AdditionalModulesKafkaProducer:
         event = {
             "event_type": "share_product_updated",
             "event_id": self._generate_event_id(),
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "product_id": product_id,
             "product_code": product_code,
             "updated_fields": updated_fields
@@ -89,7 +89,7 @@ class AdditionalModulesKafkaProducer:
         event = {
             "event_type": "share_account_created",
             "event_id": self._generate_event_id(),
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "account_id": account_id,
             "account_number": account_number,
             "client_id": client_id,
@@ -108,7 +108,7 @@ class AdditionalModulesKafkaProducer:
         event = {
             "event_type": "shares_purchased",
             "event_id": self._generate_event_id(),
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "account_id": account_id,
             "num_shares": num_shares,
             "price_per_share": str(price_per_share),
@@ -126,7 +126,7 @@ class AdditionalModulesKafkaProducer:
         event = {
             "event_type": "shares_redeemed",
             "event_id": self._generate_event_id(),
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "account_id": account_id,
             "num_shares": num_shares,
             "redemption_price": str(redemption_price),
@@ -145,7 +145,7 @@ class AdditionalModulesKafkaProducer:
         event = {
             "event_type": "shares_transferred",
             "event_id": self._generate_event_id(),
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "from_account_id": from_account_id,
             "to_account_id": to_account_id,
             "num_shares": num_shares,
@@ -168,7 +168,7 @@ class AdditionalModulesKafkaProducer:
         event = {
             "event_type": "dividend_declared",
             "event_id": self._generate_event_id(),
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "dividend_id": dividend_id,
             "product_id": product_id,
             "amount_per_share": str(amount_per_share),
@@ -186,7 +186,7 @@ class AdditionalModulesKafkaProducer:
         event = {
             "event_type": "dividends_paid",
             "event_id": self._generate_event_id(),
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "dividend_id": dividend_id,
             "num_shareholders": num_shareholders,
             "total_paid": str(total_paid)
@@ -206,7 +206,7 @@ class AdditionalModulesKafkaProducer:
         event = {
             "event_type": "cob_started",
             "event_id": self._generate_event_id(),
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "run_id": run_id,
             "business_date": business_date.isoformat()
         }
@@ -224,7 +224,7 @@ class AdditionalModulesKafkaProducer:
         event = {
             "event_type": "cob_completed",
             "event_id": self._generate_event_id(),
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "run_id": run_id,
             "business_date": business_date.isoformat(),
             "status": status,
@@ -243,7 +243,7 @@ class AdditionalModulesKafkaProducer:
         event = {
             "event_type": "cob_failed",
             "event_id": self._generate_event_id(),
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "run_id": run_id,
             "business_date": business_date.isoformat(),
             "error_message": error_message
@@ -261,7 +261,7 @@ class AdditionalModulesKafkaProducer:
         event = {
             "event_type": "cob_task_started",
             "event_id": self._generate_event_id(),
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "execution_id": execution_id,
             "run_id": run_id,
             "task_id": task_id,
@@ -281,7 +281,7 @@ class AdditionalModulesKafkaProducer:
         event = {
             "event_type": "cob_task_completed",
             "event_id": self._generate_event_id(),
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "execution_id": execution_id,
             "run_id": run_id,
             "task_id": task_id,
@@ -305,7 +305,7 @@ class AdditionalModulesKafkaProducer:
         event = {
             "event_type": "config_created",
             "event_id": self._generate_event_id(),
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "config_id": config_id,
             "config_key": config_key,
             "config_value": str(config_value),
@@ -325,7 +325,7 @@ class AdditionalModulesKafkaProducer:
         event = {
             "event_type": "config_updated",
             "event_id": self._generate_event_id(),
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "config_id": config_id,
             "config_key": config_key,
             "old_value": str(old_value),
@@ -345,7 +345,7 @@ class AdditionalModulesKafkaProducer:
         event = {
             "event_type": "config_audit",
             "event_id": self._generate_event_id(),
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "audit_id": audit_id,
             "config_key": config_key,
             "action": action,
@@ -368,7 +368,7 @@ class AdditionalModulesKafkaProducer:
         event = {
             "event_type": "feature_flag_created",
             "event_id": self._generate_event_id(),
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "flag_id": flag_id,
             "flag_key": flag_key,
             "is_enabled": is_enabled,
@@ -387,7 +387,7 @@ class AdditionalModulesKafkaProducer:
         event = {
             "event_type": "feature_flag_updated",
             "event_id": self._generate_event_id(),
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "flag_id": flag_id,
             "flag_key": flag_key,
             "is_enabled": is_enabled,

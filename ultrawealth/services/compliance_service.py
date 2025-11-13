@@ -66,7 +66,7 @@ class ComplianceService:
             'compliant': all_compliant,
             'checks': checks,
             'missing': [k for k, v in checks.items() if not v],
-            'timestamp': datetime.utcnow().isoformat(),
+            'timestamp': datetime.now(timezone.utc).isoformat(),
             'regulatory_guide': 'ASIC RG 179'
         }
     
@@ -144,7 +144,7 @@ class ComplianceService:
                 'portfolio_id': portfolio_id,
                 'soa_type': soa_type,
                 'advisor_id': advisor_id,
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=soa_id
         )
@@ -163,7 +163,7 @@ class ComplianceService:
         return {
             'document_type': 'Statement of Advice',
             'soa_type': soa_type.value,
-            'date': datetime.utcnow().isoformat(),
+            'date': datetime.now(timezone.utc).isoformat(),
             
             # Advisor information
             'advisor': {
@@ -228,7 +228,7 @@ class ComplianceService:
         if not soa:
             raise ValueError(f"SOA {soa_id} not found")
         
-        soa.provided_to_client_at = datetime.utcnow()
+        soa.provided_to_client_at = datetime.now(timezone.utc)
         self.db.commit()
         
         # Publish event
@@ -238,7 +238,7 @@ class ComplianceService:
             event_data={
                 'soa_id': soa_id,
                 'client_id': soa.client_id,
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=soa_id
         )
@@ -252,7 +252,7 @@ class ComplianceService:
         if not soa:
             raise ValueError(f"SOA {soa_id} not found")
         
-        soa.client_acknowledged_at = datetime.utcnow()
+        soa.client_acknowledged_at = datetime.now(timezone.utc)
         self.db.commit()
         
         # Publish event
@@ -262,7 +262,7 @@ class ComplianceService:
             event_data={
                 'soa_id': soa_id,
                 'client_id': soa.client_id,
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=soa_id
         )
@@ -287,7 +287,7 @@ class ComplianceService:
         
         return {
             'client_id': client_id,
-            'report_date': datetime.utcnow().isoformat(),
+            'report_date': datetime.now(timezone.utc).isoformat(),
             'compliance_status': compliance_status,
             'mda_contract': {
                 'signed': client.mda_contract_signed,

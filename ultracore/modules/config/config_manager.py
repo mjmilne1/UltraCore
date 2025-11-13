@@ -548,7 +548,7 @@ class ConfigurationManager:
         if rollout_percentage is not None:
             flag.rollout_percentage = rollout_percentage
         
-        flag.updated_at = datetime.utcnow()
+        flag.updated_at = datetime.now(timezone.utc)
         
         # Publish event
         if self.kafka_producer:

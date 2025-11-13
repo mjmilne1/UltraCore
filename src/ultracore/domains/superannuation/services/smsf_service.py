@@ -8,7 +8,7 @@ from ultracore.infrastructure.event_store import EventStore
 from ultracore.infrastructure.kafka_event_store import KafkaEventStore
 from ..events import SMSFEstablishedEvent, MemberAddedEvent
 from ..models import SMSF, TrusteeType
-from ultracore.domains.accounts.services import AccountService
+# from ultracore.domains.accounts.services import AccountService  # TODO: Fix import path
 
 
 class SMSFService:

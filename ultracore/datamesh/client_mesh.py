@@ -57,7 +57,7 @@ class ClientDataMesh:
             "mesh_key": mesh_key,
             "source": source,
             "created_by": created_by,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "quality_score": quality_score,
             "data_hash": self._hash_data(data),
             "version": len(self.lineage_store.get(mesh_key, [])) + 1
@@ -233,7 +233,7 @@ class ClientDataMesh:
         """Record event in event store"""
         self.event_store.append({
             "event_type": event_type,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "data": data
         })
 

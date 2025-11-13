@@ -88,7 +88,7 @@ class ShareService:
     ) -> ShareAccount:
         """Create a new share account with initial purchase"""
         account_id = f"SACC-{uuid.uuid4().hex[:12].upper()}"
-        account_number = f"SA-{datetime.utcnow().strftime('%Y%m%d')}-{uuid.uuid4().hex[:6].upper()}"
+        account_number = f"SA-{datetime.now(timezone.utc).strftime('%Y%m%d')}-{uuid.uuid4().hex[:6].upper()}"
         
         product = self.products.get(request.product_id)
         if not product:
@@ -185,7 +185,7 @@ class ShareService:
         account.total_amount_paid += transaction.total_amount
         account.average_purchase_price = account.total_amount_paid / account.total_shares
         account.total_nominal_value = account.total_shares * account.nominal_value_per_share
-        account.updated_at = datetime.utcnow()
+        account.updated_at = datetime.now(timezone.utc)
         
         # Update product
         product = self.products.get(account.product_id)
@@ -234,7 +234,7 @@ class ShareService:
         account.total_shares -= request.num_shares
         account.shares_redeemed += request.num_shares
         account.total_nominal_value = account.total_shares * account.nominal_value_per_share
-        account.updated_at = datetime.utcnow()
+        account.updated_at = datetime.now(timezone.utc)
         
         # Close account if no shares remaining
         if account.total_shares == 0:
@@ -299,13 +299,13 @@ class ShareService:
         from_account.total_shares -= request.num_shares
         from_account.shares_transferred_out += request.num_shares
         from_account.total_nominal_value = from_account.total_shares * from_account.nominal_value_per_share
-        from_account.updated_at = datetime.utcnow()
+        from_account.updated_at = datetime.now(timezone.utc)
         
         # Update to account
         to_account.total_shares += request.num_shares
         to_account.shares_transferred_in += request.num_shares
         to_account.total_nominal_value = to_account.total_shares * to_account.nominal_value_per_share
-        to_account.updated_at = datetime.utcnow()
+        to_account.updated_at = datetime.now(timezone.utc)
         
         # Publish event
         if self.kafka_producer:
@@ -402,7 +402,7 @@ class ShareService:
         # Approve dividend
         dividend.status = DividendStatus.APPROVED
         dividend.approved_by = approved_by
-        dividend.approved_at = datetime.utcnow()
+        dividend.approved_at = datetime.now(timezone.utc)
         
         # Get all accounts for this product
         eligible_accounts = [
@@ -436,7 +436,7 @@ class ShareService:
             
             # Update account
             account.total_dividends_paid += total_amount
-            account.updated_at = datetime.utcnow()
+            account.updated_at = datetime.now(timezone.utc)
             
             total_paid += total_amount
         

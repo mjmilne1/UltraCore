@@ -36,7 +36,7 @@ async def main():
         ticker="VAS.AX",
         quantity=1000,
         purchase_price=100.00,
-        purchase_date=datetime.utcnow() - timedelta(days=180)
+        purchase_date=datetime.now(timezone.utc) - timedelta(days=180)
     )
     positions_opened.append(pos1)
     print(f"✅ Opened: {pos1['position_id']} - VAS.AX (1000 @ $100.00)")
@@ -49,7 +49,7 @@ async def main():
         ticker="VGS.AX",
         quantity=500,
         purchase_price=150.00,
-        purchase_date=datetime.utcnow() - timedelta(days=90)
+        purchase_date=datetime.now(timezone.utc) - timedelta(days=90)
     )
     positions_opened.append(pos2)
     print(f"✅ Opened: {pos2['position_id']} - VGS.AX (500 @ $150.00)")
@@ -60,7 +60,7 @@ async def main():
         ticker="VAF.AX",
         quantity=2000,
         purchase_price=50.00,
-        purchase_date=datetime.utcnow() - timedelta(days=120)
+        purchase_date=datetime.now(timezone.utc) - timedelta(days=120)
     )
     positions_opened.append(pos3)
     print(f"✅ Opened: {pos3['position_id']} - VAF.AX (2000 @ $50.00)")
@@ -184,7 +184,7 @@ async def main():
         ticker="VAS.AX",
         quantity=1000,
         purchase_price=100.00,
-        purchase_date=datetime.utcnow() - timedelta(days=180),
+        purchase_date=datetime.now(timezone.utc) - timedelta(days=180),
         transaction_id="TXN-001"
     )
     

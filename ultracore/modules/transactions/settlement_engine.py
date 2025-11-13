@@ -62,8 +62,8 @@ class SettlementEngine:
             "trade_date": trade_date.isoformat(),
             "settlement_date": settlement_date.isoformat(),
             "status": SettlementStatus.PENDING,
-            "created_at": datetime.utcnow().isoformat(),
-            "updated_at": datetime.utcnow().isoformat()
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "updated_at": datetime.now(timezone.utc).isoformat()
         }
         
         # Store settlement
@@ -98,7 +98,7 @@ class SettlementEngine:
         """
         
         if as_of_date is None:
-            as_of_date = datetime.utcnow()
+            as_of_date = datetime.now(timezone.utc)
         
         # Find settlements due
         due_settlements = [
@@ -144,7 +144,7 @@ class SettlementEngine:
         
         # Update status
         settlement["status"] = SettlementStatus.IN_PROGRESS
-        settlement["updated_at"] = datetime.utcnow().isoformat()
+        settlement["updated_at"] = datetime.now(timezone.utc).isoformat()
         
         # Produce event
         await transaction_kafka.produce_settlement_event(
@@ -161,7 +161,7 @@ class SettlementEngine:
             
             # 3. Mark as completed
             settlement["status"] = SettlementStatus.COMPLETED
-            settlement["completed_at"] = datetime.utcnow().isoformat()
+            settlement["completed_at"] = datetime.now(timezone.utc).isoformat()
             settlement["cash_movement"] = cash_result
             settlement["position_update"] = position_result
             
@@ -185,7 +185,7 @@ class SettlementEngine:
             # Mark as failed
             settlement["status"] = SettlementStatus.FAILED
             settlement["failure_reason"] = str(e)
-            settlement["failed_at"] = datetime.utcnow().isoformat()
+            settlement["failed_at"] = datetime.now(timezone.utc).isoformat()
             
             # Produce failure event
             await transaction_kafka.produce_settlement_event(
@@ -227,7 +227,7 @@ class SettlementEngine:
                 "amount": amount,
                 "type": movement_type,
                 "ticker": settlement["ticker"],
-                "timestamp": datetime.utcnow().isoformat()
+                "timestamp": datetime.now(timezone.utc).isoformat()
             }
         )
         
@@ -325,7 +325,7 @@ class SettlementEngine:
     
     def get_settlements_due_today(self) -> List[Dict[str, Any]]:
         """Get settlements due today"""
-        today = datetime.utcnow().date()
+        today = datetime.now(timezone.utc).date()
         
         return [
             s for s in self.settlement_queue

@@ -204,13 +204,13 @@ class TestHoldingsAgent:
                     "ticker": "VAS.AX",
                     "market_value": 40000,
                     "cost_basis": 35000,
-                    "last_updated": datetime.utcnow().isoformat()
+                    "last_updated": datetime.now(timezone.utc).isoformat()
                 },
                 {
                     "ticker": "VGS.AX",
                     "market_value": 60000,
                     "cost_basis": 55000,
-                    "last_updated": datetime.utcnow().isoformat()
+                    "last_updated": datetime.now(timezone.utc).isoformat()
                 }
             ]
         }
@@ -329,7 +329,7 @@ class TestPositionTracker:
             ticker="TEST.AX",
             quantity=100,
             purchase_price=50.00,
-            purchase_date=datetime.utcnow(),
+            purchase_date=datetime.now(timezone.utc),
             transaction_id="TXN-001"
         )
         
@@ -345,7 +345,7 @@ class TestPositionTracker:
             ticker="FIFO.AX",
             quantity=100,
             purchase_price=50.00,
-            purchase_date=datetime.utcnow() - timedelta(days=30),
+            purchase_date=datetime.now(timezone.utc) - timedelta(days=30),
             transaction_id="TXN-001"
         )
         
@@ -353,7 +353,7 @@ class TestPositionTracker:
             ticker="FIFO.AX",
             quantity=100,
             purchase_price=60.00,
-            purchase_date=datetime.utcnow(),
+            purchase_date=datetime.now(timezone.utc),
             transaction_id="TXN-002"
         )
         
@@ -362,7 +362,7 @@ class TestPositionTracker:
             ticker="FIFO.AX",
             quantity=150,
             sale_price=70.00,
-            sale_date=datetime.utcnow(),
+            sale_date=datetime.now(timezone.utc),
             method=CostBasisMethod.FIFO
         )
         
@@ -378,7 +378,7 @@ class TestPositionTracker:
             ticker="LOSS.AX",
             quantity=100,
             purchase_price=100.00,
-            purchase_date=datetime.utcnow() - timedelta(days=60),
+            purchase_date=datetime.now(timezone.utc) - timedelta(days=60),
             transaction_id="TXN-003"
         )
         

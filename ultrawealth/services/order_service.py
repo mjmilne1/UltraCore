@@ -87,7 +87,7 @@ class OrderManagementService:
                 'quantity': float(quantity),
                 'order_price': float(order_price),
                 'total_amount': float(total_amount),
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=order_id
         )
@@ -110,7 +110,7 @@ class OrderManagementService:
         
         order.status = OrderStatus.SUBMITTED
         order.broker_order_id = broker_order_id
-        order.submitted_at = datetime.utcnow()
+        order.submitted_at = datetime.now(timezone.utc)
         
         self.db.commit()
         
@@ -121,7 +121,7 @@ class OrderManagementService:
             event_data={
                 'order_id': order_id,
                 'broker_order_id': broker_order_id,
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=order_id
         )
@@ -156,7 +156,7 @@ class OrderManagementService:
         order.executed_price = executed_price
         order.executed_quantity = executed_quantity
         order.total_amount = executed_quantity * executed_price
-        order.executed_at = datetime.utcnow()
+        order.executed_at = datetime.now(timezone.utc)
         
         self.db.commit()
         
@@ -172,7 +172,7 @@ class OrderManagementService:
                 'executed_quantity': float(executed_quantity),
                 'executed_price': float(executed_price),
                 'total_amount': float(order.total_amount),
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=order_id
         )
@@ -201,7 +201,7 @@ class OrderManagementService:
             event_type='order_cancelled',
             event_data={
                 'order_id': order_id,
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=order_id
         )

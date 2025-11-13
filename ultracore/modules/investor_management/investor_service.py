@@ -95,8 +95,8 @@ class InvestorService:
             raise ValueError(f"Investor {investor_id} not found")
         
         investor.kyc_verified = True
-        investor.kyc_verification_date = datetime.utcnow()
-        investor.updated_at = datetime.utcnow()
+        investor.kyc_verification_date = datetime.now(timezone.utc)
+        investor.updated_at = datetime.now(timezone.utc)
         
         # Publish event
         self.kafka_producer.publish_investor_created(
@@ -134,8 +134,8 @@ class InvestorService:
             raise ValueError(f"Investor {investor_id} not found")
         
         investor.aml_verified = True
-        investor.aml_verification_date = datetime.utcnow()
-        investor.updated_at = datetime.utcnow()
+        investor.aml_verification_date = datetime.now(timezone.utc)
+        investor.updated_at = datetime.now(timezone.utc)
         
         # Publish event
         self.kafka_producer.publish_investor_created(
@@ -222,7 +222,7 @@ class InvestorService:
         investor.total_investments = total_investments
         investor.active_loans = active_loans
         investor.total_returns = total_returns
-        investor.updated_at = datetime.utcnow()
+        investor.updated_at = datetime.now(timezone.utc)
         
         return investor
         
@@ -249,7 +249,7 @@ class InvestorService:
             raise ValueError(f"Investor {investor_id} not found")
         
         investor.status = InvestorStatus.SUSPENDED
-        investor.updated_at = datetime.utcnow()
+        investor.updated_at = datetime.now(timezone.utc)
         
         # Publish event
         self.kafka_producer._publish("investor-events", {
@@ -257,7 +257,7 @@ class InvestorService:
             "investor_id": investor_id,
             "reason": reason,
             "suspended_by": suspended_by,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         })
         
         return investor
@@ -287,14 +287,14 @@ class InvestorService:
             raise ValueError("Investor must be KYC and AML verified before activation")
         
         investor.status = InvestorStatus.ACTIVE
-        investor.updated_at = datetime.utcnow()
+        investor.updated_at = datetime.now(timezone.utc)
         
         # Publish event
         self.kafka_producer._publish("investor-events", {
             "event_type": "investor.activated",
             "investor_id": investor_id,
             "activated_by": activated_by,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         })
         
         return investor

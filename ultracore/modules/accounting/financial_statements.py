@@ -23,7 +23,7 @@ class FinancialStatements:
         """
         
         if as_of_date is None:
-            as_of_date = datetime.utcnow()
+            as_of_date = datetime.now(timezone.utc)
         
         # Assets
         asset_accounts = chart_of_accounts.get_accounts_by_type(AccountType.ASSET)
@@ -117,7 +117,7 @@ class FinancialStatements:
         """
         
         if end_date is None:
-            end_date = datetime.utcnow()
+            end_date = datetime.now(timezone.utc)
         
         # Revenue
         revenue_accounts = chart_of_accounts.get_accounts_by_type(AccountType.REVENUE)
@@ -195,7 +195,7 @@ class FinancialStatements:
         """
         
         if end_date is None:
-            end_date = datetime.utcnow()
+            end_date = datetime.now(timezone.utc)
         
         # Get cash account
         cash_account = chart_of_accounts.get_account("1000")

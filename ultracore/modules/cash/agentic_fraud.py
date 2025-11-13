@@ -60,7 +60,7 @@ class CashFraudDetectorAgent:
             {
                 "rule_id": "RULE-003",
                 "name": "Unusual withdrawal time",
-                "condition": lambda tx: datetime.fromisoformat(tx.get("timestamp", datetime.utcnow().isoformat())).hour < 6,
+                "condition": lambda tx: datetime.fromisoformat(tx.get("timestamp", datetime.now(timezone.utc).isoformat())).hour < 6,
                 "risk_score": 15,
                 "action": AgentAction.REVIEW
             },
@@ -148,7 +148,7 @@ class CashFraudDetectorAgent:
             "recommended_action": recommended_action,
             "fraud_indicators": fraud_indicators,
             "agent_confidence": self._calculate_confidence(risk_score, len(fraud_indicators)),
-            "analyzed_at": datetime.utcnow().isoformat(),
+            "analyzed_at": datetime.now(timezone.utc).isoformat(),
             "agent_reasoning": self._generate_reasoning(fraud_indicators, risk_score)
         }
         
@@ -186,7 +186,7 @@ class CashFraudDetectorAgent:
         if len(history) > 10:
             recent_24h = [
                 h for h in history
-                if (datetime.utcnow() - datetime.fromisoformat(h.get("timestamp", datetime.utcnow().isoformat()))).days < 1
+                if (datetime.now(timezone.utc) - datetime.fromisoformat(h.get("timestamp", datetime.now(timezone.utc).isoformat()))).days < 1
             ]
             
             if len(recent_24h) > 5:
@@ -229,7 +229,7 @@ class CashFraudDetectorAgent:
             similar_amounts = [
                 h for h in history
                 if 9000 <= h.get("amount", 0) < 10000
-                and (datetime.utcnow() - datetime.fromisoformat(h.get("timestamp", datetime.utcnow().isoformat()))).days < 7
+                and (datetime.now(timezone.utc) - datetime.fromisoformat(h.get("timestamp", datetime.now(timezone.utc).isoformat()))).days < 7
             ]
             
             if len(similar_amounts) >= 2:
@@ -315,7 +315,7 @@ class CashFraudDetectorAgent:
                 "correct_prediction": (original["risk_level"] in [FraudRiskLevel.HIGH, FraudRiskLevel.CRITICAL]) == actual_fraud,
                 "original_score": original["fraud_score"],
                 "notes": notes,
-                "learned_at": datetime.utcnow().isoformat()
+                "learned_at": datetime.now(timezone.utc).isoformat()
             }
             
             self.learning_history.append(learning_record)

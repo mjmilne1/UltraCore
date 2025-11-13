@@ -56,7 +56,7 @@ class CashAccountEvent:
     def __init__(self, account_id: str, event_id: str = None):
         self.event_id = event_id or str(uuid.uuid4())
         self.account_id = account_id
-        self.timestamp = datetime.utcnow()
+        self.timestamp = datetime.now(timezone.utc)
         self.event_type = self.__class__.__name__
 
 class AccountCreatedEvent(CashAccountEvent):
@@ -279,7 +279,7 @@ class CashAccount:
             "ledger_balance": float(self.ledger_balance),
             "reserved_balance": float(self.reserved_balance),
             "currency": self.currency,
-            "as_of": datetime.utcnow().isoformat()
+            "as_of": datetime.now(timezone.utc).isoformat()
         }
     
     def rebuild_from_events(self, events: List[CashAccountEvent]):

@@ -490,27 +490,27 @@ class Customer:
     def add_relationship(self, relationship_id: str):
         """Add relationship reference"""
         self.relationship_ids.add(relationship_id)
-        self.updated_at = datetime.utcnow()
+        self.updated_at = datetime.now(timezone.utc)
     
     def add_account(self, account_id: str):
         """Add account reference"""
         self.account_ids.add(account_id)
-        self.updated_at = datetime.utcnow()
+        self.updated_at = datetime.now(timezone.utc)
     
     def add_loan(self, loan_id: str):
         """Add loan reference"""
         self.loan_ids.add(loan_id)
-        self.updated_at = datetime.utcnow()
+        self.updated_at = datetime.now(timezone.utc)
     
     def add_tag(self, tag: str):
         """Add tag"""
         self.tags.add(tag.upper())
-        self.updated_at = datetime.utcnow()
+        self.updated_at = datetime.now(timezone.utc)
     
     def update_activity(self):
         """Update last activity"""
-        self.last_activity_date = datetime.utcnow()
-        self.updated_at = datetime.utcnow()
+        self.last_activity_date = datetime.now(timezone.utc)
+        self.updated_at = datetime.now(timezone.utc)
 
 
 # ============================================================================

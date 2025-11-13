@@ -96,7 +96,7 @@ async def validate_order(order: dict, market_data: dict, client_holdings: dict):
 @router.get("/asx/trading-hours")
 async def check_trading_hours(security_code: str):
     """Check trading hours"""
-    result = asx_compliance.check_trading_hours(datetime.utcnow(), security_code)
+    result = asx_compliance.check_trading_hours(datetime.now(timezone.utc), security_code)
     return result
 
 # ============================================================================

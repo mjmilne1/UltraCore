@@ -369,7 +369,7 @@ class LoanCalculator:
             annual_interest_rate=final_rate,
             term_months=term_months,
             frequency=RepaymentFrequency.MONTHLY,
-            start_date=datetime.utcnow()
+            start_date=datetime.now(timezone.utc)
         )
         
         repayment_amount = schedule.calculate_repayment_amount()
@@ -426,7 +426,7 @@ class LoanCalculator:
                 'data_product': 'loan_offers',
                 'customer_id': customer_id,
                 'offer': offer,
-                'generated_at': datetime.utcnow().isoformat()
+                'generated_at': datetime.now(timezone.utc).isoformat()
             }
         )
         

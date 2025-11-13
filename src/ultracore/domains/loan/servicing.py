@@ -11,7 +11,7 @@ import math
 
 from ultracore.infrastructure.event_store.store import get_event_store
 from ultracore.infrastructure.kafka_event_store.production_store import get_production_kafka_store
-from ultracore.domains.account.aggregate import AccountAggregate
+# from ultracore.domains.account.aggregate import AccountAggregate  # TODO: Fix import path
 from ultracore.ledger.general_ledger import ledger
 
 
@@ -88,7 +88,7 @@ class AmortizationSchedule:
             
             schedule.append({
                 'period': period,
-                'payment_date': (datetime.utcnow() + timedelta(days=30 * period)).strftime('%Y-%m-%d'),
+                'payment_date': (datetime.now(timezone.utc) + timedelta(days=30 * period)).strftime('%Y-%m-%d'),
                 'payment_amount': float(round(payment, 2)),
                 'principal': float(round(principal_payment, 2)),
                 'interest': float(round(interest_payment, 2)),
@@ -141,7 +141,7 @@ class LoanServicing:
             'payment_frequency': frequency.value,
             'payment_schedule': schedule,
             'first_payment_date': schedule[0]['payment_date'],
-            'servicing_started': datetime.utcnow().isoformat()
+            'servicing_started': datetime.now(timezone.utc).isoformat()
         }
         
         kafka_store = get_production_kafka_store()
@@ -185,7 +185,7 @@ class LoanServicing:
         store = get_event_store()
         
         if payment_date is None:
-            payment_date = datetime.utcnow().strftime('%Y-%m-%d')
+            payment_date = datetime.now(timezone.utc).strftime('%Y-%m-%d')
         
         # Find next scheduled payment
         next_payment = None
@@ -289,8 +289,8 @@ class LoanServicing:
         # DR: Cash
         # CR: Interest Income
         await ledger.post_journal_entry(
-            entry_id=f'JE-LOAN-PMT-{self.loan_id}-{datetime.utcnow().timestamp()}',
-            date=datetime.utcnow().isoformat(),
+            entry_id=f'JE-LOAN-PMT-{self.loan_id}-{datetime.now(timezone.utc).timestamp()}',
+            date=datetime.now(timezone.utc).isoformat(),
             description=f'Loan payment received',
             reference=self.loan_id,
             debits=[
@@ -325,7 +325,7 @@ class LoanServicing:
         
         event_data = {
             'loan_id': self.loan_id,
-            'payoff_date': datetime.utcnow().isoformat(),
+            'payoff_date': datetime.now(timezone.utc).isoformat(),
             'total_interest_paid': str(self.total_interest_paid),
             'total_principal_paid': str(self.total_principal_paid),
             'final_balance': str(self.remaining_balance)
@@ -358,7 +358,7 @@ class LoanServicing:
             'accrued_interest': '0.00',  # Simplified
             'total_payoff_amount': str(self.remaining_balance),
             'savings': str(self._calculate_remaining_interest()),
-            'as_of_date': datetime.utcnow().strftime('%Y-%m-%d')
+            'as_of_date': datetime.now(timezone.utc).strftime('%Y-%m-%d')
         }
     
     def _calculate_remaining_interest(self) -> Decimal:
@@ -375,7 +375,7 @@ class LoanServicing:
         
         event_data = {
             'loan_id': self.loan_id,
-            'default_date': datetime.utcnow().isoformat(),
+            'default_date': datetime.now(timezone.utc).isoformat(),
             'days_past_due': self.days_past_due,
             'outstanding_balance': str(self.remaining_balance),
             'reason': reason
@@ -408,7 +408,7 @@ class LoanServicing:
         
         event_data = {
             'loan_id': self.loan_id,
-            'charge_off_date': datetime.utcnow().isoformat(),
+            'charge_off_date': datetime.now(timezone.utc).isoformat(),
             'outstanding_balance': str(self.remaining_balance),
             'recovery_amount': str(recovery_amount),
             'loss_amount': str(loss_amount)
@@ -436,7 +436,7 @@ class LoanServicing:
         # CR: Customer Loans
         await ledger.post_journal_entry(
             entry_id=f'JE-CHARGEOFF-{self.loan_id}',
-            date=datetime.utcnow().isoformat(),
+            date=datetime.now(timezone.utc).isoformat(),
             description=f'Loan charge-off',
             reference=self.loan_id,
             debits=[{'account': '5200', 'amount': float(loss_amount)}],   # Loan loss provision

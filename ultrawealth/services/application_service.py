@@ -100,7 +100,7 @@ class UltraWealthApplication:
                 'client_id': client_id,
                 'risk_profile': risk_profile,
                 'time_horizon_years': time_horizon_years,
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=client_id
         )
@@ -120,7 +120,7 @@ class UltraWealthApplication:
         
         old_profile = wealth_client.risk_profile
         wealth_client.risk_profile = RiskProfile(new_risk_profile.lower())
-        wealth_client.updated_at = datetime.utcnow()
+        wealth_client.updated_at = datetime.now(timezone.utc)
         
         self.db.commit()
         
@@ -132,7 +132,7 @@ class UltraWealthApplication:
                 'client_id': client_id,
                 'old_profile': old_profile.value,
                 'new_profile': new_risk_profile,
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=client_id
         )
@@ -200,7 +200,7 @@ class UltraWealthApplication:
                 'portfolio_name': portfolio_name,
                 'strategy_type': strategy_type,
                 'target_allocation': target_allocation,
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=portfolio_id
         )

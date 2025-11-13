@@ -93,7 +93,7 @@ class HoldingsAgent:
         # Store monitoring results
         monitoring_result = {
             "client_id": client_id,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "alerts": alerts,
             "recommendations": recommendations,
             "portfolio_health_score": self._calculate_health_score(portfolio, alerts),
@@ -169,7 +169,7 @@ class HoldingsAgent:
         # Record decision
         self.decisions.append({
             "type": "rebalancing_recommendation",
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "recommendation": recommendation
         })
         
@@ -222,7 +222,7 @@ class HoldingsAgent:
             # 3. Check for stale positions (no updates)
             last_updated = position.get("last_updated")
             if last_updated:
-                days_stale = (datetime.utcnow() - datetime.fromisoformat(last_updated)).days
+                days_stale = (datetime.now(timezone.utc) - datetime.fromisoformat(last_updated)).days
                 if days_stale > 30:
                     anomalies.append({
                         "type": "stale_position",

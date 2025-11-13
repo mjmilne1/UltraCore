@@ -107,7 +107,7 @@ class GeneralLedger:
         """
         
         if as_of_date is None:
-            as_of_date = datetime.utcnow()
+            as_of_date = datetime.now(timezone.utc)
         
         trial_balance = []
         total_debits = 0.0

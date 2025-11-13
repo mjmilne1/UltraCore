@@ -116,7 +116,7 @@ class LoanProductService:
             raise ValueError(f"Product {product_id} not found")
         
         product.fees.append(fee)
-        product.updated_at = datetime.utcnow()
+        product.updated_at = datetime.now(timezone.utc)
         
         return product
         
@@ -225,7 +225,7 @@ class LoanProductService:
         
         product.is_active = False
         product.available_to = date.today()
-        product.updated_at = datetime.utcnow()
+        product.updated_at = datetime.now(timezone.utc)
         
         return product
 

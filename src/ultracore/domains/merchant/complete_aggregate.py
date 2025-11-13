@@ -49,7 +49,7 @@ class CompleteMerchantAggregate:
             'abn': abn,
             'account_id': account_id,
             'processing_rate': str(self.processing_rate),
-            'registered_at': datetime.utcnow().isoformat()
+            'registered_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -72,7 +72,7 @@ class CompleteMerchantAggregate:
         """Process merchant transaction"""
         kafka_store = get_production_kafka_store()
         
-        transaction_id = f'MTXN-{self.merchant_id}-{datetime.utcnow().timestamp()}'
+        transaction_id = f'MTXN-{self.merchant_id}-{datetime.now(timezone.utc).timestamp()}'
         processing_fee = amount * (self.processing_rate / 100)
         net_amount = amount - processing_fee
         
@@ -84,7 +84,7 @@ class CompleteMerchantAggregate:
             'net_amount': str(net_amount),
             'card_last4': card_last4,
             'customer_name': customer_name,
-            'processed_at': datetime.utcnow().isoformat()
+            'processed_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -113,7 +113,7 @@ class CompleteMerchantAggregate:
         total_fees = sum(Decimal(t['processing_fee']) for t in unsettled)
         net_settlement = total_amount - total_fees
         
-        settlement_id = f'STL-{self.merchant_id}-{datetime.utcnow().timestamp()}'
+        settlement_id = f'STL-{self.merchant_id}-{datetime.now(timezone.utc).timestamp()}'
         
         event_data = {
             'merchant_id': self.merchant_id,
@@ -123,7 +123,7 @@ class CompleteMerchantAggregate:
             'total_fees': str(total_fees),
             'net_settlement': str(net_settlement),
             'status': SettlementStatus.PROCESSED.value,
-            'settled_at': datetime.utcnow().isoformat()
+            'settled_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(

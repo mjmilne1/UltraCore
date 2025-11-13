@@ -140,7 +140,7 @@ class NPPClient:
                 "transaction_id": transaction_id,
                 "settlement_id": f"FSS-{uuid.uuid4().hex[:12].upper()}",
                 "status": "completed",
-                "completed_at": datetime.utcnow().isoformat(),
+                "completed_at": datetime.now(timezone.utc).isoformat(),
                 "processing_time_ms": 2341,
                 "recipient_bsb": to_bsb,
                 "recipient_account": to_account_number
@@ -207,7 +207,7 @@ class NPPClient:
                 "payid": payid,
                 "status": "pending_verification",
                 "verification_code_sent": True,
-                "expires_at": (datetime.utcnow()).isoformat()
+                "expires_at": (datetime.now(timezone.utc)).isoformat()
             }
         
         response = await self.client.post(

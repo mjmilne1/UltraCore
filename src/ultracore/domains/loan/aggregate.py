@@ -50,7 +50,7 @@ class LoanAggregate:
             'amount': str(amount),
             'term_months': term_months,
             'purpose': purpose,
-            'applied_at': datetime.utcnow().isoformat()
+            'applied_at': datetime.now(timezone.utc).isoformat()
         }
         
         await store.append(
@@ -98,7 +98,7 @@ class LoanAggregate:
             'credit_score': ml_score['credit_score'],
             'risk_category': ml_score['risk_category'],
             'approval_probability': ml_score['approval_probability'],
-            'reviewed_at': datetime.utcnow().isoformat()
+            'reviewed_at': datetime.now(timezone.utc).isoformat()
         }
         
         await store.append(
@@ -143,7 +143,7 @@ class LoanAggregate:
             event_data = {
                 'loan_id': self.loan_id,
                 'reason': 'Low AI confidence or borderline score',
-                'routed_at': datetime.utcnow().isoformat()
+                'routed_at': datetime.now(timezone.utc).isoformat()
             }
             
             await store.append(
@@ -165,7 +165,7 @@ class LoanAggregate:
             'loan_id': self.loan_id,
             'approved_by': approved_by,
             'credit_score': ml_score,
-            'approved_at': datetime.utcnow().isoformat()
+            'approved_at': datetime.now(timezone.utc).isoformat()
         }
         
         await store.append(
@@ -186,7 +186,7 @@ class LoanAggregate:
             'loan_id': self.loan_id,
             'rejected_by': rejected_by,
             'reason': reason,
-            'rejected_at': datetime.utcnow().isoformat()
+            'rejected_at': datetime.now(timezone.utc).isoformat()
         }
         
         await store.append(

@@ -21,9 +21,9 @@ from datetime import datetime, timedelta
 from enum import Enum
 import json
 
-from ultracore.general_ledger.ledger import GeneralLedger
-from ultracore.general_ledger.journal import JournalService, JournalEntry
-from ultracore.general_ledger.chart_of_accounts import ChartOfAccounts
+from ultracore.modules.accounting.general_ledger.ledger import GeneralLedger
+from ultracore.modules.accounting.general_ledger.journal import JournalService, JournalEntry
+from ultracore.modules.accounting.general_ledger.chart_of_accounts import ChartOfAccounts
 from ultracore.infrastructure.kafka_event_store.production_store import get_production_kafka_store
 from ultracore.data_mesh.integration import DataMeshPublisher
 
@@ -301,11 +301,11 @@ class ShadowLedgerReconciliation:
         import uuid
         
         if date is None:
-            date = datetime.utcnow()
+            date = datetime.now(timezone.utc)
         
         # Create report
         run_id = f"RECON-{date.strftime('%Y%m%d')}-{uuid.uuid4().hex[:8].upper()}"
-        started_at = datetime.utcnow()
+        started_at = datetime.now(timezone.utc)
         
         print(f"\n🔍 Starting Shadow Ledger Reconciliation: {run_id}")
         print(f"   Date: {date.strftime('%Y-%m-%d')}")
@@ -330,7 +330,7 @@ class ShadowLedgerReconciliation:
         print("   📊 Comparing account balances...")
         account_drifts = await self._compare_all_accounts()
         
-        completed_at = datetime.utcnow()
+        completed_at = datetime.now(timezone.utc)
         
         # Step 3: Build report
         report = ReconciliationReport(
@@ -388,7 +388,7 @@ class ShadowLedgerReconciliation:
     
     async def _calculate_totals(self, report: ReconciliationReport):
         """Calculate totals by account type"""
-        from ultracore.general_ledger.chart_of_accounts import AccountType
+        from ultracore.modules.accounting.general_ledger.chart_of_accounts import AccountType
         
         for account in self.coa.accounts.values():
             primary_balance = await self.primary_ledger.get_account_balance(account.code)
@@ -472,7 +472,7 @@ class ReconciliationScheduler:
         """Schedule nightly reconciliation"""
         while True:
             # Calculate next 2 AM
-            now = datetime.utcnow()
+            now = datetime.now(timezone.utc)
             next_run = now.replace(hour=2, minute=0, second=0, microsecond=0)
             
             if next_run <= now:
@@ -524,7 +524,7 @@ class ReconciliationScheduler:
             event_type='deployment_blocked',
             event_data={
                 'reason': 'Shadow ledger drift detected',
-                'blocked_at': datetime.utcnow().isoformat()
+                'blocked_at': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id='deployment_block'
         )
@@ -536,7 +536,7 @@ class ReconciliationScheduler:
             entity='deployment',
             event_type='deployment_unblocked',
             event_data={
-                'unblocked_at': datetime.utcnow().isoformat()
+                'unblocked_at': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id='deployment_block'
         )

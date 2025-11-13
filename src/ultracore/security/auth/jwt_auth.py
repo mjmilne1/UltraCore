@@ -51,13 +51,13 @@ class TokenManager:
         to_encode = data.copy()
         
         if expires_delta:
-            expire = datetime.utcnow() + expires_delta
+            expire = datetime.now(timezone.utc) + expires_delta
         else:
-            expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+            expire = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
         
         to_encode.update({
             "exp": expire,
-            "iat": datetime.utcnow(),
+            "iat": datetime.now(timezone.utc),
             "type": "access"
         })
         
@@ -71,12 +71,12 @@ class TokenManager:
         
         Long-lived token for obtaining new access tokens
         """
-        expire = datetime.utcnow() + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
+        expire = datetime.now(timezone.utc) + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
         
         to_encode = {
             "sub": user_id,
             "exp": expire,
-            "iat": datetime.utcnow(),
+            "iat": datetime.now(timezone.utc),
             "type": "refresh",
             "jti": str(uuid.uuid4())  # JWT ID for revocation
         }
@@ -122,7 +122,7 @@ class User:
         self.roles = roles or []
         self.is_active = is_active
         self.mfa_enabled = mfa_enabled
-        self.created_at = datetime.utcnow()
+        self.created_at = datetime.now(timezone.utc)
         self.last_login: Optional[datetime] = None
 
 
@@ -231,7 +231,7 @@ class AuthenticationService:
             return None
         
         # Update last login
-        user.last_login = datetime.utcnow()
+        user.last_login = datetime.now(timezone.utc)
         
         # Log successful login
         await self._log_successful_login(user.user_id)
@@ -355,7 +355,7 @@ class AuthenticationService:
             event_type='login_successful',
             event_data={
                 'user_id': user_id,
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=user_id
         )
@@ -368,7 +368,7 @@ class AuthenticationService:
             event_type='login_failed',
             event_data={
                 'username': username,
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=username
         )
@@ -381,7 +381,7 @@ class AuthenticationService:
             event_type='logout',
             event_data={
                 'user_id': user_id,
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=user_id
         )

@@ -142,9 +142,9 @@ class LoanTransferService:
         # Update transfer
         transfer.status = TransferStatus.APPROVED
         transfer.sub_status = TransferSubStatus.AWAITING_SETTLEMENT
-        transfer.approval_date = datetime.utcnow()
+        transfer.approval_date = datetime.now(timezone.utc)
         transfer.approved_by = request.approved_by
-        transfer.updated_at = datetime.utcnow()
+        transfer.updated_at = datetime.now(timezone.utc)
         
         if request.notes:
             transfer.notes = f"{transfer.notes}\n\nApproval: {request.notes}"
@@ -189,7 +189,7 @@ class LoanTransferService:
         # Update transfer status
         transfer.status = TransferStatus.SETTLEMENT_IN_PROGRESS
         transfer.sub_status = TransferSubStatus.AWAITING_PAYMENT
-        transfer.updated_at = datetime.utcnow()
+        transfer.updated_at = datetime.now(timezone.utc)
         
         # In production, this would:
         # 1. Initiate payment from investor to originator
@@ -308,7 +308,7 @@ class LoanTransferService:
         
         # Update transfer
         transfer.status = TransferStatus.CANCELLED
-        transfer.updated_at = datetime.utcnow()
+        transfer.updated_at = datetime.now(timezone.utc)
         transfer.notes = f"{transfer.notes}\n\nCancelled: {request.reason}"
         
         # Publish event
@@ -318,7 +318,7 @@ class LoanTransferService:
             "loan_id": transfer.loan_id,
             "reason": request.reason,
             "cancelled_by": request.cancelled_by,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         })
         
         return transfer

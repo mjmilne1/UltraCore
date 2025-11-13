@@ -163,7 +163,7 @@ class KafkaEventProducer:
             "user_id": user_id,
             
             # Timestamps
-            "event_timestamp": datetime.utcnow().isoformat(),
+            "event_timestamp": datetime.now(timezone.utc).isoformat(),
             
             # Metadata
             "metadata": {

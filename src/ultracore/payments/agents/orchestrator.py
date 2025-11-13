@@ -15,7 +15,7 @@ from decimal import Decimal
 from enum import Enum
 
 from ultracore.ml_models.scoring_engine import get_scoring_engine, ModelType
-from ultracore.payments.compliance.regulatory import get_compliance_engine
+# from ultracore.payments.compliance.regulatory import get_compliance_engine  # TODO: Fix import path
 
 
 class PaymentRail(str, Enum):
@@ -179,9 +179,9 @@ class SettlementAgent:
     def _calculate_settlement_time(self, rail: PaymentRail) -> str:
         """Calculate estimated settlement time"""
         if rail == PaymentRail.NPP_OSKO:
-            return (datetime.utcnow() + timedelta(seconds=60)).isoformat()
+            return (datetime.now(timezone.utc) + timedelta(seconds=60)).isoformat()
         else:
-            settlement_date = datetime.utcnow() + timedelta(days=1)
+            settlement_date = datetime.now(timezone.utc) + timedelta(days=1)
             while settlement_date.weekday() >= 5:
                 settlement_date += timedelta(days=1)
             return settlement_date.isoformat()

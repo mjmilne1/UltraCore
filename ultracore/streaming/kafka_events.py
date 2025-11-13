@@ -69,11 +69,11 @@ class KafkaEventProducer:
         """
         
         event = {
-            "event_id": f"evt-{int(datetime.utcnow().timestamp() * 1000)}",
+            "event_id": f"evt-{int(datetime.now(timezone.utc).timestamp() * 1000)}",
             "event_type": event_type,
             "topic": topic,
             "key": key,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "data": data,
             "version": "1.0"
         }
@@ -192,7 +192,7 @@ class EventSourcingStore:
         self.snapshots[aggregate_id] = {
             "aggregate_id": aggregate_id,
             "state": state,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "event_count": len(self.get_events_for_aggregate(aggregate_id))
         }
     

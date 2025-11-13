@@ -101,7 +101,7 @@ class CashDataMesh:
         if timestamp:
             try:
                 tx_time = datetime.fromisoformat(timestamp)
-                age_seconds = (datetime.utcnow() - tx_time).total_seconds()
+                age_seconds = (datetime.now(timezone.utc) - tx_time).total_seconds()
                 
                 if age_seconds < 3600:  # < 1 hour
                     timeliness = 100.0
@@ -132,7 +132,7 @@ class CashDataMesh:
             "dimension_scores": scores,
             "issues": issues,
             "grade": self._get_quality_grade(overall_score),
-            "assessed_at": datetime.utcnow().isoformat()
+            "assessed_at": datetime.now(timezone.utc).isoformat()
         }
         
         # Store quality score
@@ -171,7 +171,7 @@ class CashDataMesh:
             "source": source,
             "transformations": transformations,
             "destination": destination,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         }
         
         self.lineage_records.append(lineage_record)
@@ -204,7 +204,7 @@ class CashDataMesh:
                 view_data[account_id]["available_balance"] = item.get("available_balance", 0.0)
                 view_data[account_id]["ledger_balance"] = item.get("ledger_balance", 0.0)
                 view_data[account_id]["transaction_count"] += 1
-                view_data[account_id]["last_updated"] = datetime.utcnow().isoformat()
+                view_data[account_id]["last_updated"] = datetime.now(timezone.utc).isoformat()
         
         elif aggregation == "daily_transactions":
             # Create view of daily transaction totals
@@ -236,7 +236,7 @@ class CashDataMesh:
         
         self.materialized_views[view_name] = {
             "data": view_data,
-            "created_at": datetime.utcnow().isoformat(),
+            "created_at": datetime.now(timezone.utc).isoformat(),
             "source_count": len(source_data)
         }
         
@@ -292,7 +292,7 @@ class CashDataMesh:
         timestamp = data.get("timestamp")
         
         if timestamp:
-            data_age = (datetime.utcnow() - datetime.fromisoformat(timestamp)).days
+            data_age = (datetime.now(timezone.utc) - datetime.fromisoformat(timestamp)).days
             
             # 7-year retention for cash transactions (Australian requirement)
             retention_days = 7 * 365
@@ -344,7 +344,7 @@ class CashDataMesh:
             "min_score": min(scores),
             "max_score": max(scores),
             "grade_distribution": grade_distribution,
-            "generated_at": datetime.utcnow().isoformat()
+            "generated_at": datetime.now(timezone.utc).isoformat()
         }
 
 # Global data mesh instance

@@ -32,7 +32,7 @@ class RateLimiter:
         
         identifier: IP address, API key, or user ID
         """
-        now = datetime.utcnow()
+        now = datetime.now(timezone.utc)
         window_start = now - timedelta(seconds=window_seconds)
         
         # Clean old requests
@@ -173,7 +173,7 @@ class BruteForceProtection:
     
     def record_failed_attempt(self, identifier: str):
         """Record failed login attempt"""
-        now = datetime.utcnow()
+        now = datetime.now(timezone.utc)
         
         # Clean old attempts (last hour)
         self.failed_attempts[identifier] = [
@@ -190,7 +190,7 @@ class BruteForceProtection:
     def is_locked(self, identifier: str) -> bool:
         """Check if account/IP is locked"""
         if identifier in self.locked_accounts:
-            if datetime.utcnow() < self.locked_accounts[identifier]:
+            if datetime.now(timezone.utc) < self.locked_accounts[identifier]:
                 return True
             else:
                 # Unlock

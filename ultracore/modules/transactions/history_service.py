@@ -30,7 +30,7 @@ class TransactionHistoryService:
         record = {
             "transaction_id": data.get("order_id") or data.get("trade_id") or data.get("settlement_id"),
             "type": transaction_type,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "data": data
         }
         
@@ -102,7 +102,7 @@ class TransactionHistoryService:
         """Get trading summary for period"""
         
         # Determine date range
-        now = datetime.utcnow()
+        now = datetime.now(timezone.utc)
         
         if period == "ytd":
             start_date = datetime(now.year, 1, 1)

@@ -56,7 +56,7 @@ class Event:
         self.event_data = event_data
         self.aggregate_id = aggregate_id
         self.user_id = user_id
-        self.timestamp = datetime.utcnow().isoformat()
+        self.timestamp = datetime.now(timezone.utc).isoformat()
     
     def to_dict(self) -> Dict:
         return {

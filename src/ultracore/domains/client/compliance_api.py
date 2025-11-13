@@ -2,7 +2,7 @@
 Australian Compliance API Endpoints
 """
 from fastapi import APIRouter
-from ultracore.domains.client.compliance import (
+# from ultracore.domains.client.compliance import (  # TODO: Fix import path
     ComplianceService, AustralianKYCRequirements
 )
 

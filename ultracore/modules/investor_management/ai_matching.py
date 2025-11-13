@@ -268,7 +268,7 @@ class LoanPricingEngine:
                 "risk_adjustment": float(risk_adjustment)
             },
             "model_version": self.model_version,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         }
         
         # Publish event
@@ -458,7 +458,7 @@ class FraudDetectionEngine:
             "risk_level": risk_level,
             "flags": flags,
             "requires_review": risk_score >= 25,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         }
         
         # Publish event if high risk
@@ -468,7 +468,7 @@ class FraudDetectionEngine:
                 "transfer_id": transfer_data.get("transfer_id"),
                 "risk_score": risk_score,
                 "flags": flags,
-                "timestamp": datetime.utcnow().isoformat()
+                "timestamp": datetime.now(timezone.utc).isoformat()
             })
         
         return assessment

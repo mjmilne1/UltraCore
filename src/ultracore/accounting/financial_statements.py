@@ -328,7 +328,7 @@ class FinancialStatementsGenerator:
     ) -> BalanceSheet:
         """Generate balance sheet (statement of financial position)"""
         
-        statement_id = f"BS-{datetime.utcnow().strftime('%Y%m%d%H%M%S')}"
+        statement_id = f"BS-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}"
         
         # Get trial balance
         trial_balance = await self.gl.get_trial_balance(as_of_date)
@@ -593,7 +593,7 @@ class FinancialStatementsGenerator:
     ) -> ProfitLossStatement:
         """Generate profit & loss (income) statement"""
         
-        statement_id = f"PL-{datetime.utcnow().strftime('%Y%m%d%H%M%S')}"
+        statement_id = f"PL-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}"
         
         pl = ProfitLossStatement(
             statement_id=statement_id,
@@ -714,7 +714,7 @@ class FinancialStatementsGenerator:
     ) -> CashFlowStatement:
         """Generate cash flow statement"""
         
-        statement_id = f"CF-{datetime.utcnow().strftime('%Y%m%d%H%M%S')}"
+        statement_id = f"CF-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}"
         
         cf = CashFlowStatement(
             statement_id=statement_id,

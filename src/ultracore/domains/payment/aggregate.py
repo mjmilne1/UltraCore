@@ -9,7 +9,7 @@ from pydantic import BaseModel
 from enum import Enum
 
 from ultracore.infrastructure.event_store.store import get_event_store
-from ultracore.domains.account.aggregate import AccountAggregate
+# from ultracore.domains.account.aggregate import AccountAggregate  # TODO: Fix import path
 from ultracore.ml_models.pipeline import ml_pipeline
 from ultracore.infrastructure.event_bus.publishers import DomainEventPublisher
 
@@ -64,7 +64,7 @@ class PaymentAggregate:
             'amount': str(amount),
             'payment_type': payment_type.value,
             'description': description,
-            'initiated_at': datetime.utcnow().isoformat()
+            'initiated_at': datetime.now(timezone.utc).isoformat()
         }
         
         await store.append(
@@ -103,7 +103,7 @@ class PaymentAggregate:
             'payment_id': self.payment_id,
             'fraud_score': fraud_result['fraud_score'],
             'is_fraudulent': fraud_result['is_fraudulent'],
-            'checked_at': datetime.utcnow().isoformat()
+            'checked_at': datetime.now(timezone.utc).isoformat()
         }
         
         await store.append(
@@ -156,7 +156,7 @@ class PaymentAggregate:
         
         event_data = {
             'payment_id': self.payment_id,
-            'completed_at': datetime.utcnow().isoformat()
+            'completed_at': datetime.now(timezone.utc).isoformat()
         }
         
         await store.append(
@@ -182,7 +182,7 @@ class PaymentAggregate:
         event_data = {
             'payment_id': self.payment_id,
             'reason': reason,
-            'failed_at': datetime.utcnow().isoformat()
+            'failed_at': datetime.now(timezone.utc).isoformat()
         }
         
         await store.append(

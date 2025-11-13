@@ -250,7 +250,7 @@ class FeeEngine:
             'waived': waiver_recommendation['should_waive'],
             'waiver_reason': waiver_recommendation.get('reason'),
             'transaction_amount': str(transaction_amount) if transaction_amount else None,
-            'calculated_at': datetime.utcnow().isoformat()
+            'calculated_at': datetime.now(timezone.utc).isoformat()
         }
         
         # Publish to Data Mesh
@@ -332,7 +332,7 @@ class FeeEngine:
         - Customer notification
         """
         # Create fee transaction
-        from ultracore.general_ledger.journal import JournalEntry, get_journal_service
+        from ultracore.modules.accounting.general_ledger.journal import JournalEntry, get_journal_service
         
         journal_service = get_journal_service()
         

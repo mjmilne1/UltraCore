@@ -94,7 +94,7 @@ class DataExtractionService:
                 'document_type': 'DRIVERS_LICENSE',
                 'extracted_fields': list(extracted.keys()),
                 'extraction_confidence': sum(extracted['confidence_scores'].values()) / len(extracted['confidence_scores']) if extracted['confidence_scores'] else 0,
-                'extracted_at': datetime.utcnow().isoformat()
+                'extracted_at': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id='extraction'
         )

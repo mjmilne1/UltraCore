@@ -191,7 +191,7 @@ class LendingMCPTools:
             Created application
         """
         # This would call the actual application service
-        application_id = f"APP-{datetime.utcnow().timestamp()}"
+        application_id = f"APP-{datetime.now(timezone.utc).timestamp()}"
         
         return {
             "success": True,
@@ -348,7 +348,7 @@ class LendingMCPTools:
         Returns:
             Repayment record
         """
-        repayment_id = f"REP-{datetime.utcnow().timestamp()}"
+        repayment_id = f"REP-{datetime.now(timezone.utc).timestamp()}"
         
         return {
             "success": True,
@@ -410,7 +410,7 @@ class LendingMCPTools:
         Returns:
             Registered collateral
         """
-        collateral_id = f"COL-{datetime.utcnow().timestamp()}"
+        collateral_id = f"COL-{datetime.now(timezone.utc).timestamp()}"
         
         return {
             "success": True,

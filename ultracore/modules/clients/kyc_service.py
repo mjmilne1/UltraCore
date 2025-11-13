@@ -59,14 +59,14 @@ class KYCService:
         Initiate KYC process for client
         """
         
-        kyc_id = f"KYC-{client_id}-{int(datetime.utcnow().timestamp())}"
+        kyc_id = f"KYC-{client_id}-{int(datetime.now(timezone.utc).timestamp())}"
         
         kyc_record = {
             "kyc_id": kyc_id,
             "client_id": client_id,
             "status": KYCStatus.IN_PROGRESS,
             "verification_level": verification_level,
-            "started_at": datetime.utcnow().isoformat(),
+            "started_at": datetime.now(timezone.utc).isoformat(),
             "completed_at": None,
             "documents_submitted": [],
             "verification_results": {},
@@ -120,7 +120,7 @@ class KYCService:
         # Store document
         document_record = {
             "document_type": document_type,
-            "submitted_at": datetime.utcnow().isoformat(),
+            "submitted_at": datetime.now(timezone.utc).isoformat(),
             "verification_result": verification_result,
             "document_id": f"DOC-{len(kyc_record['documents_submitted']) + 1}"
         }
@@ -161,7 +161,7 @@ class KYCService:
             return {"error": "KYC record not found"}
         
         screening_results = {
-            "screened_at": datetime.utcnow().isoformat(),
+            "screened_at": datetime.now(timezone.utc).isoformat(),
             "pep_check": await self._check_pep(client_data),
             "sanctions_check": await self._check_sanctions(client_data),
             "adverse_media_check": await self._check_adverse_media(client_data),
@@ -293,7 +293,7 @@ class KYCService:
         
         # Update KYC record
         kyc_record["status"] = final_status
-        kyc_record["completed_at"] = datetime.utcnow().isoformat()
+        kyc_record["completed_at"] = datetime.now(timezone.utc).isoformat()
         kyc_record["approver_id"] = approver_id
         kyc_record["approval_notes"] = approval_notes
         kyc_record["agent_decision"] = agent_decision
@@ -304,8 +304,8 @@ class KYCService:
                 client_id=kyc_record["client_id"],
                 updates={
                     "kyc_completed": True,
-                    "kyc_date": datetime.utcnow(),
-                    "kyc_expiry": datetime.utcnow() + timedelta(days=365),
+                    "kyc_date": datetime.now(timezone.utc),
+                    "kyc_expiry": datetime.now(timezone.utc) + timedelta(days=365),
                     "status": "active"
                 },
                 source=DataSource.AGENT_GENERATED,
@@ -392,7 +392,7 @@ class KYCService:
         # Check expiry for certain documents
         if document_type in [DocumentType.PASSPORT, DocumentType.DRIVERS_LICENSE]:
             expiry = document_data.get("expiry_date")
-            if expiry and expiry < datetime.utcnow().isoformat():
+            if expiry and expiry < datetime.now(timezone.utc).isoformat():
                 issues.append("Document expired")
                 confidence -= 0.3
         
@@ -403,7 +403,7 @@ class KYCService:
             "confidence": max(0, confidence),
             "issues": issues,
             "document_type": document_type,
-            "verified_at": datetime.utcnow().isoformat(),
+            "verified_at": datetime.now(timezone.utc).isoformat(),
             "verification_method": "ai_automated"
         }
     
@@ -415,7 +415,7 @@ class KYCService:
         
         return {
             "is_pep": False,
-            "checked_at": datetime.utcnow().isoformat(),
+            "checked_at": datetime.now(timezone.utc).isoformat(),
             "databases_checked": ["DFAT PEP List", "World Bank PEP Database"],
             "name_checked": name
         }
@@ -430,7 +430,7 @@ class KYCService:
         
         return {
             "matches_found": False,
-            "checked_at": datetime.utcnow().isoformat(),
+            "checked_at": datetime.now(timezone.utc).isoformat(),
             "lists_checked": ["DFAT Consolidated", "UN Sanctions", "OFAC SDN"],
             "matches": []
         }
@@ -442,7 +442,7 @@ class KYCService:
         
         return {
             "concerns_found": False,
-            "checked_at": datetime.utcnow().isoformat(),
+            "checked_at": datetime.now(timezone.utc).isoformat(),
             "sources_checked": ["Australian Financial Review", "Bloomberg", "Reuters"],
             "mentions": []
         }

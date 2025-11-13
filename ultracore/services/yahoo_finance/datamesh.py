@@ -14,7 +14,7 @@ class FinancialDataMeshNode:
         mesh_key = f"company:{ticker}"
         self.data_store[mesh_key] = data
         self.metadata_store[mesh_key] = {
-            "ingested_at": datetime.utcnow().isoformat(),
+            "ingested_at": datetime.now(timezone.utc).isoformat(),
             "source": "yahoo_finance",
             "ticker": ticker,
             "quality_score": 1.0,
@@ -30,7 +30,7 @@ class FinancialDataMeshNode:
         self.data_store[mesh_key] = df
         
         self.metadata_store[mesh_key] = {
-            "ingested_at": datetime.utcnow().isoformat(),
+            "ingested_at": datetime.now(timezone.utc).isoformat(),
             "ticker": ticker,
             "period": period,
             "records": len(df),

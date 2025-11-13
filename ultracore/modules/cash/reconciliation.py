@@ -49,7 +49,7 @@ class CashReconciliationService:
         reconciliation = {
             "reconciliation_id": f"RECON-{len(self.reconciliations) + 1:08d}",
             "account_id": account_id,
-            "reconciliation_date": datetime.utcnow().isoformat(),
+            "reconciliation_date": datetime.now(timezone.utc).isoformat(),
             "ledger_balance": float(ledger_balance),
             "bank_balance": float(bank_balance),
             "pending_deposits": float(pending_deposits),
@@ -67,7 +67,7 @@ class CashReconciliationService:
                 "reconciliation_id": reconciliation["reconciliation_id"],
                 "account_id": account_id,
                 "amount": float(difference),
-                "detected_at": datetime.utcnow().isoformat(),
+                "detected_at": datetime.now(timezone.utc).isoformat(),
                 "resolved": False,
                 "resolution": None
             }
@@ -147,7 +147,7 @@ class CashReconciliationService:
         
         discrepancy["resolved"] = True
         discrepancy["resolution"] = resolution
-        discrepancy["resolved_at"] = datetime.utcnow().isoformat()
+        discrepancy["resolved_at"] = datetime.now(timezone.utc).isoformat()
         
         if adjustment_required:
             discrepancy["adjustment_amount"] = float(adjustment_amount)

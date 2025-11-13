@@ -65,7 +65,7 @@ class JournalEntry:
         self.lines = []
         self.is_posted = False
         self.posted_at = None
-        self.created_at = datetime.utcnow().isoformat()
+        self.created_at = datetime.now(timezone.utc).isoformat()
     
     def add_line(self, line: JournalEntryLine):
         """Add line to journal entry"""
@@ -137,7 +137,7 @@ class JournalEntry:
                     chart_of_accounts.update_account_balance(line.account_number, -line.credit)
         
         self.is_posted = True
-        self.posted_at = datetime.utcnow().isoformat()
+        self.posted_at = datetime.now(timezone.utc).isoformat()
     
     def reverse(self) -> 'JournalEntry':
         """
@@ -149,7 +149,7 @@ class JournalEntry:
         
         reversing_entry = JournalEntry(
             entry_id=f"{self.entry_id}-REV",
-            date=datetime.utcnow(),
+            date=datetime.now(timezone.utc),
             description=f"REVERSAL: {self.description}",
             reference=self.reference,
             source_type=self.source_type,
@@ -201,7 +201,7 @@ class JournalEntryService:
         """Create new journal entry"""
         
         if date is None:
-            date = datetime.utcnow()
+            date = datetime.now(timezone.utc)
         
         self.entry_counter += 1
         entry_id = f"JE-{self.entry_counter:08d}"

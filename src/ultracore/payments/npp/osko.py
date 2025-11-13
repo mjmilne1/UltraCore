@@ -76,7 +76,7 @@ class PayIDRegistry:
             'bsb': bsb,
             'account_number': account_number,
             'account_name': account_name,
-            'registered_at': datetime.utcnow().isoformat()
+            'registered_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(

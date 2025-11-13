@@ -229,7 +229,7 @@ class WorkflowOrchestrator:
             raise ValueError(f"Workflow {workflow_id} is not active")
         
         # Create execution instance
-        execution_id = f"EXEC-{datetime.utcnow().strftime('%Y%m%d%H%M%S')}-{document_id}"
+        execution_id = f"EXEC-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}-{document_id}"
         execution = WorkflowExecution(
             execution_id=execution_id,
             workflow_id=workflow_id,
@@ -258,7 +258,7 @@ class WorkflowOrchestrator:
             await self._execute_steps(workflow, execution, priority)
             
             execution.status = WorkflowStatus.COMPLETED
-            execution.completed_at = datetime.utcnow()
+            execution.completed_at = datetime.now(timezone.utc)
             
             # Publish completion event
             await kafka_store.append_event(
@@ -342,13 +342,13 @@ class WorkflowOrchestrator:
     
     async def _wait_for_task(self, task: Task, timeout: int = 30):
         """Wait for a task to complete"""
-        start_time = datetime.utcnow()
+        start_time = datetime.now(timezone.utc)
         
         while task.status in [TaskStatus.PENDING, TaskStatus.IN_PROGRESS]:
             await asyncio.sleep(0.5)
             
             # Check timeout
-            elapsed = (datetime.utcnow() - start_time).total_seconds()
+            elapsed = (datetime.now(timezone.utc) - start_time).total_seconds()
             if elapsed > timeout:
                 raise TimeoutError(f"Task {task.task_id} timed out after {timeout}s")
     

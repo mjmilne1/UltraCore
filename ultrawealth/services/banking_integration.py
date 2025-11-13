@@ -47,7 +47,7 @@ class BankingIntegrationService:
             event_type='cash_balance_requested',
             event_data={
                 'client_id': client_id,
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=client_id
         )
@@ -75,7 +75,7 @@ class BankingIntegrationService:
                 'client_id': client_id,
                 'amount': float(amount),
                 'order_id': order_id,
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=client_id
         )
@@ -107,7 +107,7 @@ class BankingIntegrationService:
                 'amount': float(amount),
                 'order_id': order_id,
                 'trade_type': trade_type,
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=client_id
         )
@@ -145,7 +145,7 @@ class BankingIntegrationService:
                 'ticker': ticker,
                 'quantity': float(quantity),
                 'average_cost': float(average_cost),
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=portfolio_id
         )
@@ -189,7 +189,7 @@ class BankingIntegrationService:
                 'quantity': float(quantity),
                 'price': float(price),
                 'total_amount': float(total_amount),
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=order_id
         )
@@ -230,7 +230,7 @@ class BankingIntegrationService:
         
         journal_entry = {
             'order_id': order_id,
-            'date': datetime.utcnow().isoformat(),
+            'date': datetime.now(timezone.utc).isoformat(),
             'description': f"{trade_type.upper()} {float(quantity)} units of {ticker} @ ${float(price)}",
             'entries': [
                 {
@@ -252,7 +252,7 @@ class BankingIntegrationService:
             event_data={
                 'client_id': client_id,
                 'journal_entry': journal_entry,
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=order_id
         )
@@ -275,7 +275,7 @@ class BankingIntegrationService:
             event_type='kyc_status_requested',
             event_data={
                 'client_id': client_id,
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=client_id
         )
@@ -309,7 +309,7 @@ class BankingIntegrationService:
                     'order_id': order_id,
                     'amount': float(amount),
                     'threshold': 10000,
-                    'timestamp': datetime.utcnow().isoformat()
+                    'timestamp': datetime.now(timezone.utc).isoformat()
                 },
                 aggregate_id=client_id
             )
@@ -341,7 +341,7 @@ class BankingIntegrationService:
             event_type='client_profile_requested',
             event_data={
                 'client_id': client_id,
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=client_id
         )
@@ -375,7 +375,7 @@ class BankingIntegrationService:
             event_data={
                 'client_id': client_id,
                 'portfolio_id': portfolio_id,
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=portfolio_id
         )

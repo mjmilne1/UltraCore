@@ -114,7 +114,7 @@ class CollateralService:
             current_lvr=current_lvr,
             insurance_required=True,
             registered_by=kwargs.get("registered_by", "system"),
-            registered_at=datetime.utcnow(),
+            registered_at=datetime.now(timezone.utc),
             ppsr_required=ppsr_required,
             lmi_required=lmi_required,
             **kwargs
@@ -207,7 +207,7 @@ class CollateralService:
             additional_security_amount=additional_security_amount,
             confidence_level="high",
             market_conditions="stable",
-            completed_at=datetime.utcnow()
+            completed_at=datetime.now(timezone.utc)
         )
         
         await self.kafka.publish(event)
@@ -228,7 +228,7 @@ class CollateralService:
                 breach_percentage=(new_lvr - collateral.policy_max_lvr),
                 triggered_by="valuation_update",
                 action_required="additional_security",
-                detected_at=datetime.utcnow()
+                detected_at=datetime.now(timezone.utc)
             )
             
             await self.kafka.publish(breach_event)
@@ -271,7 +271,7 @@ class CollateralService:
             priority_position=priority_position.value,
             prior_encumbrances=prior_encumbrances,
             perfected_by="system",
-            perfected_at=datetime.utcnow(),
+            perfected_at=datetime.now(timezone.utc),
             legal_advice_obtained=False
         )
         
@@ -317,7 +317,7 @@ class CollateralService:
             original_title_returned=False,
             discharge_statement_issued=False,
             released_by=released_by,
-            released_at=datetime.utcnow()
+            released_at=datetime.now(timezone.utc)
         )
         
         await self.kafka.publish(event)

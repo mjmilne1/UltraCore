@@ -3,7 +3,7 @@ from typing import Dict, List
 from decimal import Decimal
 import numpy as np
 
-from ultracore.domains.ultraoptimiser.services import OptimisationService
+# from ultracore.domains.ultraoptimiser.services import OptimisationService  # TODO: Fix import path
 
 
 class UltraOptimiserAdapter:

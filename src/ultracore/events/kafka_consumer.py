@@ -273,7 +273,7 @@ class KafkaEventConsumer:
             "event_id": event['event_id'],
             "event_type": event['event_type'],
             "aggregate_id": event['aggregate_id'],
-            "processed_at": datetime.utcnow(),
+            "processed_at": datetime.now(timezone.utc),
             "tenant_id": event['tenant_id']
         })
     

@@ -90,7 +90,7 @@ class PortfolioManagementService:
                 'ticker': ticker,
                 'quantity': float(quantity),
                 'average_cost': float(average_cost),
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=portfolio_id
         )
@@ -139,7 +139,7 @@ class PortfolioManagementService:
         holding.current_value = new_quantity * current_price
         holding.unrealized_gain_loss = (current_price - holding.average_cost) * new_quantity
         holding.unrealized_gain_loss_pct = float((current_price - holding.average_cost) / holding.average_cost * 100)
-        holding.last_updated = datetime.utcnow()
+        holding.last_updated = datetime.now(timezone.utc)
         
         self.db.commit()
         
@@ -158,7 +158,7 @@ class PortfolioManagementService:
                 'new_quantity': float(new_quantity),
                 'quantity_change': float(quantity_change),
                 'price': float(price),
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=holding.portfolio_id
         )
@@ -186,7 +186,7 @@ class PortfolioManagementService:
         if portfolio.total_invested > 0:
             portfolio.total_return = float((total_value - portfolio.total_invested) / portfolio.total_invested * 100)
         
-        portfolio.updated_at = datetime.utcnow()
+        portfolio.updated_at = datetime.now(timezone.utc)
         self.db.commit()
         
         # Publish event
@@ -198,7 +198,7 @@ class PortfolioManagementService:
                 'old_value': float(old_value) if old_value else 0,
                 'new_value': float(total_value),
                 'total_return': portfolio.total_return,
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=portfolio_id
         )
@@ -295,7 +295,7 @@ class PortfolioManagementService:
                 'allocation_before': current_allocation,
                 'allocation_after': target_allocation,
                 'orders_count': len(orders_to_create),
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=portfolio_id
         )
@@ -313,8 +313,8 @@ class PortfolioManagementService:
         if not portfolio:
             raise ValueError(f"Portfolio {portfolio_id} not found")
         
-        period_start = datetime.utcnow() - timedelta(days=period_days)
-        period_end = datetime.utcnow()
+        period_start = datetime.now(timezone.utc) - timedelta(days=period_days)
+        period_end = datetime.now(timezone.utc)
         
         # Get historical performance (simplified - would use actual historical data)
         start_value = portfolio.total_invested
@@ -386,7 +386,7 @@ class PortfolioManagementService:
         report = {
             'portfolio_id': portfolio_id,
             'portfolio_name': portfolio.portfolio_name,
-            'report_date': datetime.utcnow().isoformat(),
+            'report_date': datetime.now(timezone.utc).isoformat(),
             'period': {
                 'start': performance.period_start.isoformat(),
                 'end': performance.period_end.isoformat(),

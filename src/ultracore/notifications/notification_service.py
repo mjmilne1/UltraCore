@@ -158,7 +158,7 @@ class Notification:
         self.body = body
         self.metadata = metadata or {}
         self.status = NotificationStatus.PENDING
-        self.created_at = datetime.utcnow()
+        self.created_at = datetime.now(timezone.utc)
         self.scheduled_for: Optional[datetime] = None
         self.sent_at: Optional[datetime] = None
         self.delivered_at: Optional[datetime] = None
@@ -467,7 +467,7 @@ UltraCore Team
                 await self._send_webhook(notification)
             
             notification.status = NotificationStatus.SENT
-            notification.sent_at = datetime.utcnow()
+            notification.sent_at = datetime.now(timezone.utc)
             
             # Publish success event
             kafka_store = get_production_kafka_store()
@@ -485,7 +485,7 @@ UltraCore Team
             
         except Exception as e:
             notification.status = NotificationStatus.FAILED
-            notification.failed_at = datetime.utcnow()
+            notification.failed_at = datetime.now(timezone.utc)
             notification.failure_reason = str(e)
             
             # Retry logic
@@ -493,7 +493,7 @@ UltraCore Team
                 notification.retry_count += 1
                 # Schedule retry (exponential backoff)
                 retry_delay = timedelta(minutes=5 * (2 ** notification.retry_count))
-                notification.scheduled_for = datetime.utcnow() + retry_delay
+                notification.scheduled_for = datetime.now(timezone.utc) + retry_delay
                 notification.status = NotificationStatus.PENDING
             
             # Publish failure event
@@ -588,7 +588,7 @@ UltraCore Team
         
         # Get engagement prediction
         # For now, default to immediate send
-        return datetime.utcnow()
+        return datetime.now(timezone.utc)
 
 
 class NotificationBatchService:

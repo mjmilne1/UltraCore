@@ -19,9 +19,9 @@ from datetime import datetime, timedelta
 from typing import Dict, List, Set
 import uuid
 
-from ultracore.general_ledger.chart_of_accounts import ChartOfAccounts, AccountType
-from ultracore.general_ledger.journal import JournalEntry, JournalService
-from ultracore.general_ledger.ledger import GeneralLedger
+from ultracore.modules.accounting.general_ledger.chart_of_accounts import ChartOfAccounts, AccountType
+from ultracore.modules.accounting.general_ledger.journal import JournalEntry, JournalService
+from ultracore.modules.accounting.general_ledger.ledger import GeneralLedger
 
 
 # Hypothesis strategies for generating test data

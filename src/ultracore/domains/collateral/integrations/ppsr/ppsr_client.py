@@ -87,7 +87,7 @@ class PPSRClient(BaseAPIClient):
         
         return {
             "search_id": response.get("searchId"),
-            "search_date": datetime.utcnow(),
+            "search_date": datetime.now(timezone.utc),
             "registrations_found": len(response.get("registrations", [])),
             "registrations": response.get("registrations", []),
             "grantor_clear": len(response.get("registrations", [])) == 0
@@ -114,7 +114,7 @@ class PPSRClient(BaseAPIClient):
         
         return {
             "search_id": response.get("searchId"),
-            "search_date": datetime.utcnow(),
+            "search_date": datetime.now(timezone.utc),
             "registrations_found": len(response.get("registrations", [])),
             "registrations": response.get("registrations", []),
             "serial_number_clear": len(response.get("registrations", [])) == 0
@@ -193,7 +193,7 @@ class PPSRClient(BaseAPIClient):
         discharge_data = {
             "registrationNumber": registration_number,
             "dischargeReason": discharge_reason,
-            "dischargeDate": datetime.utcnow().isoformat()
+            "dischargeDate": datetime.now(timezone.utc).isoformat()
         }
         
         response = await self._post(
@@ -203,7 +203,7 @@ class PPSRClient(BaseAPIClient):
         
         return {
             "registration_number": registration_number,
-            "discharge_time": datetime.utcnow(),
+            "discharge_time": datetime.now(timezone.utc),
             "discharge_confirmation": response.get("confirmationNumber"),
             "status": "discharged"
         }
@@ -231,7 +231,7 @@ class PPSRClient(BaseAPIClient):
         
         return {
             "registration_number": registration_number,
-            "amendment_time": datetime.utcnow(),
+            "amendment_time": datetime.now(timezone.utc),
             "amendments_applied": amendments,
             "status": response.get("status")
         }
