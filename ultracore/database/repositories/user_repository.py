@@ -32,6 +32,13 @@ class UserRepository(BaseRepository[User]):
         super().__init__(User, session)
         self.session = session
     
+    async def get(self, user_id: UUID) -> Optional[User]:
+        """Get user by user_id"""
+        result = await self.session.execute(
+            select(User).where(User.user_id == user_id)
+        )
+        return result.scalars().first()
+    
     # ========================================================================
     # User Queries
     # ========================================================================

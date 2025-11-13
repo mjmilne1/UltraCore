@@ -12,7 +12,7 @@ from datetime import datetime
 
 
 # revision identifiers
-revision = '001_create_processed_events'
+revision = '001'
 down_revision = None
 branch_labels = None
 depends_on = None
