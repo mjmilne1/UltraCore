@@ -7,7 +7,8 @@ import pytest
 from uuid import UUID, uuid4
 from datetime import datetime
 from fastapi import FastAPI, Depends, Request, APIRouter
-from fastapi.testclient import TestClient
+from httpx import AsyncClient, ASGITransport
+from fastapi.testclient import TestClient  # Keep for reference
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 from sqlalchemy.pool import NullPool
 
@@ -268,8 +269,12 @@ def create_test_app(session: AsyncSession, current_user: dict = None):
             }
         return current_user
     
+    async def override_get_rbac_service():
+        yield RBACService(session)
+    
     app.dependency_overrides[get_async_session] = override_get_session
     app.dependency_overrides[get_current_user] = override_get_current_user
+    app.dependency_overrides[get_rbac_service] = override_get_rbac_service
     
     # Test endpoints
     @router.get("/test/require-permission")
@@ -383,10 +388,10 @@ async def test_require_permission_denied(
         "username": test_user.username
     }
     app = create_test_app(session, current_user)
-    client = TestClient(app)
     
-    # Test endpoint
-    response = client.get("/test/require-permission")
+    # Test endpoint using async client
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client:
+        response = await client.get("/test/require-permission")
     
     assert response.status_code == 403
     assert "Missing required permission" in response.json()["detail"]
