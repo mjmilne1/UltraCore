@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  lending-api:
+    build:
+      context: ..
+      dockerfile: Dockerfile.lending
+    container_name: ultracore-lending-api
+    ports:
+      - "8889:8889"
+    env_file:
+      - .env.lending
+    depends_on:
+      - lending-db
+      - kafka
+    networks:
+      - ultracore-net
+
+  lending-worker:
+    build:
+      context: ..
+      dockerfile: Dockerfile.lending
+    container_name: ultracore-lending-worker
+    command: ["python", "-m", "ultracore.modules.lending.worker"]
+    env_file:
+      - .env.lending
+    depends_on:
+      - lending-db
+      - kafka
+    networks:
+      - ultracore-net
+
+  lending-db:
+    image: postgres:14-alpine
+    container_name: ultracore-lending-db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5433:5432"
+    volumes:
+      - lending-db-data:/var/lib/postgresql/data
+    networks:
+      - ultracore-net
+
+  kafka:
+    image: confluentinc/cp-kafka:7.3.0
+    container_name: ultracore-lending-kafka
+    ports:
+      - "9093:9093"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper
+    networks:
+      - ultracore-net
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.3.0
+    container_name: ultracore-lending-zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - ultracore-net
+
+volumes:
+  lending-db-data:
+
+networks:
+  ultracore-net:
+    driver: bridge
