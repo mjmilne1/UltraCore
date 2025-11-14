@@ -15,7 +15,16 @@ from ultracore.infrastructure.kafka_event_store.production_store import get_prod
 
 
 # Security configuration
-SECRET_KEY = "ultracore-secret-key-change-in-production-use-env-var"  # TODO: Move to env
+# SECURITY FIX: Load JWT secret from environment variable
+import os
+
+SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
+if not SECRET_KEY:
+    raise ValueError("JWT_SECRET_KEY environment variable must be set")
+
+if len(SECRET_KEY) < 32:
+    raise ValueError("JWT_SECRET_KEY must be at least 32 characters for security")
+
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 REFRESH_TOKEN_EXPIRE_DAYS = 7

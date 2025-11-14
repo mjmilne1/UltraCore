@@ -1,0 +1,367 @@
+# UltraCore Secure Kubernetes Deployment
+# SECURITY HARDENED VERSION
+#
+# Key Security Features:
+# - Non-root containers with read-only root filesystem
+# - Security contexts with capability dropping
+# - Resource limits and requests
+# - Network policies for pod-to-pod communication
+# - Secrets management via Kubernetes secrets
+# - Pod security policies
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ultracore-prod
+  labels:
+    name: ultracore-prod
+    environment: production
+
+---
+# Secrets (should be created separately via kubectl or external secrets manager)
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ultracore-secrets
+  namespace: ultracore-prod
+type: Opaque
+stringData:
+  # These should be base64 encoded in production
+  # Create with: kubectl create secret generic ultracore-secrets --from-env-file=.env
+  database-url: "postgresql://user:pass@postgres:5432/ultracore"
+  jwt-secret: "CHANGE_ME"
+  redis-password: "CHANGE_ME"
+  kafka-password: "CHANGE_ME"
+
+---
+# ConfigMap for non-sensitive configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ultracore-config
+  namespace: ultracore-prod
+data:
+  ENVIRONMENT: "production"
+  LOG_LEVEL: "INFO"
+  KAFKA_BOOTSTRAP_SERVERS: "kafka:9092"
+
+---
+# Service Account with minimal permissions
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ultracore-sa
+  namespace: ultracore-prod
+
+---
+# UltraCore Banking Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ultracore-banking
+  namespace: ultracore-prod
+  labels:
+    app: ultracore-banking
+    component: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ultracore-banking
+  template:
+    metadata:
+      labels:
+        app: ultracore-banking
+        component: backend
+    spec:
+      serviceAccountName: ultracore-sa
+      
+      # SECURITY: Pod Security Context
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      
+      containers:
+      - name: ultracore-banking
+        image: ultracore/banking:latest
+        imagePullPolicy: Always
+        
+        # SECURITY: Container Security Context
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 1000
+          capabilities:
+            drop:
+              - ALL
+        
+        ports:
+        - containerPort: 8000
+          name: http
+          protocol: TCP
+        
+        # Environment variables from secrets and configmaps
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: ultracore-secrets
+              key: database-url
+        - name: JWT_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: ultracore-secrets
+              key: jwt-secret
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ultracore-secrets
+              key: redis-password
+        - name: ENVIRONMENT
+          valueFrom:
+            configMapKeyRef:
+              name: ultracore-config
+              key: ENVIRONMENT
+        - name: LOG_LEVEL
+          valueFrom:
+            configMapKeyRef:
+              name: ultracore-config
+              key: LOG_LEVEL
+        
+        # Resource limits
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        
+        # Volume mounts for writable directories
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+        - name: cache
+          mountPath: /app/cache
+        - name: logs
+          mountPath: /app/logs
+        
+        # Health checks
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+      
+      # Volumes for writable directories (since root filesystem is read-only)
+      volumes:
+      - name: tmp
+        emptyDir: {}
+      - name: cache
+        emptyDir: {}
+      - name: logs
+        emptyDir: {}
+      
+      # Affinity rules for high availability
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - ultracore-banking
+              topologyKey: kubernetes.io/hostname
+
+---
+# Service for UltraCore Banking
+apiVersion: v1
+kind: Service
+metadata:
+  name: ultracore-banking-service
+  namespace: ultracore-prod
+spec:
+  selector:
+    app: ultracore-banking
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
+  type: ClusterIP
+
+---
+# Network Policy - Restrict pod-to-pod communication
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: ultracore-banking-netpol
+  namespace: ultracore-prod
+spec:
+  podSelector:
+    matchLabels:
+      app: ultracore-banking
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: nginx-ingress
+    ports:
+    - protocol: TCP
+      port: 8000
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: postgres
+    ports:
+    - protocol: TCP
+      port: 5432
+  - to:
+    - podSelector:
+        matchLabels:
+          app: redis
+    ports:
+    - protocol: TCP
+      port: 6379
+  - to:
+    - podSelector:
+        matchLabels:
+          app: kafka
+    ports:
+    - protocol: TCP
+      port: 9092
+  # Allow DNS
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: kube-system
+    ports:
+    - protocol: UDP
+      port: 53
+
+---
+# Pod Disruption Budget for high availability
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: ultracore-banking-pdb
+  namespace: ultracore-prod
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: ultracore-banking
+
+---
+# Horizontal Pod Autoscaler
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: ultracore-banking-hpa
+  namespace: ultracore-prod
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: ultracore-banking
+  minReplicas: 3
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+
+---
+# Pod Security Policy (if PSP admission controller is enabled)
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: ultracore-restricted
+  annotations:
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: 'runtime/default'
+    apparmor.security.beta.kubernetes.io/allowedProfileNames: 'runtime/default'
+spec:
+  privileged: false
+  allowPrivilegeEscalation: false
+  requiredDropCapabilities:
+    - ALL
+  volumes:
+    - 'configMap'
+    - 'emptyDir'
+    - 'projected'
+    - 'secret'
+    - 'downwardAPI'
+    - 'persistentVolumeClaim'
+  hostNetwork: false
+  hostIPC: false
+  hostPID: false
+  runAsUser:
+    rule: 'MustRunAsNonRoot'
+  seLinux:
+    rule: 'RunAsAny'
+  supplementalGroups:
+    rule: 'RunAsAny'
+  fsGroup:
+    rule: 'RunAsAny'
+  readOnlyRootFilesystem: true
+
+---
+# Role for service account
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: ultracore-role
+  namespace: ultracore-prod
+rules:
+- apiGroups: [""]
+  resources: ["configmaps", "secrets"]
+  verbs: ["get", "list"]
+
+---
+# RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ultracore-rolebinding
+  namespace: ultracore-prod
+subjects:
+- kind: ServiceAccount
+  name: ultracore-sa
+  namespace: ultracore-prod
+roleRef:
+  kind: Role
+  name: ultracore-role
+  apiGroup: rbac.authorization.k8s.io

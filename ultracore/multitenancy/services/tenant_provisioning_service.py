@@ -235,20 +235,40 @@ class TenantProvisioningService:
         finally:
             await conn.close()
     
-    async def _create_db_user(self, username: str, password: str, db_name: str):
-        """Create database user with full access to database"""
+     def _validate_sql_identifier(self, identifier: str) -> str:
+        """Validate SQL identifier to prevent injection attacks"""
+        import re
+        if not re.match(r'^[a-zA-Z_][a-zA-Z0-9_]*$', identifier):
+            raise ValueError(f"Invalid SQL identifier: {identifier}. Must contain only alphanumeric characters and underscores, and start with a letter.")
+        if len(identifier) > 63:  # PostgreSQL identifier length limit
+            raise ValueError(f"SQL identifier too long: {identifier}. Maximum 63 characters.")
+        return identifier
+    
+    async def _create_database_user(self, db_name: str, username: str, password: str):
+        """Create database user with full privileges - SECURE VERSION"""
+        # SECURITY FIX: Validate identifiers to prevent SQL injection
+        username = self._validate_sql_identifier(username)
+        db_name = self._validate_sql_identifier(db_name)
+        
         conn = await asyncpg.connect(
             host=self.postgres_admin_host,
             port=self.postgres_admin_port,
             user=self.postgres_admin_user,
             password=self.postgres_admin_password,
-            database="postgres"
+            database='postgres'
         )
         try:
-            await conn.execute(f"CREATE USER {username} WITH PASSWORD '{password}'")
-            await conn.execute(f'GRANT ALL PRIVILEGES ON DATABASE "{db_name}" TO {username}')
+            # Use parameterized query for password (prevents SQL injection)
+            await conn.execute(
+                f'CREATE USER {username} WITH PASSWORD $1',
+                password
+            )
+            # Identifiers are validated, safe to use in query
+            await conn.execute(
+                f'GRANT ALL PRIVILEGES ON DATABASE {db_name} TO {username}'
+            )
         finally:
-            await conn.close()
+            await conn.close())
     
     async def _create_schema(self, db_name: str, schema_name: str):
         """Create schema in database"""
@@ -266,7 +286,12 @@ class TenantProvisioningService:
     
     async def _create_schema_user(self, db_name: str, schema_name: str,
                                   username: str, password: str):
-        """Create user with access to specific schema"""
+        """Create user with access to specific schema - SECURE VERSION"""
+        # SECURITY FIX: Validate all identifiers
+        db_name = self._validate_sql_identifier(db_name)
+        schema_name = self._validate_sql_identifier(schema_name)
+        username = self._validate_sql_identifier(username)
+        
         conn = await asyncpg.connect(
             host=self.postgres_admin_host,
             port=self.postgres_admin_port,
@@ -275,9 +300,17 @@ class TenantProvisioningService:
             database=db_name
         )
         try:
-            await conn.execute(f"CREATE USER {username} WITH PASSWORD '{password}'")
-            await conn.execute(f'GRANT USAGE ON SCHEMA "{schema_name}" TO {username}')
-            await conn.execute(f'GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA "{schema_name}" TO {username}')
+            # Use parameterized query for password
+            await conn.execute(
+                f'CREATE USER {username} WITH PASSWORD $1',
+                password
+            )
+            await conn.execute(
+                f'GRANT USAGE ON SCHEMA {schema_name} TO {username}'
+            )
+            await conn.execute(
+                f'GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA {schema_name} TO {username}'
+            )
             await conn.execute(f'ALTER DEFAULT PRIVILEGES IN SCHEMA "{schema_name}" GRANT ALL ON TABLES TO {username}')
         finally:
             await conn.close()
