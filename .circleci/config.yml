@@ -42,6 +42,7 @@ jobs:
             pip install --upgrade pip
             pip install -r requirements.txt
             pip install pytest pytest-cov
+            pip install -e .
       
       - save_cache:
           key: deps-v1-py<< parameters.python-version >>-{{ checksum "requirements.txt" }}
