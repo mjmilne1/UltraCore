@@ -49,3 +49,4 @@ locust>=2.32.0
 # Database Testing
 faker>=33.0.0
 factory-boy>=3.3.0
+bcrypt>=4.1.0,<4.2.0

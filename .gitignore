@@ -64,3 +64,5 @@ dist/
 
 # Fiscal.ai MCP
 fiscal_ai_mcp/.env
+
+ultracore_old_backup/
