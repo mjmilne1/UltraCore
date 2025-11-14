@@ -257,7 +257,7 @@ class BaseAgent(ABC):
         tool = self.available_tools.get(tool_name)
         if not tool:
             return ToolCall(
-                call_id=f"CALL-{datetime.utcnow().timestamp()}",
+                call_id=f"CALL-{datetime.now(timezone.utc).timestamp()}",
                 tool_name=tool_name,
                 arguments=arguments,
                 success=False,
@@ -266,7 +266,7 @@ class BaseAgent(ABC):
         
         self.status = AgentStatus.ACTING
         
-        start_time = datetime.utcnow()
+        start_time = datetime.now(timezone.utc)
         
         try:
             if tool.function:
@@ -274,10 +274,10 @@ class BaseAgent(ABC):
             else:
                 result = {"status": "simulated"}
             
-            execution_time = (datetime.utcnow() - start_time).total_seconds() * 1000
+            execution_time = (datetime.now(timezone.utc) - start_time).total_seconds() * 1000
             
             tool_call = ToolCall(
-                call_id=f"CALL-{datetime.utcnow().timestamp()}",
+                call_id=f"CALL-{datetime.now(timezone.utc).timestamp()}",
                 tool_name=tool_name,
                 arguments=arguments,
                 result=result,
@@ -286,10 +286,10 @@ class BaseAgent(ABC):
             )
             
         except Exception as e:
-            execution_time = (datetime.utcnow() - start_time).total_seconds() * 1000
+            execution_time = (datetime.now(timezone.utc) - start_time).total_seconds() * 1000
             
             tool_call = ToolCall(
-                call_id=f"CALL-{datetime.utcnow().timestamp()}",
+                call_id=f"CALL-{datetime.now(timezone.utc).timestamp()}",
                 tool_name=tool_name,
                 arguments=arguments,
                 success=False,
@@ -382,7 +382,7 @@ class MultiAgentOrchestrator:
         # Record task
         self.task_history.append({
             'task': task,
-            'timestamp': datetime.utcnow(),
+            'timestamp': datetime.now(timezone.utc),
             'agents': [a.agent_id for a in agents_to_use],
             'decisions': {k: v.decision for k, v in decisions.items()}
         })

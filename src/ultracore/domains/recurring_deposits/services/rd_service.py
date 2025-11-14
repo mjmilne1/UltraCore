@@ -79,7 +79,7 @@ class RecurringDepositService:
             debit_day_of_month=debit_day_of_month,
             maturity_instruction=maturity_instruction,
             submitted_by=submitted_by,
-            submitted_at=datetime.utcnow(),
+            submitted_at=datetime.now(timezone.utc),
             **kwargs
         )
         
@@ -134,7 +134,7 @@ class RecurringDepositService:
             product_id=application.product_id,
             application_id=application_id,
             approved_by=approved_by,
-            approved_at=datetime.utcnow(),
+            approved_at=datetime.now(timezone.utc),
             approval_notes=approval_notes,
             monthly_deposit_amount=application.monthly_deposit_amount,
             term_months=application.term_months,
@@ -161,7 +161,7 @@ class RecurringDepositService:
         
         # Generate account
         account_id = f"RD-{uuid.uuid4().hex[:12].upper()}"
-        account_number = f"RD{datetime.utcnow().strftime('%Y%m%d')}{uuid.uuid4().hex[:6].upper()}"
+        account_number = f"RD{datetime.now(timezone.utc).strftime('%Y%m%d')}{uuid.uuid4().hex[:6].upper()}"
         
         # Calculate maturity date
         maturity_date = activation_date + relativedelta(months=application.term_months)

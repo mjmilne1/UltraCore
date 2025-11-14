@@ -259,7 +259,7 @@ class BaseRepository(Generic[T]):
         """
         # Update audit fields
         entity.updated_by = updated_by
-        entity.updated_at = datetime.utcnow()
+        entity.updated_at = datetime.now(timezone.utc)
         entity.version += 1
         
         await self.session.flush()
@@ -304,9 +304,9 @@ class BaseRepository(Generic[T]):
         if not entity:
             return False
         
-        entity.deleted_at = datetime.utcnow()
+        entity.deleted_at = datetime.now(timezone.utc)
         entity.updated_by = deleted_by
-        entity.updated_at = datetime.utcnow()
+        entity.updated_at = datetime.now(timezone.utc)
         
         await self.session.flush()
         

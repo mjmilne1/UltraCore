@@ -45,7 +45,7 @@ class HoldingsDataMesh:
             "position_id": position_id,
             "source": source,
             "created_by": created_by,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "quality_score": quality_score,
             "version": len(self.lineage_store.get(position_id, [])) + 1
         }
@@ -178,7 +178,7 @@ class HoldingsDataMesh:
             "unrealized_gain_loss": unrealized_gl,
             "return_pct": (unrealized_gl / total_cost * 100) if total_cost > 0 else 0,
             "positions_count": len(positions),
-            "last_updated": datetime.utcnow().isoformat()
+            "last_updated": datetime.now(timezone.utc).isoformat()
         }
     
     def _calculate_position_quality(self, position_data: Dict[str, Any]) -> float:

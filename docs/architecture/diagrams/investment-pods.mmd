@@ -1,0 +1,121 @@
+```mermaid
+stateDiagram-v2
+    [*] --> Created: Create Pod<br/>(goal, target_date, risk_tolerance)
+    
+    Created --> Optimized: Optimize Portfolio<br/>(call UltraOptimiser)
+    
+    Optimized --> Funded: Fund Pod<br/>(transfer cash)
+    
+    Funded --> Active: Activate Pod<br/>(start monitoring)
+    
+    Active --> Rebalancing: Glide Path Trigger<br/>(reduce risk over time)
+    Rebalancing --> Active: Rebalance Complete
+    
+    Active --> CircuitBroken: Drawdown > 15%<br/>(circuit breaker)
+    CircuitBroken --> Active: Manual Override<br/>(admin approval)
+    
+    Active --> Achieved: Goal Achieved<br/>(target amount reached)
+    
+    Active --> Cancelled: Cancel Pod<br/>(user request)
+    
+    Achieved --> [*]
+    Cancelled --> [*]
+    
+    note right of Created
+        Initial state
+        - Goal: First Home, Retirement, etc.
+        - Target Date: 2030-01-01
+        - Risk Tolerance: Conservative/Moderate/Aggressive
+    end note
+    
+    note right of Optimized
+        Portfolio optimized by UltraOptimiser
+        - Expected Return: 8.89%
+        - Sharpe Ratio: 0.66
+        - Allocation: [VAS: 40%, VGS: 30%, VAF: 30%]
+    end note
+    
+    note right of Active
+        Pod is active and monitored
+        - Daily valuation
+        - Performance tracking
+        - Glide path monitoring
+        - Circuit breaker monitoring
+    end note
+    
+    note right of Rebalancing
+        Glide path reduces risk over time
+        - Linear: Gradual risk reduction
+        - Exponential: Accelerating risk reduction
+        - Stepped: Risk reduction at milestones
+    end note
+    
+    note right of CircuitBroken
+        Circuit breaker triggered
+        - Drawdown > 15%
+        - Trading halted
+        - Notification sent
+        - Requires manual override
+    end note
+    
+    note right of Achieved
+        Goal achieved
+        - Target amount reached
+        - Pod closed
+        - Funds available for withdrawal
+    end note
+```
+
+**Investment Pods Lifecycle**
+
+This state diagram shows the complete lifecycle of an Investment Pod:
+
+**States:**
+
+1. **Created** - Initial state after pod creation
+   - User specifies goal (first home, retirement, education, wealth building)
+   - User sets target date and risk tolerance
+   - Pod awaits portfolio optimization
+
+2. **Optimized** - Portfolio optimized by UltraOptimiser
+   - Expected return: 8.89%
+   - Sharpe ratio: 0.66
+   - Allocation: e.g., [VAS: 40%, VGS: 30%, VAF: 30%]
+   - Pod awaits funding
+
+3. **Funded** - Cash transferred to pod
+   - Funds available for trading
+   - Pod awaits activation
+
+4. **Active** - Pod is actively managed
+   - Daily valuation
+   - Performance tracking
+   - Glide path monitoring (automatic risk reduction)
+   - Circuit breaker monitoring (15% drawdown threshold)
+
+5. **Rebalancing** - Glide path triggered
+   - Risk reduction as target date approaches
+   - Three strategies: Linear, Exponential, Stepped
+   - Returns to Active after rebalancing
+
+6. **CircuitBroken** - Circuit breaker triggered
+   - Drawdown exceeds 15% threshold
+   - Trading halted automatically
+   - Notification sent to user
+   - Requires manual override by admin
+
+7. **Achieved** - Goal achieved
+   - Target amount reached
+   - Pod closed automatically
+   - Funds available for withdrawal
+
+8. **Cancelled** - User cancelled pod
+   - User-initiated cancellation
+   - Funds returned to cash account
+
+**Key Features:**
+- **AI-powered optimization** - Delegates to UltraOptimiser
+- **Glide path** - Automatic risk reduction over time
+- **Circuit breaker** - Capital preservation (15% drawdown threshold)
+- **Goal tracking** - Progress towards target amount
+- **Event-driven** - All state changes are Kafka events

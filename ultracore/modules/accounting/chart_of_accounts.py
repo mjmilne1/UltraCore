@@ -1,9 +1,13 @@
-﻿"""
+from datetime import timezone
+"""
 Chart of Accounts
 Complete account structure for wealth management platform
 """
 
 from typing import Dict, Any, List, Optional
+from enum import Enum
+from datetime import datetime
+
 from enum import Enum
 from datetime import datetime
 
@@ -72,7 +76,7 @@ class Account:
         self.description = description
         self.parent_account = parent_account
         self.balance = 0.0
-        self.created_at = datetime.utcnow().isoformat()
+        self.created_at = datetime.now(timezone.utc).isoformat()
         self.is_active = True
     
     def to_dict(self) -> Dict[str, Any]:

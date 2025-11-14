@@ -122,5 +122,5 @@ class DataMeshConsumer:
             "loans": loans,
             "accounts": accounts,
             "transactions": transactions,
-            "last_updated": datetime.utcnow().isoformat()
+            "last_updated": datetime.now(timezone.utc).isoformat()
         }

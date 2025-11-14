@@ -390,7 +390,7 @@ class OpenAIDocumentService:
         
         # Create document with simulated content
         content_bytes = (content or f"Document: {title}").encode('utf-8')
-        storage_path = f"/storage/docs/{datetime.utcnow().strftime('%Y%m%d')}/{title.replace(' ', '_')}.txt"
+        storage_path = f"/storage/docs/{datetime.now(timezone.utc).strftime('%Y%m%d')}/{title.replace(' ', '_')}.txt"
         
         document = await self.document_store.create_document(
             content=content_bytes,
@@ -461,7 +461,7 @@ class OpenAIDocumentService:
             'data_mesh': mesh_overview,
             'agents': agent_metrics,
             'workflows': workflow_stats,
-            'timestamp': datetime.utcnow().isoformat()
+            'timestamp': datetime.now(timezone.utc).isoformat()
         }
     
     async def get_data_mesh_overview(self) -> Dict[str, Any]:

@@ -213,7 +213,7 @@ class DatabaseIntegration:
             pending_credits=account.balance.pending_credits,
             pending_debits=account.balance.pending_debits,
             held_amount=account.balance.held_amount,
-            last_balance_update=datetime.utcnow(),
+            last_balance_update=datetime.now(timezone.utc),
             created_by=created_by
         )
         

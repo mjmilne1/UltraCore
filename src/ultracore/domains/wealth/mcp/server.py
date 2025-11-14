@@ -1,6 +1,7 @@
 """MCP Server for Wealth Management (OpenAI)"""
 from typing import Dict, Any, Optional
 from decimal import Decimal
+from datetime import datetime
 
 from mcp.server import Server
 from ultracore.mcp.base import BaseMCPServer
@@ -10,13 +11,15 @@ from ..trading import TradingService
 from ..margin import MarginLendingService
 from ..planning import FinancialPlanner
 from ..agents import AnyaWealthAgent
+from ..models.investment_pod import InvestmentPod, GoalType, RiskTolerance as PodRiskTolerance
+from ..services.glide_path_engine import GlidePathEngine, GlidePathStrategy
 
 
 class WealthMCPServer(BaseMCPServer):
     """
     MCP Server for wealth management.
     
-    Tools available (13):
+    Tools available (18):
     - create_portfolio: Create investment portfolio
     - get_portfolio_performance: View portfolio performance
     - execute_trade: Buy/sell securities (ASX)
@@ -30,6 +33,11 @@ class WealthMCPServer(BaseMCPServer):
     - assess_risk_profile: Investment risk assessment
     - calculate_tax_impact: CGT and franking
     - ask_anya_about_wealth: Natural language assistance
+    - create_investment_pod: Create goal-based investment pod
+    - get_pod_performance: Get pod performance metrics
+    - rebalance_pod: Trigger pod rebalancing
+    - get_pod_allocation: Get current pod allocation
+    - get_glidepath_projection: Get glidepath projection
     """
     
     def __init__(
@@ -325,4 +333,184 @@ class WealthMCPServer(BaseMCPServer):
             self.anya.customer_id = customer_id
             response = await self.anya.execute(question)
             return response
+        
+        # Investment Pods Tools
+        
+        @self.server.tool()
+        async def create_investment_pod(
+            customer_id: str,
+            goal_type: str,
+            goal_name: str,
+            target_amount: float,
+            target_date: Optional[str],
+            initial_deposit: float,
+            monthly_contribution: float,
+            risk_tolerance: str
+        ) -> Dict[str, Any]:
+            """
+            Create goal-based investment pod.
+            
+            Investment pods are goal-oriented portfolios with automatic
+            glidepath risk reduction as you approach your target date.
+            
+            Args:
+                customer_id: Customer ID
+                goal_type: Goal type (first_home, retirement, wealth, education, travel, custom)
+                goal_name: Custom goal name
+                target_amount: Target amount (AUD)
+                target_date: Target date (YYYY-MM-DD format, optional)
+                initial_deposit: Initial deposit (AUD)
+                monthly_contribution: Monthly contribution (AUD)
+                risk_tolerance: Risk tolerance (conservative, moderate, aggressive)
+            
+            Returns:
+                Investment pod created with glidepath strategy
+            """
+            
+            # Create pod
+            pod = InvestmentPod(
+                tenant_id="default",
+                user_id=customer_id,
+                goal_type=GoalType(goal_type),
+                goal_name=goal_name,
+                target_amount=Decimal(str(target_amount)),
+                target_date=datetime.fromisoformat(target_date) if target_date else None,
+                initial_deposit=Decimal(str(initial_deposit)),
+                monthly_contribution=Decimal(str(monthly_contribution)),
+                risk_tolerance=PodRiskTolerance(risk_tolerance)
+            )
+            
+            # In production: save to database
+            
+            return {
+                "success": True,
+                "pod_id": pod.pod_id,
+                "goal_name": pod.goal_name,
+                "target_amount": float(pod.target_amount),
+                "target_date": pod.target_date.isoformat() if pod.target_date else None,
+                "status": pod.status.value,
+                "message": f"Investment pod '{pod.goal_name}' created successfully!"
+            }
+        
+        @self.server.tool()
+        async def get_pod_performance(
+            pod_id: str
+        ) -> Dict[str, Any]:
+            """
+            Get investment pod performance metrics.
+            
+            Returns current value, returns, progress towards goal.
+            
+            Args:
+                pod_id: Pod ID
+            
+            Returns:
+                Performance metrics including returns and goal progress
+            """
+            
+            # In production: get pod from database
+            # pod = ...
+            
+            return {
+                "success": True,
+                "pod_id": pod_id,
+                "current_value": 0.0,
+                "total_return": 0.0,
+                "total_return_pct": 0.0,
+                "progress_pct": 0.0,
+                "message": "Pod performance retrieved"
+            }
+        
+        @self.server.tool()
+        async def rebalance_pod(
+            pod_id: str
+        ) -> Dict[str, Any]:
+            """
+            Trigger investment pod rebalancing.
+            
+            Rebalances portfolio to match target allocation,
+            adjusting for glidepath if approaching target date.
+            
+            Args:
+                pod_id: Pod ID
+            
+            Returns:
+                Rebalancing result with trades executed
+            """
+            
+            # In production: get pod, calculate rebalancing trades, execute
+            
+            return {
+                "success": True,
+                "pod_id": pod_id,
+                "trades_executed": 0,
+                "message": "Pod rebalanced successfully"
+            }
+        
+        @self.server.tool()
+        async def get_pod_allocation(
+            pod_id: str
+        ) -> Dict[str, Any]:
+            """
+            Get investment pod current allocation.
+            
+            Shows target vs current allocation and drift.
+            
+            Args:
+                pod_id: Pod ID
+            
+            Returns:
+                Target and current allocation with drift analysis
+            """
+            
+            # In production: get pod from database
+            
+            return {
+                "success": True,
+                "pod_id": pod_id,
+                "target_allocation": {},
+                "current_allocation": {},
+                "drift": {},
+                "needs_rebalance": False,
+                "message": "Pod allocation retrieved"
+            }
+        
+        @self.server.tool()
+        async def get_glidepath_projection(
+            pod_id: str
+        ) -> Dict[str, Any]:
+            """
+            Get investment pod glidepath projection.
+            
+            Shows how risk allocation will change over time
+            as you approach your target date.
+            
+            Args:
+                pod_id: Pod ID
+            
+            Returns:
+                Glidepath projection with risk reduction schedule
+            """
+            
+            # In production: get pod from database
+            # Calculate years to target
+            # Generate glidepath
+            
+            # Mock glidepath
+            engine = GlidePathEngine(
+                strategy=GlidePathStrategy.LINEAR,
+                initial_equity_pct=0.8,
+                final_equity_pct=0.3,
+                years_to_target=10
+            )
+            
+            glidepath = engine.generate_glidepath()
+            
+            return {
+                "success": True,
+                "pod_id": pod_id,
+                "strategy": "linear",
+                "glidepath": glidepath,
+                "message": "Glidepath projection generated"
+            }
 

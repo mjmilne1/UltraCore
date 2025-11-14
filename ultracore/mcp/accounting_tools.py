@@ -106,7 +106,7 @@ class AccountingMCPTools:
     ) -> Dict[str, Any]:
         """MCP tool: Create journal entry"""
         
-        entry_date = datetime.fromisoformat(date) if date else datetime.utcnow()
+        entry_date = datetime.fromisoformat(date) if date else datetime.now(timezone.utc)
         
         entry = journal_entry_service.create_entry(
             description=description,
@@ -178,7 +178,7 @@ class AccountingMCPTools:
             "account_number": account_number,
             "account_name": account.name,
             "balance": balance,
-            "as_of_date": (date or datetime.utcnow()).isoformat()
+            "as_of_date": (date or datetime.now(timezone.utc)).isoformat()
         }
     
     @staticmethod
@@ -219,7 +219,7 @@ class AccountingMCPTools:
         """MCP tool: Get income statement"""
         
         start = datetime.fromisoformat(start_date)
-        end = datetime.fromisoformat(end_date) if end_date else datetime.utcnow()
+        end = datetime.fromisoformat(end_date) if end_date else datetime.now(timezone.utc)
         
         income_statement = financial_statements.generate_income_statement(start, end)
         
@@ -236,7 +236,7 @@ class AccountingMCPTools:
         """MCP tool: Get cash flow statement"""
         
         start = datetime.fromisoformat(start_date)
-        end = datetime.fromisoformat(end_date) if end_date else datetime.utcnow()
+        end = datetime.fromisoformat(end_date) if end_date else datetime.now(timezone.utc)
         
         cash_flow = financial_statements.generate_cash_flow_statement(start, end)
         
@@ -282,7 +282,7 @@ class AccountingMCPTools:
     ) -> Dict[str, Any]:
         """MCP tool: Reconcile accounts"""
         
-        date = datetime.fromisoformat(as_of_date) if as_of_date else datetime.utcnow()
+        date = datetime.fromisoformat(as_of_date) if as_of_date else datetime.now(timezone.utc)
         
         result = await reconciliation_service.run_full_reconciliation(date)
         

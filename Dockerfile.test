@@ -1,0 +1,45 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    postgresql-client \
+    redis-tools \
+    curl \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements
+COPY requirements.txt requirements-test.txt* ./
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Install test dependencies
+RUN pip install --no-cache-dir \
+    pytest==7.4.3 \
+    pytest-cov==4.1.0 \
+    pytest-asyncio==0.21.1 \
+    pytest-mock==3.12.0 \
+    pytest-xdist==3.5.0 \
+    pytest-timeout==2.2.0 \
+    pytest-benchmark==4.0.0 \
+    faker==20.1.0 \
+    factory-boy==3.3.0 \
+    hypothesis==6.92.1 \
+    locust==2.20.0 \
+    bandit==1.7.5 \
+    safety==2.3.5 \
+    coverage[toml]==7.3.2
+
+# Copy application code
+COPY . .
+
+# Set Python path
+ENV PYTHONPATH=/app:$PYTHONPATH
+
+# Default command (can be overridden)
+CMD ["pytest", "tests/", "-v", "--cov=ultracore", "--cov-report=html", "--cov-report=term"]

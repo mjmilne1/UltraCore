@@ -5,17 +5,62 @@ Version 7.0.0 with Cash Management
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import sys
-sys.path.insert(0, r'C:\Users\mjmil\UltraCore')
+import logging
 
-from ultracore.api.v1.financial.routes import router as financial_router
-from ultracore.api.v1.ultrawealth.routes import router as ultrawealth_router
-from ultracore.api.v1.clients.routes import router as clients_router
-from ultracore.api.v1.holdings.routes import router as holdings_router
-from ultracore.api.v1.transactions.routes import router as transactions_router
-from ultracore.api.v1.accounting.routes import router as accounting_router
-from ultracore.api.v1.compliance.routes import router as compliance_router
-from ultracore.api.v1.cash.routes import router as cash_router
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Import routers with graceful fallback
+routers = {}
+
+try:
+    from ultracore.api.v1.financial.routes import router as financial_router
+    routers['financial'] = financial_router
+except ImportError as e:
+    logger.warning(f"Financial router not available: {e}")
+
+try:
+    from ultracore.api.v1.ultrawealth.routes import router as ultrawealth_router
+    routers['ultrawealth'] = ultrawealth_router
+except ImportError as e:
+    logger.warning(f"UltraWealth router not available: {e}")
+
+try:
+    from ultracore.api.v1.clients.routes import router as clients_router
+    routers['clients'] = clients_router
+except ImportError as e:
+    logger.warning(f"Clients router not available: {e}")
+
+try:
+    from ultracore.api.v1.holdings.routes import router as holdings_router
+    routers['holdings'] = holdings_router
+except ImportError as e:
+    logger.warning(f"Holdings router not available: {e}")
+
+try:
+    from ultracore.api.v1.transactions.routes import router as transactions_router
+    routers['transactions'] = transactions_router
+except ImportError as e:
+    logger.warning(f"Transactions router not available: {e}")
+
+try:
+    from ultracore.api.v1.accounting.routes import router as accounting_router
+    routers['accounting'] = accounting_router
+except ImportError as e:
+    logger.warning(f"Accounting router not available: {e}")
+
+try:
+    from ultracore.api.v1.compliance.routes import router as compliance_router
+    routers['compliance'] = compliance_router
+except ImportError as e:
+    logger.warning(f"Compliance router not available: {e}")
+
+try:
+    from ultracore.api.v1.cash.routes import router as cash_router
+    routers['cash'] = cash_router
+except ImportError as e:
+    logger.warning(f"Cash router not available: {e}")
 
 app = FastAPI(
     title="UltraCore Financial Platform",
@@ -30,15 +75,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Include all routers
-app.include_router(financial_router)
-app.include_router(ultrawealth_router)
-app.include_router(clients_router)
-app.include_router(holdings_router)
-app.include_router(transactions_router)
-app.include_router(accounting_router)
-app.include_router(compliance_router)
-app.include_router(cash_router)
+# Include all available routers
+for name, router in routers.items():
+    app.include_router(router)
+    logger.info(f"Loaded router: {name}")
+
+logger.info(f"Total routers loaded: {len(routers)}/8")
 
 @app.get("/")
 async def root():

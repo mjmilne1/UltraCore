@@ -16,7 +16,7 @@ from ..events import (
 from ..models import LoanApplication, LoanType, LoanPurpose
 from ..ml import CreditScorer, AffordabilityCalculator
 from ..rl import LoanPricingOptimizer
-from ultracore.domains.accounts.ledger import UltraLedgerService
+# from ultracore.domains.accounts.ledger import UltraLedgerService  # TODO: Fix import path
 
 
 class LoanApplicationService:
@@ -102,7 +102,7 @@ class LoanApplicationService:
             property_address=property_address,
             property_value=property_value,
             property_usage=kwargs.get("property_usage"),
-            submitted_at=datetime.utcnow(),
+            submitted_at=datetime.now(timezone.utc),
             submitted_via=kwargs.get("channel", "online")
         )
         
@@ -177,7 +177,7 @@ class LoanApplicationService:
             payment_defaults=credit_check["payment_defaults"],
             on_time_payments_percentage=Decimal(str(credit_check["on_time_payments_percentage"])),
             credit_risk_rating=credit_check["credit_risk_rating"],
-            completed_at=datetime.utcnow()
+            completed_at=datetime.now(timezone.utc)
         )
         
         await self.kafka.publish(credit_event)
@@ -297,7 +297,7 @@ class LoanApplicationService:
             first_payment_date=date.today(),
             responsible_lending_assessed=True,
             approved_by=approved_by,
-            approved_at=datetime.utcnow(),
+            approved_at=datetime.now(timezone.utc),
             disbursement_account_id=disbursement_account_id
         )
         

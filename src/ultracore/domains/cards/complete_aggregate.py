@@ -66,7 +66,7 @@ class CompleteCardAggregate:
         
         # Generate card details
         card_number_last4 = str(random.randint(1000, 9999))
-        expiry_date = (datetime.utcnow() + timedelta(days=1095)).strftime('%m/%y')
+        expiry_date = (datetime.now(timezone.utc) + timedelta(days=1095)).strftime('%m/%y')
         
         event_data = {
             'card_id': self.card_id,
@@ -75,7 +75,7 @@ class CompleteCardAggregate:
             'card_number_last4': card_number_last4,
             'expiry_date': expiry_date,
             'credit_limit': str(credit_limit) if credit_limit else None,
-            'issued_at': datetime.utcnow().isoformat()
+            'issued_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -101,7 +101,7 @@ class CompleteCardAggregate:
         
         event_data = {
             'card_id': self.card_id,
-            'activated_at': datetime.utcnow().isoformat()
+            'activated_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -139,7 +139,7 @@ class CompleteCardAggregate:
         fraud_result = await enhanced_ml.detect_fraud({
             'amount': float(amount),
             'international': 'international' in location.lower(),
-            'unusual_time': datetime.utcnow().hour < 6 or datetime.utcnow().hour > 23
+            'unusual_time': datetime.now(timezone.utc).hour < 6 or datetime.now(timezone.utc).hour > 23
         })
         
         if fraud_result['is_fraudulent']:
@@ -148,7 +148,7 @@ class CompleteCardAggregate:
         
         kafka_store = get_production_kafka_store()
         
-        transaction_id = f'TXN-{self.card_id}-{datetime.utcnow().timestamp()}'
+        transaction_id = f'TXN-{self.card_id}-{datetime.now(timezone.utc).timestamp()}'
         
         event_data = {
             'card_id': self.card_id,
@@ -159,7 +159,7 @@ class CompleteCardAggregate:
             'location': location,
             'fraud_score': fraud_result['fraud_score'],
             'status': TransactionStatus.AUTHORIZED.value,
-            'authorized_at': datetime.utcnow().isoformat()
+            'authorized_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -186,7 +186,7 @@ class CompleteCardAggregate:
         """Decline transaction"""
         kafka_store = get_production_kafka_store()
         
-        transaction_id = f'TXN-{self.card_id}-{datetime.utcnow().timestamp()}'
+        transaction_id = f'TXN-{self.card_id}-{datetime.now(timezone.utc).timestamp()}'
         
         event_data = {
             'card_id': self.card_id,
@@ -195,7 +195,7 @@ class CompleteCardAggregate:
             'merchant': merchant,
             'status': TransactionStatus.DECLINED.value,
             'decline_reason': reason,
-            'declined_at': datetime.utcnow().isoformat()
+            'declined_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -219,7 +219,7 @@ class CompleteCardAggregate:
         event_data = {
             'card_id': self.card_id,
             'transaction_id': transaction_id,
-            'settled_at': datetime.utcnow().isoformat()
+            'settled_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -259,7 +259,7 @@ class CompleteCardAggregate:
             'transaction_id': transaction_id,
             'reason': reason,
             'status': DisputeStatus.OPEN.value,
-            'disputed_at': datetime.utcnow().isoformat()
+            'disputed_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -285,7 +285,7 @@ class CompleteCardAggregate:
             'dispute_id': dispute_id,
             'outcome': outcome,
             'refund_issued': refund,
-            'resolved_at': datetime.utcnow().isoformat()
+            'resolved_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -317,7 +317,7 @@ class CompleteCardAggregate:
         event_data = {
             'card_id': self.card_id,
             'reason': reason,
-            'blocked_at': datetime.utcnow().isoformat()
+            'blocked_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -336,7 +336,7 @@ class CompleteCardAggregate:
         event_data = {
             'card_id': self.card_id,
             'reason': reason,
-            'cancelled_at': datetime.utcnow().isoformat()
+            'cancelled_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(

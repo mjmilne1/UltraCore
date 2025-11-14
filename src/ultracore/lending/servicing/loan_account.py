@@ -253,14 +253,14 @@ class LoanAccount:
     def add_transaction(self, transaction: LoanTransaction):
         """Add transaction to loan account"""
         self.transactions.append(transaction)
-        self.updated_at = datetime.utcnow()
+        self.updated_at = datetime.now(timezone.utc)
     
     def update_balance(self):
         """Recalculate current balance from transactions"""
         # This would iterate through transactions
         # For now, just update total
         self.current_balance.update_total()
-        self.updated_at = datetime.utcnow()
+        self.updated_at = datetime.now(timezone.utc)
 
 
 # ============================================================================
@@ -285,7 +285,7 @@ class LoanAccountManager:
     ) -> LoanAccount:
         """Create a new loan account"""
         
-        account_id = f"LOAN-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        account_id = f"LOAN-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         
         # Calculate maturity date
         maturity_date = terms.first_payment_date + timedelta(
@@ -372,7 +372,7 @@ class LoanAccountManager:
         
         account.status = new_status
         account.status_reason = reason
-        account.updated_at = datetime.utcnow()
+        account.updated_at = datetime.now(timezone.utc)
         
         if new_status == LoanStatus.CLOSED:
             account.closed_date = date.today()

@@ -102,7 +102,7 @@ class AutomatedInvestmentService:
             cash_account_id=cash_account_id,
             robo_managed=True,  # Technical flag, still "AIS-managed" in user-facing
             auto_rebalance=True,
-            created_at=datetime.utcnow(),
+            created_at=datetime.now(timezone.utc),
             created_by="ais"  # Automated Investment Service
         )
         
@@ -179,7 +179,7 @@ class AutomatedInvestmentService:
             new_allocation=optimization["target_allocation"],
             trades=optimization["recommended_trades"],
             total_brokerage=Decimal("0.00"),  # Would calculate
-            rebalanced_at=datetime.utcnow(),
+            rebalanced_at=datetime.now(timezone.utc),
             rebalanced_by="ais"  # Automated Investment Service
         )
         

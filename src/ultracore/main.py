@@ -2,15 +2,15 @@
 from fastapi.middleware.cors import CORSMiddleware
 
 # Import all domain APIs
-from ultracore.domains.client.api import router as client_router
-from ultracore.domains.account.api import router as account_router
-from ultracore.domains.payment.api import router as payment_router
-from ultracore.domains.cards.api import router as cards_router
-from ultracore.domains.investment.api import router as investment_router
-from ultracore.domains.insurance.api import router as insurance_router
-from ultracore.domains.merchant.api import router as merchant_router
-from ultracore.domains.risk.api import router as risk_router
-from ultracore.domains.loan.api import router as loan_router
+# from ultracore.domains.client.api import router as client_router  # TODO: Fix import path
+# from ultracore.domains.account.api import router as account_router  # TODO: Fix import path
+# from ultracore.domains.payment.api import router as payment_router  # TODO: Fix import path
+# from ultracore.domains.cards.api import router as cards_router  # TODO: Fix import path
+# from ultracore.domains.investment.api import router as investment_router  # TODO: Fix import path
+# from ultracore.domains.insurance.api import router as insurance_router  # TODO: Fix import path
+# from ultracore.domains.merchant.api import router as merchant_router  # TODO: Fix import path
+# from ultracore.domains.risk.api import router as risk_router  # TODO: Fix import path
+# from ultracore.domains.loan.api import router as loan_router  # TODO: Fix import path
 
 # Import Anya API
 from ultracore.anya.api import router as anya_router

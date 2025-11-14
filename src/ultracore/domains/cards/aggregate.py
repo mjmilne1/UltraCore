@@ -10,7 +10,7 @@ from enum import Enum
 import random
 
 from ultracore.infrastructure.event_store.store import get_event_store
-from ultracore.domains.account.aggregate import AccountAggregate
+# from ultracore.domains.account.aggregate import AccountAggregate  # TODO: Fix import path
 from ultracore.ml_models.pipeline import ml_pipeline
 
 
@@ -68,7 +68,7 @@ class CardAggregate:
         # Generate card details
         card_number = self._generate_card_number()
         cvv = str(random.randint(100, 999))
-        expiry_date = (datetime.utcnow() + timedelta(days=365*3)).strftime('%m/%y')
+        expiry_date = (datetime.now(timezone.utc) + timedelta(days=365*3)).strftime('%m/%y')
         
         if card_type == CardType.CREDIT:
             credit_limit = credit_limit or Decimal('5000')
@@ -85,7 +85,7 @@ class CardAggregate:
             'cvv': cvv,
             'expiry_date': expiry_date,
             'credit_limit': str(credit_limit),
-            'issued_at': datetime.utcnow().isoformat()
+            'issued_at': datetime.now(timezone.utc).isoformat()
         }
         
         await store.append(
@@ -111,7 +111,7 @@ class CardAggregate:
         
         event_data = {
             'card_id': self.card_id,
-            'activated_at': datetime.utcnow().isoformat()
+            'activated_at': datetime.now(timezone.utc).isoformat()
         }
         
         await store.append(
@@ -138,7 +138,7 @@ class CardAggregate:
         fraud_result = await ml_pipeline.detect_fraud({
             'amount': float(amount),
             'international': False,
-            'unusual_time': datetime.utcnow().hour < 6 or datetime.utcnow().hour > 22
+            'unusual_time': datetime.now(timezone.utc).hour < 6 or datetime.now(timezone.utc).hour > 22
         })
         
         if fraud_result['is_fraudulent']:
@@ -164,7 +164,7 @@ class CardAggregate:
             'merchant_category': merchant_category,
             'amount': str(amount),
             'fraud_score': fraud_result['fraud_score'],
-            'transaction_time': datetime.utcnow().isoformat()
+            'transaction_time': datetime.now(timezone.utc).isoformat()
         }
         
         await store.append(
@@ -192,7 +192,7 @@ class CardAggregate:
         event_data = {
             'card_id': self.card_id,
             'reason': reason,
-            'blocked_at': datetime.utcnow().isoformat()
+            'blocked_at': datetime.now(timezone.utc).isoformat()
         }
         
         await store.append(

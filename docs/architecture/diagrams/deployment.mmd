@@ -1,0 +1,147 @@
+```mermaid
+graph TB
+    %% Load Balancer
+    LB[🌐 Load Balancer<br/>AWS ALB / Nginx]
+    
+    %% Application Layer
+    subgraph AppLayer["Application Layer (Kubernetes)"]
+        API1[FastAPI Instance 1<br/>Pod: ultracore-api-1]
+        API2[FastAPI Instance 2<br/>Pod: ultracore-api-2]
+        API3[FastAPI Instance 3<br/>Pod: ultracore-api-3]
+    end
+    
+    %% Event Processing Layer
+    subgraph EventLayer["Event Processing Layer (Kubernetes)"]
+        Consumer1[Event Consumer 1<br/>Pod: ultracore-consumer-1]
+        Consumer2[Event Consumer 2<br/>Pod: ultracore-consumer-2]
+        Consumer3[Event Consumer 3<br/>Pod: ultracore-consumer-3]
+    end
+    
+    %% Data Layer
+    subgraph DataLayer["Data Layer"]
+        Kafka[Apache Kafka Cluster<br/>3 Brokers<br/>Replication Factor: 3]
+        PG[PostgreSQL<br/>Primary + 2 Replicas<br/>AWS RDS]
+        Redis[Redis Cluster<br/>3 Nodes<br/>AWS ElastiCache]
+    end
+    
+    %% Monitoring
+    subgraph Monitoring["Monitoring & Observability"]
+        Prometheus[Prometheus<br/>Metrics Collection]
+        Grafana[Grafana<br/>Dashboards]
+        ELK[ELK Stack<br/>Logs Aggregation]
+    end
+    
+    %% External Services
+    UltraOpt[UltraOptimiser<br/>External Service]
+    Yahoo[Yahoo Finance<br/>External API]
+    OpenMkt[OpenMarkets<br/>Trading Broker]
+    
+    %% Client Connections
+    Client[👤 Clients] -->|HTTPS| LB
+    LB -->|Round Robin| API1
+    LB -->|Round Robin| API2
+    LB -->|Round Robin| API3
+    
+    %% API to Data Layer
+    API1 -->|Publish Events| Kafka
+    API2 -->|Publish Events| Kafka
+    API3 -->|Publish Events| Kafka
+    
+    API1 -->|Read| PG
+    API2 -->|Read| PG
+    API3 -->|Read| PG
+    
+    API1 -->|Cache| Redis
+    API2 -->|Cache| Redis
+    API3 -->|Cache| Redis
+    
+    %% Event Processing
+    Kafka -->|Subscribe| Consumer1
+    Kafka -->|Subscribe| Consumer2
+    Kafka -->|Subscribe| Consumer3
+    
+    Consumer1 -->|Write| PG
+    Consumer2 -->|Write| PG
+    Consumer3 -->|Write| PG
+    
+    Consumer1 -->|Update| Redis
+    Consumer2 -->|Update| Redis
+    Consumer3 -->|Update| Redis
+    
+    %% External Integrations
+    API1 -->|HTTPS| UltraOpt
+    API2 -->|HTTPS| UltraOpt
+    API3 -->|HTTPS| UltraOpt
+    
+    API1 -->|HTTPS| Yahoo
+    API2 -->|HTTPS| Yahoo
+    API3 -->|HTTPS| Yahoo
+    
+    API1 -->|HTTPS| OpenMkt
+    API2 -->|HTTPS| OpenMkt
+    API3 -->|HTTPS| OpenMkt
+    
+    %% Monitoring Connections
+    API1 -.->|Metrics| Prometheus
+    API2 -.->|Metrics| Prometheus
+    API3 -.->|Metrics| Prometheus
+    Consumer1 -.->|Metrics| Prometheus
+    Consumer2 -.->|Metrics| Prometheus
+    Consumer3 -.->|Metrics| Prometheus
+    
+    API1 -.->|Logs| ELK
+    API2 -.->|Logs| ELK
+    API3 -.->|Logs| ELK
+    Consumer1 -.->|Logs| ELK
+    Consumer2 -.->|Logs| ELK
+    Consumer3 -.->|Logs| ELK
+    
+    Prometheus -->|Visualize| Grafana
+    
+    %% Styling
+    style AppLayer fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style EventLayer fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style DataLayer fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style Monitoring fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style Kafka fill:#ff9900,stroke:#ff6600,stroke-width:2px
+    style PG fill:#336791,stroke:#1a3a52,stroke-width:2px
+    style Redis fill:#dc382d,stroke:#a41e11,stroke-width:2px
+```
+
+**Deployment Architecture**
+
+This diagram shows the production deployment architecture on Kubernetes:
+
+**Application Layer:**
+- **3 FastAPI instances** running in Kubernetes pods
+- **Load balancer** (AWS ALB or Nginx) distributes traffic
+- **Horizontal scaling** - Add more pods as needed
+- **Health checks** - Kubernetes liveness/readiness probes
+
+**Event Processing Layer:**
+- **3 Event Consumer instances** running in Kubernetes pods
+- **Consumer groups** - Each consumer processes different partitions
+- **Idempotent processing** - Safe to replay events
+- **Dead letter queue** - Failed events sent to DLQ
+
+**Data Layer:**
+- **Apache Kafka Cluster** - 3 brokers, replication factor 3
+- **PostgreSQL** - Primary + 2 replicas (AWS RDS)
+- **Redis Cluster** - 3 nodes (AWS ElastiCache)
+
+**Monitoring & Observability:**
+- **Prometheus** - Metrics collection (CPU, memory, latency, throughput)
+- **Grafana** - Dashboards and alerts
+- **ELK Stack** - Centralized logging (Elasticsearch, Logstash, Kibana)
+
+**External Services:**
+- **UltraOptimiser** - Portfolio optimization service
+- **Yahoo Finance** - Market data API
+- **OpenMarkets** - Trading broker
+
+**Key Features:**
+- **High availability** - Multiple replicas of each component
+- **Horizontal scalability** - Add more pods as traffic grows
+- **Fault tolerance** - Kafka replication, PostgreSQL replicas
+- **Observability** - Metrics, logs, traces
+- **Security** - HTTPS, network policies, secrets management

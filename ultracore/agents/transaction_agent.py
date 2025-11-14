@@ -91,7 +91,7 @@ class TransactionAgent:
             "order_id": order.get("order_id"),
             "decision": decision,
             "validations": validations,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "confidence": self._calculate_confidence(validations),
             "reasoning": self._explain_decision(validations, decision)
         }
@@ -133,7 +133,7 @@ class TransactionAgent:
             })
         
         # 3. Unusual time patterns
-        order_time = datetime.fromisoformat(order.get("timestamp", datetime.utcnow().isoformat()))
+        order_time = datetime.fromisoformat(order.get("timestamp", datetime.now(timezone.utc).isoformat()))
         if order_time.hour < 6 or order_time.hour > 22:
             fraud_indicators.append({
                 "type": "unusual_timing",
@@ -341,7 +341,7 @@ class TransactionAgent:
         """Validate market is open and tradeable"""
         
         # Check market hours (simplified)
-        now = datetime.utcnow()
+        now = datetime.now(timezone.utc)
         
         # ASX hours: 10:00 - 16:00 AEST (approx 00:00 - 06:00 UTC)
         warnings = []
@@ -417,7 +417,7 @@ class TransactionAgent:
     ) -> List[Dict[str, Any]]:
         """Get orders from recent time period"""
         
-        cutoff = datetime.utcnow() - timedelta(hours=hours)
+        cutoff = datetime.now(timezone.utc) - timedelta(hours=hours)
         
         return [
             h for h in history

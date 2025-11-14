@@ -43,7 +43,7 @@ class EventStore:
                 event_data=event_data,
                 sequence=next_sequence,
                 user_id=user_id,
-                timestamp=datetime.utcnow()
+                timestamp=datetime.now(timezone.utc)
             )
             
             session.add(event)

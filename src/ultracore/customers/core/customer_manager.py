@@ -180,7 +180,7 @@ class CustomerManager:
                 setattr(customer, key, value)
         
         customer.updated_by = updated_by
-        customer.updated_at = datetime.utcnow()
+        customer.updated_at = datetime.now(timezone.utc)
         customer.version += 1
         
         # Update indexes if needed
@@ -236,7 +236,7 @@ class CustomerManager:
         
         customer.addresses.append(address)
         customer.updated_by = updated_by
-        customer.updated_at = datetime.utcnow()
+        customer.updated_at = datetime.now(timezone.utc)
         
         # Audit log
         await self.audit_store.log_event(
@@ -272,7 +272,7 @@ class CustomerManager:
         
         customer.identifications.append(identification)
         customer.updated_by = updated_by
-        customer.updated_at = datetime.utcnow()
+        customer.updated_at = datetime.now(timezone.utc)
         
         # Audit log
         await self.audit_store.log_event(
@@ -405,7 +405,7 @@ class CustomerManager:
                 customer.activation_date = date.today()
         
         customer.updated_by = verified_by
-        customer.updated_at = datetime.utcnow()
+        customer.updated_at = datetime.now(timezone.utc)
         
         # Create event
         await self._publish_event(
@@ -456,7 +456,7 @@ class CustomerManager:
         previous_status = customer.customer_status
         customer.customer_status = new_status
         customer.updated_by = changed_by
-        customer.updated_at = datetime.utcnow()
+        customer.updated_at = datetime.now(timezone.utc)
         
         # Update lifecycle dates
         if new_status == CustomerStatus.ACTIVE and not customer.activation_date:
@@ -514,7 +514,7 @@ class CustomerManager:
         previous_rating = customer.risk_rating
         customer.risk_rating = new_rating
         customer.updated_by = updated_by
-        customer.updated_at = datetime.utcnow()
+        customer.updated_at = datetime.now(timezone.utc)
         
         # Create event
         await self._publish_event(
@@ -683,7 +683,7 @@ class CustomerManager:
         event = CustomerEvent(
             event_id=f"EVT-{uuid.uuid4().hex[:16].upper()}",
             event_type=event_type,
-            event_timestamp=datetime.utcnow(),
+            event_timestamp=datetime.now(timezone.utc),
             customer_id=customer_id,
             tenant_id=tenant_id,
             event_data=event_data,

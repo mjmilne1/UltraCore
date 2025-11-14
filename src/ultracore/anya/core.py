@@ -59,7 +59,7 @@ class ConversationContext:
         self.messages.append({
             'role': role,
             'content': content,
-            'timestamp': datetime.utcnow().isoformat()
+            'timestamp': datetime.now(timezone.utc).isoformat()
         })
     
     def set_intent(self, intent: Intent):

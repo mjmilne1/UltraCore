@@ -74,7 +74,7 @@ class FixedDepositService:
             interest_calculation_method=product.interest_calculation_method,
             maturity_instruction=maturity_instruction,
             submitted_by=submitted_by,
-            submitted_at=datetime.utcnow(),
+            submitted_at=datetime.now(timezone.utc),
             **kwargs
         )
         
@@ -131,7 +131,7 @@ class FixedDepositService:
             product_id=application.product_id,
             application_id=application_id,
             approved_by=approved_by,
-            approved_at=datetime.utcnow(),
+            approved_at=datetime.now(timezone.utc),
             approval_notes=approval_notes,
             deposit_amount=application.deposit_amount,
             term_months=application.term_months,
@@ -164,7 +164,7 @@ class FixedDepositService:
         
         # Generate account number
         account_id = f"FD-{uuid.uuid4().hex[:12].upper()}"
-        account_number = f"FD{datetime.utcnow().strftime('%Y%m%d')}{uuid.uuid4().hex[:6].upper()}"
+        account_number = f"FD{datetime.now(timezone.utc).strftime('%Y%m%d')}{uuid.uuid4().hex[:6].upper()}"
         
         # Calculate maturity date
         maturity_date = self._calculate_maturity_date(activation_date, application.term_months)

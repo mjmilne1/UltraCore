@@ -940,7 +940,7 @@ async def get_forex_dashboard():
     return {
         'forex_positions': forex_summary,
         'exchange_rates': rates,
-        'timestamp': datetime.utcnow().isoformat()
+        'timestamp': datetime.now(timezone.utc).isoformat()
     }
 
 
@@ -953,7 +953,7 @@ async def health_check():
     """Health check endpoint"""
     return {
         'status': 'healthy',
-        'timestamp': datetime.utcnow().isoformat(),
+        'timestamp': datetime.now(timezone.utc).isoformat(),
         'service': 'UltraCore Forex API',
         'version': '1.0.0'
     }

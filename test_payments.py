@@ -16,7 +16,7 @@ with open('.env', 'r') as f:
 
 sys.path.insert(0, 'src')
 
-from ultracore.payments.payment_system import UltraCorePaymentSystem
+# from ultracore.payments.payment_system import UltraCorePaymentSystem  # TODO: Fix import path
 
 async def main():
     print("\n?? ULTRACORE OPENAI PAYMENT SYSTEM TEST")

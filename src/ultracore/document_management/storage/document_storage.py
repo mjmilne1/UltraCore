@@ -79,8 +79,8 @@ class Document:
         self.file_size = file_size
         self.storage_path = storage_path
         self.status = DocumentStatus.UPLOADED
-        self.created_at = datetime.utcnow()
-        self.updated_at = datetime.utcnow()
+        self.created_at = datetime.now(timezone.utc)
+        self.updated_at = datetime.now(timezone.utc)
         self.version = 1
         self.checksum: Optional[str] = None
         self.encrypted = True
@@ -151,7 +151,7 @@ class DocumentStorage:
         document.metadata = metadata or {}
         
         # Set retention period (7 years for regulatory compliance)
-        document.retention_until = datetime.utcnow() + timedelta(days=7*365)
+        document.retention_until = datetime.now(timezone.utc) + timedelta(days=7*365)
         
         # Store document
         self.documents[document_id] = document
@@ -232,7 +232,7 @@ class DocumentStorage:
             event_type='document_accessed',
             event_data={
                 'document_id': document_id,
-                'accessed_at': datetime.utcnow().isoformat()
+                'accessed_at': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=document_id
         )
@@ -256,7 +256,7 @@ class DocumentStorage:
             raise ValueError(f"Document {document_id} not found")
         
         document.status = status
-        document.updated_at = datetime.utcnow()
+        document.updated_at = datetime.now(timezone.utc)
         
         if extracted_data:
             document.extracted_data = extracted_data

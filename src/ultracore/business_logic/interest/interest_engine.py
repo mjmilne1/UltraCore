@@ -230,7 +230,7 @@ class InterestAccrualService:
                 'balance': str(balance),
                 'daily_interest': str(daily_interest),
                 'total_accrued': str(self.accrued_interest[account_id]),
-                'accrual_date': datetime.utcnow().date().isoformat()
+                'accrual_date': datetime.now(timezone.utc).date().isoformat()
             },
             aggregate_id=account_id
         )
@@ -273,7 +273,7 @@ class InterestAccrualService:
             net_interest = accrued - tax_withheld
         
         # Create GL entries
-        from ultracore.general_ledger.journal import get_journal_service
+        from ultracore.modules.accounting.general_ledger.journal import get_journal_service
         
         journal_service = get_journal_service()
         
@@ -318,7 +318,7 @@ class InterestAccrualService:
                 'net_interest': str(net_interest),
                 'has_tfn': has_tfn,
                 'journal_entry_id': entry['entry_id'],
-                'posted_date': datetime.utcnow().isoformat()
+                'posted_date': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=account_id
         )
@@ -331,7 +331,7 @@ class InterestAccrualService:
                 'account_id': account_id,
                 'gross_interest': str(accrued),
                 'net_interest': str(net_interest),
-                'posted_date': datetime.utcnow().isoformat()
+                'posted_date': datetime.now(timezone.utc).isoformat()
             }
         )
         

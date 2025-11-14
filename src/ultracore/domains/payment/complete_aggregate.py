@@ -80,7 +80,7 @@ class CompletePaymentAggregate:
             'payment_rail': payment_rail.value,
             'description': description,
             'reference': reference,
-            'initiated_at': datetime.utcnow().isoformat()
+            'initiated_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -127,7 +127,7 @@ class CompletePaymentAggregate:
             'fraud_score': fraud_result['fraud_score'],
             'is_fraudulent': is_fraudulent,
             'fraud_flags': self.fraud_flags,
-            'checked_at': datetime.utcnow().isoformat()
+            'checked_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -173,7 +173,7 @@ class CompletePaymentAggregate:
         
         event_data = {
             'payment_id': self.payment_id,
-            'processing_started': datetime.utcnow().isoformat()
+            'processing_started': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -195,7 +195,7 @@ class CompletePaymentAggregate:
             'payment_id': self.payment_id,
             'clearing_id': clearing_id,
             'payment_rail': self.payment_rail.value,
-            'cleared_at': datetime.utcnow().isoformat()
+            'cleared_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -236,12 +236,12 @@ class CompletePaymentAggregate:
             self.payment_id
         )
         
-        settlement_date = datetime.utcnow().isoformat()
+        settlement_date = datetime.now(timezone.utc).isoformat()
         
         event_data = {
             'payment_id': self.payment_id,
             'settlement_date': settlement_date,
-            'settled_at': datetime.utcnow().isoformat()
+            'settled_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -273,7 +273,7 @@ class CompletePaymentAggregate:
         event_data = {
             'payment_id': self.payment_id,
             'reason': reason,
-            'failed_at': datetime.utcnow().isoformat()
+            'failed_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -328,7 +328,7 @@ class CompletePaymentAggregate:
         event_data = {
             'payment_id': self.payment_id,
             'reason': reason,
-            'reversed_at': datetime.utcnow().isoformat()
+            'reversed_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -342,7 +342,7 @@ class CompletePaymentAggregate:
         # Post reversal to ledger
         await ledger.post_journal_entry(
             entry_id=f'JE-REV-{self.payment_id}',
-            date=datetime.utcnow().isoformat(),
+            date=datetime.now(timezone.utc).isoformat(),
             description=f'Payment reversal: {reason}',
             reference=self.payment_id,
             debits=[{'account': '2000', 'amount': float(self.amount)}],

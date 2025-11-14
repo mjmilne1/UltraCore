@@ -60,7 +60,7 @@ class DocumentClassificationService:
                 'document_id': document.document_id,
                 'predicted_type': classification_result['predicted_type'],
                 'confidence': classification_result['confidence'],
-                'classified_at': datetime.utcnow().isoformat()
+                'classified_at': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=document.document_id
         )

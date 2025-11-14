@@ -122,12 +122,12 @@ async def main():
         "transaction_id": "TXN-001",
         "amount": 9500,
         "currency_type": "physical",
-        "timestamp": datetime.utcnow().isoformat()
+        "timestamp": datetime.now(timezone.utc).isoformat()
     }
     
     client_history = [
-        {"amount": 9800, "timestamp": (datetime.utcnow() - timedelta(hours=1)).isoformat()},
-        {"amount": 9600, "timestamp": (datetime.utcnow() - timedelta(hours=2)).isoformat()}
+        {"amount": 9800, "timestamp": (datetime.now(timezone.utc) - timedelta(hours=1)).isoformat()},
+        {"amount": 9600, "timestamp": (datetime.now(timezone.utc) - timedelta(hours=2)).isoformat()}
     ]
     
     suspicious = austrac_compliance.check_suspicious_matter(transaction, client_history)
@@ -161,9 +161,9 @@ async def main():
     print("-" * 80)
     
     # Trading hours check
-    trading_hours = asx_compliance.check_trading_hours(datetime.utcnow(), "VAS.AX")
+    trading_hours = asx_compliance.check_trading_hours(datetime.now(timezone.utc), "VAS.AX")
     print(f"🕐 Trading Hours Check:")
-    print(f"   Current Time: {datetime.utcnow().strftime('%I:%M %p')}")
+    print(f"   Current Time: {datetime.now(timezone.utc).strftime('%I:%M %p')}")
     print(f"   Market Phase: {trading_hours['market_phase'].upper()}")
     print(f"   Trading Allowed: {'✅ YES' if trading_hours['trading_allowed'] else '❌ NO'}")
     
@@ -203,19 +203,19 @@ async def main():
     sale = {
         "sale_id": "SALE-001",
         "ticker": "VAS.AX",
-        "date": datetime.utcnow().isoformat(),
+        "date": datetime.now(timezone.utc).isoformat(),
         "price": 110.00,
         "quantity": 500
     }
     
     purchase_history = [
         {
-            "date": (datetime.utcnow() - timedelta(days=400)).isoformat(),
+            "date": (datetime.now(timezone.utc) - timedelta(days=400)).isoformat(),
             "price": 95.00,
             "quantity": 300
         },
         {
-            "date": (datetime.utcnow() - timedelta(days=200)).isoformat(),
+            "date": (datetime.now(timezone.utc) - timedelta(days=200)).isoformat(),
             "price": 100.00,
             "quantity": 200
         }
@@ -236,7 +236,7 @@ async def main():
         "ticker": "VAS.AX",
         "amount": 1000,
         "franking_percentage": 100,
-        "payment_date": datetime.utcnow().isoformat()
+        "payment_date": datetime.now(timezone.utc).isoformat()
     }
     
     dividend_result = ato_compliance.calculate_dividend_income(dividend)

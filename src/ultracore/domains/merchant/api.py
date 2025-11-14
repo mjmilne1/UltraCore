@@ -6,7 +6,7 @@ from pydantic import BaseModel
 from decimal import Decimal
 import uuid
 
-from ultracore.domains.merchant.complete_aggregate import CompleteMerchantAggregate
+# from ultracore.domains.merchant.complete_aggregate import CompleteMerchantAggregate  # TODO: Fix import path
 
 router = APIRouter()
 

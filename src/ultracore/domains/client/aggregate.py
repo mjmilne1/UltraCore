@@ -68,7 +68,7 @@ class ClientAggregate:
                 'postcode': data.postcode,
                 'country': data.country
             },
-            'onboarded_at': datetime.utcnow().isoformat()
+            'onboarded_at': datetime.now(timezone.utc).isoformat()
         }
         
         await store.append(
@@ -92,7 +92,7 @@ class ClientAggregate:
             'document_type': doc.document_type,
             'document_number': doc.document_number,
             'document_expiry': doc.document_expiry,
-            'submitted_at': datetime.utcnow().isoformat()
+            'submitted_at': datetime.now(timezone.utc).isoformat()
         }
         
         await store.append(
@@ -114,7 +114,7 @@ class ClientAggregate:
             'risk_score': verification_result.get('risk_score', 50),
             'verified_by': verification_result.get('verified_by', 'ai_system'),
             'notes': verification_result.get('notes', ''),
-            'verified_at': datetime.utcnow().isoformat()
+            'verified_at': datetime.now(timezone.utc).isoformat()
         }
         
         await store.append(

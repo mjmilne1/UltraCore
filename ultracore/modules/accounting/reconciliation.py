@@ -3,7 +3,7 @@ Reconciliation Tools
 Reconcile cash, positions, and transactions
 """
 
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 from datetime import datetime
 from ultracore.modules.accounting.general_ledger import general_ledger
 from ultracore.modules.accounting.kafka_events import accounting_kafka, AccountingEventType
@@ -48,7 +48,7 @@ class ReconciliationService:
             "actual_balance": actual_balance,
             "difference": difference,
             "reconciled": abs(difference) < 0.01,
-            "created_at": datetime.utcnow().isoformat()
+            "created_at": datetime.now(timezone.utc).isoformat()
         }
         
         self.reconciliations[recon_id] = reconciliation
@@ -98,7 +98,7 @@ class ReconciliationService:
             "actual_balance": actual_balance,
             "difference": difference,
             "reconciled": abs(difference) < 0.01,
-            "created_at": datetime.utcnow().isoformat()
+            "created_at": datetime.now(timezone.utc).isoformat()
         }
         
         self.reconciliations[recon_id] = reconciliation
@@ -152,7 +152,7 @@ class ReconciliationService:
             "pending_settlements": len(pending_settlements),
             "total_pending_value": total_pending_value,
             "reconciled": True,
-            "created_at": datetime.utcnow().isoformat()
+            "created_at": datetime.now(timezone.utc).isoformat()
         }
         
         self.reconciliations[recon_id] = reconciliation
@@ -178,7 +178,7 @@ class ReconciliationService:
         """
         
         if as_of_date is None:
-            as_of_date = datetime.utcnow()
+            as_of_date = datetime.now(timezone.utc)
         
         print(f"\n🔍 Running Full Reconciliation as of {as_of_date.date()}")
         print("-" * 70)
@@ -199,7 +199,7 @@ class ReconciliationService:
             "cash": cash_recon,
             "investments": inv_recon,
             "settlements": settle_recon,
-            "completed_at": datetime.utcnow().isoformat()
+            "completed_at": datetime.now(timezone.utc).isoformat()
         }
         
         print(f"\n{'✅' if all_reconciled else '❌'} Full Reconciliation: "

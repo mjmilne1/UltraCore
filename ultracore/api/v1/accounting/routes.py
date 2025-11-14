@@ -64,7 +64,7 @@ async def get_account(account_number: str):
 async def create_journal_entry(request: JournalEntryRequest):
     """Create new journal entry"""
     try:
-        entry_date = datetime.fromisoformat(request.date) if request.date else datetime.utcnow()
+        entry_date = datetime.fromisoformat(request.date) if request.date else datetime.now(timezone.utc)
         
         entry = journal_entry_service.create_entry(
             description=request.description,
@@ -178,7 +178,7 @@ async def get_account_balance(
         "account_number": account_number,
         "account_name": account.name,
         "balance": balance,
-        "as_of_date": (date or datetime.utcnow()).isoformat()
+        "as_of_date": (date or datetime.now(timezone.utc)).isoformat()
     }
 
 @router.get("/ledger/trial-balance")
@@ -210,7 +210,7 @@ async def get_income_statement(
 ):
     """Generate income statement"""
     start = datetime.fromisoformat(start_date)
-    end = datetime.fromisoformat(end_date) if end_date else datetime.utcnow()
+    end = datetime.fromisoformat(end_date) if end_date else datetime.now(timezone.utc)
     
     income_statement = financial_statements.generate_income_statement(start, end)
     
@@ -223,7 +223,7 @@ async def get_cash_flow_statement(
 ):
     """Generate cash flow statement"""
     start = datetime.fromisoformat(start_date)
-    end = datetime.fromisoformat(end_date) if end_date else datetime.utcnow()
+    end = datetime.fromisoformat(end_date) if end_date else datetime.now(timezone.utc)
     
     cash_flow = financial_statements.generate_cash_flow_statement(start, end)
     
@@ -236,7 +236,7 @@ async def get_cash_flow_statement(
 @router.post("/reconciliation/run")
 async def run_reconciliation(as_of_date: Optional[str] = None):
     """Run full reconciliation"""
-    date = datetime.fromisoformat(as_of_date) if as_of_date else datetime.utcnow()
+    date = datetime.fromisoformat(as_of_date) if as_of_date else datetime.now(timezone.utc)
     
     result = await reconciliation_service.run_full_reconciliation(date)
     

@@ -36,7 +36,7 @@ class AccountingDataMesh:
             "entry_id": entry_id,
             "source": source,
             "created_by": created_by,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "quality_score": quality_score,
             "version": len(self.lineage_store.get(entry_id, [])) + 1
         }
@@ -112,7 +112,7 @@ class AccountingDataMesh:
         """Cache trial balance"""
         self.materialized_views["trial_balance_cache"] = {
             **trial_balance,
-            "cached_at": datetime.utcnow().isoformat()
+            "cached_at": datetime.now(timezone.utc).isoformat()
         }
     
     async def _update_journal_views(
@@ -122,7 +122,7 @@ class AccountingDataMesh:
     ):
         """Update materialized views for journals"""
         
-        date = entry_data.get("date", datetime.utcnow().isoformat())
+        date = entry_data.get("date", datetime.now(timezone.utc).isoformat())
         date_key = date[:10]  # YYYY-MM-DD
         
         if date_key not in self.materialized_views["journal_entries_by_date"]:

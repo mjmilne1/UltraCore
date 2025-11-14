@@ -104,7 +104,7 @@ class FeeSchedule:
             "amount": float(amount),
             "description": description,
             "transaction_id": transaction_id,
-            "applied_at": datetime.utcnow().isoformat()
+            "applied_at": datetime.now(timezone.utc).isoformat()
         }
         
         self.fee_history.append(fee_record)

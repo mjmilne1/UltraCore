@@ -74,7 +74,7 @@ async def npp_payment(request: NPPPaymentRequest) -> PaymentResponse:
         beneficiary_name=request.beneficiary_name,
         description=request.description,
         reference=request.reference,
-        idempotency_key=f"{request.from_account_id}-{datetime.utcnow().timestamp()}"
+        idempotency_key=f"{request.from_account_id}-{datetime.now(timezone.utc).timestamp()}"
     )
     
     # Submit payment
@@ -146,7 +146,7 @@ async def bpay_payment(request: BPAYPaymentRequest) -> PaymentResponse:
         biller_code=request.biller_code,
         reference_number=request.reference_number,
         description=request.description or f"BPAY to {request.biller_code}",
-        idempotency_key=f"{request.from_account_id}-{datetime.utcnow().timestamp()}"
+        idempotency_key=f"{request.from_account_id}-{datetime.now(timezone.utc).timestamp()}"
     )
     
     # Submit payment
@@ -223,7 +223,7 @@ async def swift_payment(request: SWIFTPaymentRequest) -> PaymentResponse:
         beneficiary_account=request.beneficiary_account,
         description=request.description,
         reference=request.reference,
-        idempotency_key=f"{request.from_account_id}-{datetime.utcnow().timestamp()}"
+        idempotency_key=f"{request.from_account_id}-{datetime.now(timezone.utc).timestamp()}"
     )
     
     # Submit payment

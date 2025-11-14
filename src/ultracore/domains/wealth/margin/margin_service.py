@@ -8,7 +8,7 @@ from ultracore.infrastructure.event_store import EventStore
 from ultracore.infrastructure.kafka_event_store import KafkaEventStore
 from ..events import MarginLoanDrawnEvent, MarginCallIssuedEvent
 from ..models import MarginLoan
-from ultracore.domains.accounts.ledger import UltraLedgerService
+# from ultracore.domains.accounts.ledger import UltraLedgerService  # TODO: Fix import path
 
 
 class MarginLendingService:
@@ -79,8 +79,8 @@ class MarginLendingService:
             buffer_lvr=maximum_lvr + Decimal("0.05"),  # +5% buffer
             interest_rate=interest_rate,
             interest_accrued=Decimal("0.00"),
-            created_at=datetime.utcnow(),
-            updated_at=datetime.utcnow()
+            created_at=datetime.now(timezone.utc),
+            updated_at=datetime.now(timezone.utc)
         )
         
         return {
@@ -128,7 +128,7 @@ class MarginLendingService:
             margin_loan_id=margin_loan_id,
             draw_amount=draw_amount,
             purpose=purpose,
-            drawn_at=datetime.utcnow()
+            drawn_at=datetime.now(timezone.utc)
         )
         
         await self.kafka.publish(event)
@@ -182,7 +182,7 @@ class MarginLendingService:
                 buffer_lvr=margin_loan.buffer_lvr,
                 margin_call_amount=margin_call_amount,
                 due_date=date.today(),  # Immediate
-                issued_at=datetime.utcnow()
+                issued_at=datetime.now(timezone.utc)
             )
             
             await self.kafka.publish(event)

@@ -49,7 +49,7 @@ class TransactionDataMesh:
             "order_id": order_id,
             "source": source,
             "created_by": created_by,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "quality_score": quality_score,
             "version": len(self.lineage_store.get(order_id, [])) + 1
         }
@@ -98,7 +98,7 @@ class TransactionDataMesh:
             "metadata": {
                 "trade_id": trade_id,
                 "source": source,
-                "timestamp": datetime.utcnow().isoformat(),
+                "timestamp": datetime.now(timezone.utc).isoformat(),
                 "quality_score": quality_score
             }
         }
@@ -123,7 +123,7 @@ class TransactionDataMesh:
             "data": settlement_data,
             "metadata": {
                 "settlement_id": settlement_id,
-                "timestamp": datetime.utcnow().isoformat()
+                "timestamp": datetime.now(timezone.utc).isoformat()
             }
         }
         

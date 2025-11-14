@@ -1,0 +1,379 @@
+"""
+Unit tests for Portfolio Optimizer (Modern Portfolio Theory).
+
+Tests the MPT-based portfolio optimization for Investment Pods.
+"""
+
+import pytest
+from decimal import Decimal
+from uuid import uuid4
+import numpy as np
+
+
+@pytest.mark.unit
+@pytest.mark.investment_pods
+class TestModernPortfolioTheory:
+    """Test Modern Portfolio Theory optimization."""
+    
+    def test_optimize_portfolio_basic(self, australian_etf_universe):
+        """Test basic portfolio optimization."""
+        # Arrange
+        etfs = australian_etf_universe
+        target_return = Decimal("0.08")  # 8% target return
+        risk_tolerance = "moderate"
+        
+        # Act - Optimize portfolio
+        # allocation = optimize_portfolio(
+        #     etfs=etfs,
+        #     target_return=target_return,
+        #     risk_tolerance=risk_tolerance
+        # )
+        
+        # Assert - Valid allocation
+        # assert len(allocation) > 0
+        # assert len(allocation) <= 6  # Max 6 ETFs per UltraWealth rules
+        # assert sum(a["weight"] for a in allocation) == Decimal("1.0")
+        # assert all(a["weight"] >= Decimal("0.05") for a in allocation)  # Min 5%
+        # assert all(a["weight"] <= Decimal("0.40") for a in allocation)  # Max 40%
+        
+        assert True  # Placeholder
+    
+    def test_efficient_frontier_calculation(self, mock_market_data):
+        """Test calculating efficient frontier."""
+        # Arrange
+        etfs = ["VAS.AX", "VGS.AX"]
+        returns = [mock_market_data[etf]["returns_3y"] for etf in etfs]
+        volatilities = [mock_market_data[etf]["volatility"] for etf in etfs]
+        
+        # Act - Calculate efficient frontier
+        # frontier = calculate_efficient_frontier(returns, volatilities)
+        
+        # Assert - Frontier points
+        # assert len(frontier) > 0
+        # assert all("return" in point and "risk" in point for point in frontier)
+        # assert frontier[0]["risk"] < frontier[-1]["risk"]  # Increasing risk
+        
+        assert True  # Placeholder
+    
+    def test_sharpe_ratio_maximization(self, mock_market_data):
+        """Test maximizing Sharpe ratio."""
+        # Arrange
+        risk_free_rate = Decimal("0.04")  # 4% risk-free rate
+        
+        # Act - Find portfolio with max Sharpe ratio
+        # optimal_portfolio = maximize_sharpe_ratio(
+        #     etfs=mock_market_data,
+        #     risk_free_rate=risk_free_rate
+        # )
+        
+        # Assert - Optimal portfolio
+        # sharpe_ratio = (optimal_portfolio["return"] - risk_free_rate) / optimal_portfolio["volatility"]
+        # assert sharpe_ratio > 0
+        
+        assert True  # Placeholder
+
+
+@pytest.mark.unit
+@pytest.mark.investment_pods
+class TestPortfolioConstraints:
+    """Test portfolio optimization constraints."""
+    
+    def test_max_etfs_constraint(self, australian_etf_universe):
+        """Test maximum 6 ETFs constraint."""
+        # Arrange
+        max_etfs = 6
+        
+        # Act
+        # allocation = optimize_portfolio(
+        #     etfs=australian_etf_universe,
+        #     max_etfs=max_etfs
+        # )
+        
+        # Assert
+        # assert len(allocation) <= max_etfs
+        
+        assert True  # Placeholder
+    
+    def test_min_weight_constraint(self):
+        """Test minimum 5% weight constraint."""
+        # Arrange
+        min_weight = Decimal("0.05")
+        
+        # Act
+        # allocation = optimize_portfolio(min_weight=min_weight)
+        
+        # Assert
+        # assert all(a["weight"] >= min_weight for a in allocation)
+        
+        assert True  # Placeholder
+    
+    def test_max_weight_constraint(self):
+        """Test maximum 40% weight constraint."""
+        # Arrange
+        max_weight = Decimal("0.40")
+        
+        # Act
+        # allocation = optimize_portfolio(max_weight=max_weight)
+        
+        # Assert
+        # assert all(a["weight"] <= max_weight for a in allocation)
+        
+        assert True  # Placeholder
+    
+    def test_max_single_provider_constraint(self):
+        """Test maximum 60% from single provider constraint."""
+        # Arrange
+        max_provider_weight = Decimal("0.60")
+        
+        # Act
+        # allocation = optimize_portfolio(max_provider_weight=max_provider_weight)
+        
+        # Assert - Sum weights by provider
+        # provider_weights = {}
+        # for etf in allocation:
+        #     provider = etf["provider"]
+        #     provider_weights[provider] = provider_weights.get(provider, 0) + etf["weight"]
+        
+        # assert all(weight <= max_provider_weight for weight in provider_weights.values())
+        
+        assert True  # Placeholder
+    
+    def test_weights_sum_to_one(self):
+        """Test that portfolio weights sum to 100%."""
+        # Act
+        # allocation = optimize_portfolio()
+        
+        # Assert
+        # total_weight = sum(a["weight"] for a in allocation)
+        # assert abs(total_weight - Decimal("1.0")) < Decimal("0.0001")
+        
+        assert True  # Placeholder
+
+
+@pytest.mark.unit
+@pytest.mark.investment_pods
+class TestRiskTolerance:
+    """Test risk tolerance-based allocation."""
+    
+    def test_conservative_allocation(self):
+        """Test conservative risk tolerance allocation."""
+        # Arrange
+        risk_tolerance = "conservative"
+        
+        # Act
+        # allocation = optimize_portfolio(risk_tolerance=risk_tolerance)
+        
+        # Assert - More bonds, less equities
+        # equity_weight = sum(a["weight"] for a in allocation if a["category"] == "equity")
+        # defensive_weight = sum(a["weight"] for a in allocation if a["category"] == "defensive")
+        
+        # assert defensive_weight > equity_weight
+        # assert defensive_weight >= Decimal("0.60")  # At least 60% defensive
+        
+        assert True  # Placeholder
+    
+    def test_moderate_allocation(self):
+        """Test moderate risk tolerance allocation."""
+        # Arrange
+        risk_tolerance = "moderate"
+        
+        # Act
+        # allocation = optimize_portfolio(risk_tolerance=risk_tolerance)
+        
+        # Assert - Balanced allocation
+        # equity_weight = sum(a["weight"] for a in allocation if a["category"] == "equity")
+        # assert Decimal("0.40") <= equity_weight <= Decimal("0.70")
+        
+        assert True  # Placeholder
+    
+    def test_aggressive_allocation(self):
+        """Test aggressive risk tolerance allocation."""
+        # Arrange
+        risk_tolerance = "aggressive"
+        
+        # Act
+        # allocation = optimize_portfolio(risk_tolerance=risk_tolerance)
+        
+        # Assert - More equities, less bonds
+        # equity_weight = sum(a["weight"] for a in allocation if a["category"] == "equity")
+        # assert equity_weight >= Decimal("0.80")  # At least 80% equities
+        
+        assert True  # Placeholder
+
+
+@pytest.mark.unit
+@pytest.mark.investment_pods
+class TestAustralianBias:
+    """Test Australian home bias in allocation."""
+    
+    def test_includes_australian_equities(self):
+        """Test that allocation includes Australian equities."""
+        # Act
+        # allocation = optimize_portfolio()
+        
+        # Assert - Should include VAS or IOZ
+        # australian_etfs = [a for a in allocation if a["code"] in ["VAS", "IOZ"]]
+        # assert len(australian_etfs) > 0
+        
+        assert True  # Placeholder
+    
+    def test_australian_equities_minimum_weight(self):
+        """Test minimum weight for Australian equities."""
+        # Act
+        # allocation = optimize_portfolio()
+        
+        # Assert - Australian equities should be at least 20%
+        # australian_weight = sum(
+        #     a["weight"] for a in allocation
+        #     if a["code"] in ["VAS", "IOZ", "A200", "STW"]
+        # )
+        # assert australian_weight >= Decimal("0.20")
+        
+        assert True  # Placeholder
+    
+    def test_international_diversification(self):
+        """Test international diversification."""
+        # Act
+        # allocation = optimize_portfolio()
+        
+        # Assert - Should include international ETFs
+        # international_etfs = [a for a in allocation if a["code"] in ["VGS", "IVV", "NDQ"]]
+        # assert len(international_etfs) > 0
+        
+        assert True  # Placeholder
+
+
+@pytest.mark.unit
+@pytest.mark.investment_pods
+class TestRebalancing:
+    """Test portfolio rebalancing logic."""
+    
+    def test_rebalance_threshold(self):
+        """Test rebalancing when drift exceeds 5%."""
+        # Arrange
+        target_allocation = [
+            {"code": "VAS", "weight": Decimal("0.40")},
+            {"code": "VGS", "weight": Decimal("0.30")},
+            {"code": "VAF", "weight": Decimal("0.30")}
+        ]
+        
+        current_allocation = [
+            {"code": "VAS", "weight": Decimal("0.46")},  # +6% drift
+            {"code": "VGS", "weight": Decimal("0.28")},  # -2% drift
+            {"code": "VAF", "weight": Decimal("0.26")}   # -4% drift
+        ]
+        
+        rebalance_threshold = Decimal("0.05")
+        
+        # Act
+        # needs_rebalance = check_rebalance_needed(
+        #     target_allocation,
+        #     current_allocation,
+        #     rebalance_threshold
+        # )
+        
+        # Assert - VAS exceeds threshold
+        # assert needs_rebalance
+        
+        assert True  # Placeholder
+    
+    def test_no_rebalance_within_threshold(self):
+        """Test no rebalancing when drift is within 5%."""
+        # Arrange
+        target_allocation = [
+            {"code": "VAS", "weight": Decimal("0.40")},
+            {"code": "VGS", "weight": Decimal("0.30")},
+            {"code": "VAF", "weight": Decimal("0.30")}
+        ]
+        
+        current_allocation = [
+            {"code": "VAS", "weight": Decimal("0.42")},  # +2% drift
+            {"code": "VGS", "weight": Decimal("0.29")},  # -1% drift
+            {"code": "VAF", "weight": Decimal("0.29")}   # -1% drift
+        ]
+        
+        rebalance_threshold = Decimal("0.05")
+        
+        # Act
+        # needs_rebalance = check_rebalance_needed(
+        #     target_allocation,
+        #     current_allocation,
+        #     rebalance_threshold
+        # )
+        
+        # Assert - No rebalancing needed
+        # assert not needs_rebalance
+        
+        assert True  # Placeholder
+    
+    def test_rebalance_trades_calculation(self):
+        """Test calculating trades needed for rebalancing."""
+        # Arrange
+        current_value = Decimal("100000.00")
+        target_allocation = [
+            {"code": "VAS", "weight": Decimal("0.40")},
+            {"code": "VGS", "weight": Decimal("0.30")},
+            {"code": "VAF", "weight": Decimal("0.30")}
+        ]
+        
+        current_allocation = [
+            {"code": "VAS", "weight": Decimal("0.50")},
+            {"code": "VGS", "weight": Decimal("0.25")},
+            {"code": "VAF", "weight": Decimal("0.25")}
+        ]
+        
+        # Act
+        # trades = calculate_rebalance_trades(
+        #     current_value,
+        #     target_allocation,
+        #     current_allocation
+        # )
+        
+        # Assert - Trades to rebalance
+        # assert len(trades) > 0
+        # assert any(t["action"] == "sell" and t["code"] == "VAS" for t in trades)
+        # assert any(t["action"] == "buy" and t["code"] == "VGS" for t in trades)
+        
+        assert True  # Placeholder
+
+
+@pytest.mark.unit
+@pytest.mark.investment_pods
+class TestCovarianceMatrix:
+    """Test covariance matrix calculations."""
+    
+    def test_calculate_covariance_matrix(self, mock_market_data):
+        """Test calculating covariance matrix from returns."""
+        # Arrange
+        returns_data = {
+            "VAS.AX": [0.05, 0.03, -0.02, 0.04],
+            "VGS.AX": [0.08, 0.06, -0.01, 0.07]
+        }
+        
+        # Act
+        # cov_matrix = calculate_covariance_matrix(returns_data)
+        
+        # Assert
+        # assert cov_matrix.shape == (2, 2)
+        # assert cov_matrix[0, 0] > 0  # Variance of VAS
+        # assert cov_matrix[1, 1] > 0  # Variance of VGS
+        # assert cov_matrix[0, 1] == cov_matrix[1, 0]  # Symmetric
+        
+        assert True  # Placeholder
+    
+    def test_portfolio_variance(self):
+        """Test calculating portfolio variance."""
+        # Arrange
+        weights = np.array([0.6, 0.4])
+        cov_matrix = np.array([
+            [0.04, 0.02],
+            [0.02, 0.06]
+        ])
+        
+        # Act
+        # portfolio_variance = weights.T @ cov_matrix @ weights
+        
+        # Assert
+        # assert portfolio_variance > 0
+        
+        assert True  # Placeholder

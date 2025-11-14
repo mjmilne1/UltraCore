@@ -1,9 +1,9 @@
 # ?? UltraCore Banking Platform
 
-[![Performance](https://img.shields.io/badge/Latency-87.5ms%20P99-success)](https://github.com/mjmilne1/UltraCore)
-[![Throughput](https://img.shields.io/badge/Throughput-10K%2Fmin-blue)](https://github.com/mjmilne1/UltraCore)
-[![Standards](https://img.shields.io/badge/Standards-Ultra%20Platform-purple)](https://github.com/mjmilne1/UltraReinforcementLearning)
-[![AI/ML](https://img.shields.io/badge/AI-GPT--4%20%2B%20RL-orange)](https://github.com/mjmilne1/UltraCore)
+[![Performance](https://img.shields.io/badge/Latency-87.5ms%20P99-success)](https://github.com/TuringDynamics3000/UltraCore)
+[![Throughput](https://img.shields.io/badge/Throughput-10K%2Fmin-blue)](https://github.com/TuringDynamics3000/UltraCore)
+[![Standards](https://img.shields.io/badge/Standards-Ultra%20Platform-purple)](https://github.com/TuringDynamics3000/UltraReinforcementLearning)
+[![AI/ML](https://img.shields.io/badge/AI-GPT--4%20%2B%20RL-orange)](https://github.com/TuringDynamics3000/UltraCore)
 
 ## ?? What is UltraCore?
 
@@ -35,8 +35,8 @@
 ## ?? Ultra Platform Standards
 
 Part of the Ultra Platform suite, meeting institutional standards:
-- [UltraReinforcementLearning](https://github.com/mjmilne1/UltraReinforcementLearning) - RL Portfolio Allocator
-- [UltraCore](https://github.com/mjmilne1/UltraCore) - Banking Platform
+- [UltraReinforcementLearning](https://github.com/TuringDynamics3000/UltraReinforcementLearning) - RL Portfolio Allocator
+- [UltraCore](https://github.com/TuringDynamics3000/UltraCore) - Banking Platform
 
 ## ?? Contact
 

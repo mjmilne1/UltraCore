@@ -36,7 +36,7 @@ class AUSTRACCompliance:
                 'customer_id': customer_id,
                 'amount': str(amount),
                 'transaction_type': transaction_type.value,
-                'reported_at': datetime.utcnow().isoformat()
+                'reported_at': datetime.now(timezone.utc).isoformat()
             }
             self.threshold_transactions.append(ttr)
             return True
@@ -60,7 +60,7 @@ class AUSTRACCompliance:
             smr = {
                 'customer_id': customer_id,
                 'suspicion_score': aml_result.get('suspicion_score'),
-                'reported_at': datetime.utcnow().isoformat()
+                'reported_at': datetime.now(timezone.utc).isoformat()
             }
             self.suspicious_matters.append(smr)
             return smr

@@ -1,8 +1,12 @@
 ﻿import httpx
 import json
+import os
 from bs4 import BeautifulSoup
 
-API_KEY = "01c57741-7763-4e22-be72-de738b098a8b"
+# SECURITY FIX: Load API key from environment variable
+API_KEY = os.environ.get('FISCAL_AI_API_KEY')
+if not API_KEY:
+    raise ValueError("FISCAL_AI_API_KEY environment variable must be set")
 
 async def get_swagger_spec():
     async with httpx.AsyncClient(timeout=30.0) as client:

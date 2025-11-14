@@ -8,7 +8,7 @@ from ultracore.infrastructure.event_store import EventStore
 from ultracore.infrastructure.kafka_event_store import KafkaEventStore
 from ...events import BNPLPurchaseCreatedEvent, BNPLInstallmentPaidEvent
 from ...models import BNPLPurchase, LoanStatus
-from ultracore.domains.accounts.ledger import UltraLedgerService
+# from ultracore.domains.accounts.ledger import UltraLedgerService  # TODO: Fix import path
 
 
 class BNPLService:
@@ -115,8 +115,8 @@ class BNPLService:
             repayment_frequency="fortnightly",
             next_payment_date=installment_dates[0],
             status=LoanStatus.ACTIVE,
-            created_at=datetime.utcnow(),
-            updated_at=datetime.utcnow()
+            created_at=datetime.now(timezone.utc),
+            updated_at=datetime.now(timezone.utc)
         )
         
         # Publish event
@@ -131,7 +131,7 @@ class BNPLService:
             installment_amount=installment_amount,
             number_of_installments=number_of_installments,
             first_payment_date=installment_dates[0],
-            created_at=datetime.utcnow()
+            created_at=datetime.now(timezone.utc)
         )
         
         await self.kafka.publish(event)
@@ -212,7 +212,7 @@ class BNPLService:
             loan_type="bnpl",
             installment_number=1,  # Would track current
             payment_amount=payment_amount,
-            paid_at=datetime.utcnow()
+            paid_at=datetime.now(timezone.utc)
         )
         
         await self.kafka.publish(event)
@@ -251,7 +251,7 @@ class BNPLService:
             installment_number=1,
             days_overdue=days_overdue,
             late_fee=late_fee,
-            missed_at=datetime.utcnow()
+            missed_at=datetime.now(timezone.utc)
         )
         
         await self.kafka.publish(event)

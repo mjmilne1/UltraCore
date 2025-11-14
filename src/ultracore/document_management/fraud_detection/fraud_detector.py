@@ -105,7 +105,7 @@ class FraudDetectionService:
                 'risk_level': risk_level,
                 'indicators_count': len(fraud_indicators),
                 'action': action,
-                'analyzed_at': datetime.utcnow().isoformat()
+                'analyzed_at': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=document.document_id
         )

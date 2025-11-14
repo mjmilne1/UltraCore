@@ -69,7 +69,7 @@ class CompleteInsuranceAggregate:
             'policy_type': policy_type.value,
             'coverage_amount': str(coverage_amount),
             'premium': str(base_premium),
-            'underwritten_at': datetime.utcnow().isoformat()
+            'underwritten_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -91,7 +91,7 @@ class CompleteInsuranceAggregate:
         
         event_data = {
             'policy_id': self.policy_id,
-            'activated_at': datetime.utcnow().isoformat()
+            'activated_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -113,7 +113,7 @@ class CompleteInsuranceAggregate:
         """Submit insurance claim with fraud detection"""
         kafka_store = get_production_kafka_store()
         
-        claim_id = f'CLM-{self.policy_id}-{datetime.utcnow().timestamp()}'
+        claim_id = f'CLM-{self.policy_id}-{datetime.now(timezone.utc).timestamp()}'
         
         # ML fraud detection
         policy_age_days = 365
@@ -132,7 +132,7 @@ class CompleteInsuranceAggregate:
             'fraud_score': fraud_result['fraud_score'],
             'fraud_flags': fraud_result['flags'],
             'status': ClaimStatus.SUBMITTED.value,
-            'submitted_at': datetime.utcnow().isoformat()
+            'submitted_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -159,7 +159,7 @@ class CompleteInsuranceAggregate:
             'policy_id': self.policy_id,
             'claim_id': claim_id,
             'status': ClaimStatus.UNDER_REVIEW.value,
-            'review_started': datetime.utcnow().isoformat()
+            'review_started': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -182,7 +182,7 @@ class CompleteInsuranceAggregate:
             'claim_id': claim_id,
             'approved_amount': str(approved_amount),
             'status': ClaimStatus.APPROVED.value,
-            'approved_at': datetime.utcnow().isoformat()
+            'approved_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -211,7 +211,7 @@ class CompleteInsuranceAggregate:
             'claim_id': claim_id,
             'paid_amount': str(approved_amount),
             'status': ClaimStatus.PAID.value,
-            'paid_at': datetime.utcnow().isoformat()
+            'paid_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -234,7 +234,7 @@ class CompleteInsuranceAggregate:
             'claim_id': claim_id,
             'reason': reason,
             'status': ClaimStatus.REJECTED.value,
-            'rejected_at': datetime.utcnow().isoformat()
+            'rejected_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(

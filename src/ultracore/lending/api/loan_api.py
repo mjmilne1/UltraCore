@@ -365,7 +365,7 @@ async def update_applicant_details(application_id: str, request: UpdateApplicant
     if request.postcode:
         application.primary_applicant.postcode = request.postcode
     
-    application.primary_applicant.updated_at = datetime.utcnow()
+    application.primary_applicant.updated_at = datetime.now(timezone.utc)
     
     return {"message": "Applicant details updated"}
 
@@ -1027,7 +1027,7 @@ async def health_check():
     """Health check endpoint"""
     return {
         'status': 'healthy',
-        'timestamp': datetime.utcnow().isoformat(),
+        'timestamp': datetime.now(timezone.utc).isoformat(),
         'service': 'UltraCore Loan Management API',
         'version': '1.0.0'
     }

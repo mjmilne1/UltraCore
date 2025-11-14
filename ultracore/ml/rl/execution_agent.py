@@ -360,7 +360,7 @@ class ExecutionRLAgent:
         return {
             "quantity": exec_qty,
             "avg_price": executed_price,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         }
     
     def _get_execution_quantity(

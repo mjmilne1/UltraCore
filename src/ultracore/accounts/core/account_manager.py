@@ -180,7 +180,7 @@ class TransactionEngine:
             transaction_type=reversal_type,
             amount=original.amount,
             currency=original.currency,
-            transaction_date=datetime.utcnow(),
+            transaction_date=datetime.now(timezone.utc),
             value_date=date.today(),
             description=f"Reversal of {original_transaction_id}: {reversal_reason}",
             status=TransactionStatus.COMPLETED,
@@ -314,7 +314,7 @@ class AccountManager:
                 account_id=account_id,
                 transaction_type=TransactionType.DEPOSIT,
                 amount=initial_deposit,
-                transaction_date=datetime.utcnow(),
+                transaction_date=datetime.now(timezone.utc),
                 value_date=date.today(),
                 description="Initial deposit",
                 created_by=opened_by
@@ -383,7 +383,7 @@ class AccountManager:
         account.closed_date = date.today()
         account.closure_reason = closure_reason
         account.updated_by = closed_by
-        account.updated_at = datetime.utcnow()
+        account.updated_at = datetime.now(timezone.utc)
         
         # Publish event
         await self._publish_event(
@@ -437,7 +437,7 @@ class AccountManager:
             transaction_type=TransactionType.DEPOSIT,
             amount=amount,
             currency=account.currency,
-            transaction_date=datetime.utcnow(),
+            transaction_date=datetime.now(timezone.utc),
             value_date=date.today(),
             description=description,
             external_reference=external_reference,
@@ -515,7 +515,7 @@ class AccountManager:
             transaction_type=TransactionType.WITHDRAWAL,
             amount=amount,
             currency=account.currency,
-            transaction_date=datetime.utcnow(),
+            transaction_date=datetime.now(timezone.utc),
             value_date=date.today(),
             description=description,
             external_reference=external_reference,
@@ -593,7 +593,7 @@ class AccountManager:
             transaction_type=TransactionType.TRANSFER_OUT,
             amount=amount,
             currency=from_account.currency,
-            transaction_date=datetime.utcnow(),
+            transaction_date=datetime.now(timezone.utc),
             value_date=date.today(),
             description=f"Transfer to {to_account.account_number}: {description}",
             to_account=to_account_id,
@@ -608,7 +608,7 @@ class AccountManager:
             transaction_type=TransactionType.TRANSFER_IN,
             amount=amount,
             currency=to_account.currency,
-            transaction_date=datetime.utcnow(),
+            transaction_date=datetime.now(timezone.utc),
             value_date=date.today(),
             description=f"Transfer from {from_account.account_number}: {description}",
             from_account=from_account_id,
@@ -832,7 +832,7 @@ class AccountManager:
         event = AccountEvent(
             event_id=f"EVT-{uuid.uuid4().hex[:16].upper()}",
             event_type=event_type,
-            event_timestamp=datetime.utcnow(),
+            event_timestamp=datetime.now(timezone.utc),
             account_id=account_id,
             tenant_id=tenant_id,
             event_data=event_data,

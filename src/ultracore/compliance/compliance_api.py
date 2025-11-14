@@ -366,7 +366,7 @@ async def export_for_regulator(
 async def check_transaction(request: TransactionCheckRequest):
     """Check transaction against compliance rules"""
     
-    timestamp = datetime.fromisoformat(request.timestamp) if request.timestamp else datetime.utcnow()
+    timestamp = datetime.fromisoformat(request.timestamp) if request.timestamp else datetime.now(timezone.utc)
     
     result = await compliance_engine.check_transaction(
         transaction_id=request.transaction_id,
@@ -690,7 +690,7 @@ async def get_dashboard():
     """Get comprehensive dashboard data"""
     
     # Get recent time ranges
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
     last_24h = now - timedelta(hours=24)
     last_7d = now - timedelta(days=7)
     last_30d = now - timedelta(days=30)
@@ -795,7 +795,7 @@ async def get_dashboard():
 async def get_realtime_metrics():
     """Get real-time monitoring metrics"""
     
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
     last_hour = now - timedelta(hours=1)
     
     # Get recent audit events
@@ -893,7 +893,7 @@ async def health_check():
     """Health check endpoint"""
     return {
         'status': 'healthy',
-        'timestamp': datetime.utcnow().isoformat(),
+        'timestamp': datetime.now(timezone.utc).isoformat(),
         'service': 'UltraCore Audit & Compliance',
         'version': '1.0.0',
         'monitoring_active': compliance_engine._monitoring_active

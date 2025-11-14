@@ -114,7 +114,7 @@ class OpenMarketsClient:
                 order_id=order_id,
                 account_id=account_id,
                 symbol="",  # Would need to fetch from order details
-                cancelled_at=datetime.utcnow(),
+                cancelled_at=datetime.now(timezone.utc),
                 cancellation_reason="User requested",
                 filled_quantity=0,
                 remaining_quantity=0
@@ -188,7 +188,7 @@ class OpenMarketsClient:
         # Emit market data event for ML training
         if self.event_store and self.config.event_store_enabled:
             event = MarketDataReceivedEvent(
-                aggregate_id=f"market_data_{symbol}_{datetime.utcnow().isoformat()}",
+                aggregate_id=f"market_data_{symbol}_{datetime.now(timezone.utc).isoformat()}",
                 symbol=symbol,
                 exchange=market_data.exchange,
                 last_price=market_data.last_price,

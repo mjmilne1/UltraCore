@@ -54,7 +54,7 @@ class NotificationIntelligenceAgent:
         # Get customer engagement patterns
         # For now, use simple heuristics
         
-        current_time = datetime.utcnow()
+        current_time = datetime.now(timezone.utc)
         
         # Email: Best times are 9 AM, 2 PM, 6 PM
         if channel == NotificationChannel.EMAIL:
@@ -245,7 +245,7 @@ class NotificationIntelligenceAgent:
         notification_service = get_notification_service()
         
         campaign_results = {
-            'campaign_id': f"RETENTION-{datetime.utcnow().strftime('%Y%m%d')}",
+            'campaign_id': f"RETENTION-{datetime.now(timezone.utc).strftime('%Y%m%d')}",
             'target_customers': len(customer_ids),
             'notifications_sent': 0,
             'estimated_retention_value': Decimal('0')

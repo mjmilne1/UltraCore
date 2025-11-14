@@ -227,7 +227,7 @@ class ScoringEngine:
             'model_type': model_type.value,
             'cached': False,
             'inference_time_ms': round(inference_time, 2),
-            'timestamp': datetime.utcnow().isoformat()
+            'timestamp': datetime.now(timezone.utc).isoformat()
         }
         
         return result
@@ -367,7 +367,7 @@ class ModelMonitor:
             'prediction_id': prediction_id,
             'prediction': prediction,
             'input_data': input_data,
-            'timestamp': datetime.utcnow().isoformat()
+            'timestamp': datetime.now(timezone.utc).isoformat()
         })
     
     async def log_ground_truth(
@@ -379,7 +379,7 @@ class ModelMonitor:
         
         self.ground_truth[prediction_id] = {
             'outcome': actual_outcome,
-            'timestamp': datetime.utcnow().isoformat()
+            'timestamp': datetime.now(timezone.utc).isoformat()
         }
     
     async def calculate_accuracy(self, model_type: ModelType) -> Dict:

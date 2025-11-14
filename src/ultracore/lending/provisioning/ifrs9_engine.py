@@ -94,7 +94,7 @@ class IFRS9StagingEngine:
         Stage 3: Lifetime ECL (credit impaired)
         """
         
-        classification_id = f"STGCLS-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        classification_id = f"STGCLS-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         calc_date = assessment_date or date.today()
         
         # Get delinquency status
@@ -273,7 +273,7 @@ class IFRS9StagingEngine:
         event = ProvisionEvent(
             event_id=event_id,
             event_type=ProvisionEventType.STAGE_CHANGED,
-            event_timestamp=datetime.utcnow(),
+            event_timestamp=datetime.now(timezone.utc),
             loan_account_id=loan_account.account_id,
             previous_stage=previous_stage,
             new_stage=new_stage,
@@ -333,7 +333,7 @@ class ECLCalculator:
     ) -> PDLGDEADParameters:
         """Calculate PD, LGD, EAD parameters for loan"""
         
-        parameter_id = f"PARAM-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        parameter_id = f"PARAM-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         
         # EAD = Current outstanding balance
         ead = loan_account.current_balance.principal_outstanding
@@ -401,7 +401,7 @@ class ECLCalculator:
     ) -> ECLCalculation:
         """Calculate Expected Credit Loss"""
         
-        calculation_id = f"ECL-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        calculation_id = f"ECL-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         
         if not parameters:
             parameters = await self.calculate_pd_lgd_ead(loan_account, stage)
@@ -535,7 +535,7 @@ class ProvisionManager:
         provision_decrease = abs(min(provision_movement, Decimal('0.00')))
         
         # Step 6: Create provision record
-        provision_id = f"PROV-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        provision_id = f"PROV-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         
         provision = LoanProvision(
             provision_id=provision_id,
@@ -557,7 +557,7 @@ class ProvisionManager:
         calc_event = ProvisionEvent(
             event_id=f"EVT-{uuid.uuid4().hex[:16].upper()}",
             event_type=ProvisionEventType.PROVISION_CALCULATED,
-            event_timestamp=datetime.utcnow(),
+            event_timestamp=datetime.now(timezone.utc),
             loan_account_id=loan_account.account_id,
             provision_id=provision_id,
             previous_provision=previous_amount,
@@ -593,7 +593,7 @@ class ProvisionManager:
             post_event = ProvisionEvent(
                 event_id=f"EVT-{uuid.uuid4().hex[:16].upper()}",
                 event_type=ProvisionEventType.PROVISION_POSTED,
-                event_timestamp=datetime.utcnow(),
+                event_timestamp=datetime.now(timezone.utc),
                 loan_account_id=loan_account.account_id,
                 provision_id=provision_id,
                 provision_movement=provision_movement,

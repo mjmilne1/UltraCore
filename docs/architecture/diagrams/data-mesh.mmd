@@ -1,0 +1,130 @@
+```mermaid
+graph TB
+    %% Data Product Domains
+    subgraph Accounts["💰 Accounts Domain"]
+        AccDP[Accounts Data Product<br/>Owner: Accounts Team]
+        AccSchema[Schema: Account, Balance, Transaction]
+        AccSLA[SLA: 99.9% uptime, <100ms latency]
+    end
+    
+    subgraph Holdings["📊 Holdings Domain"]
+        HoldDP[Holdings Data Product<br/>Owner: Holdings Team]
+        HoldSchema[Schema: Position, Valuation, Performance]
+        HoldSLA[SLA: 99.5% uptime, <200ms latency]
+    end
+    
+    subgraph Trading["📈 Trading Domain"]
+        TradeDP[Trading Data Product<br/>Owner: Trading Team]
+        TradeSchema[Schema: Order, Execution, Fill]
+        TradeSLA[SLA: 99.9% uptime, <50ms latency]
+    end
+    
+    subgraph Reporting["📑 Reporting Domain"]
+        ReportDP[Reporting Data Product<br/>Owner: Reporting Team]
+        ReportSchema[Schema: Statement, Report, Analytics]
+        ReportSLA[SLA: 99% uptime, <1s latency]
+    end
+    
+    %% Federated Governance
+    subgraph Governance["🏛️ Federated Governance"]
+        DataCatalog[Data Catalog<br/>Discovery, Lineage]
+        QualityRules[Quality Rules<br/>Completeness, Freshness]
+        AccessControl[Access Control<br/>RBAC, Data Policies]
+    end
+    
+    %% Data Consumers
+    Consumer1[📱 Client App<br/>Portfolio View]
+    Consumer2[📊 Analytics Dashboard<br/>Business Intelligence]
+    Consumer3[🤖 ML Models<br/>Predictions, Optimization]
+    Consumer4[📧 Notifications<br/>Alerts, Reports]
+    
+    %% Data Product Connections
+    AccDP -->|Provides| AccSchema
+    AccDP -->|Guarantees| AccSLA
+    HoldDP -->|Provides| HoldSchema
+    HoldDP -->|Guarantees| HoldSLA
+    TradeDP -->|Provides| TradeSchema
+    TradeDP -->|Guarantees| TradeSLA
+    ReportDP -->|Provides| ReportSchema
+    ReportDP -->|Guarantees| ReportSLA
+    
+    %% Governance Connections
+    DataCatalog -.->|Registers| AccDP
+    DataCatalog -.->|Registers| HoldDP
+    DataCatalog -.->|Registers| TradeDP
+    DataCatalog -.->|Registers| ReportDP
+    
+    QualityRules -.->|Validates| AccDP
+    QualityRules -.->|Validates| HoldDP
+    QualityRules -.->|Validates| TradeDP
+    QualityRules -.->|Validates| ReportDP
+    
+    AccessControl -.->|Enforces| AccDP
+    AccessControl -.->|Enforces| HoldDP
+    AccessControl -.->|Enforces| TradeDP
+    AccessControl -.->|Enforces| ReportDP
+    
+    %% Consumer Connections
+    Consumer1 -->|Consumes| AccDP
+    Consumer1 -->|Consumes| HoldDP
+    Consumer2 -->|Consumes| AccDP
+    Consumer2 -->|Consumes| HoldDP
+    Consumer2 -->|Consumes| TradeDP
+    Consumer2 -->|Consumes| ReportDP
+    Consumer3 -->|Consumes| HoldDP
+    Consumer3 -->|Consumes| TradeDP
+    Consumer4 -->|Consumes| ReportDP
+    
+    %% Cross-Domain Joins
+    ReportDP -.->|Joins| AccDP
+    ReportDP -.->|Joins| HoldDP
+    ReportDP -.->|Joins| TradeDP
+    
+    %% Styling
+    style Accounts fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style Holdings fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style Trading fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style Reporting fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style Governance fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+```
+
+**Data Mesh Architecture**
+
+This diagram shows UltraCore's data mesh implementation:
+
+**Data Product Domains:**
+Each domain owns its data products with clear ownership:
+
+1. **Accounts Domain** (Owner: Accounts Team)
+   - Schema: Account, Balance, Transaction
+   - SLA: 99.9% uptime, <100ms latency
+
+2. **Holdings Domain** (Owner: Holdings Team)
+   - Schema: Position, Valuation, Performance
+   - SLA: 99.5% uptime, <200ms latency
+
+3. **Trading Domain** (Owner: Trading Team)
+   - Schema: Order, Execution, Fill
+   - SLA: 99.9% uptime, <50ms latency (critical for trading)
+
+4. **Reporting Domain** (Owner: Reporting Team)
+   - Schema: Statement, Report, Analytics
+   - SLA: 99% uptime, <1s latency
+
+**Federated Governance:**
+- **Data Catalog** - Discovery, lineage tracking, metadata management
+- **Quality Rules** - Completeness >95%, freshness <1 hour, consistency checks
+- **Access Control** - RBAC, data policies, tenant isolation
+
+**Data Consumers:**
+- **Client App** - Portfolio view (consumes Accounts + Holdings)
+- **Analytics Dashboard** - BI (consumes all domains)
+- **ML Models** - Predictions (consumes Holdings + Trading)
+- **Notifications** - Alerts (consumes Reporting)
+
+**Key Principles:**
+- **Domain ownership** - Each team owns their data product
+- **Self-serve** - Consumers discover and access data independently
+- **Federated governance** - Global standards, local implementation
+- **Product thinking** - Data as a product with SLAs
+- **Consumer-driven contracts** - Data products evolve based on consumer needs

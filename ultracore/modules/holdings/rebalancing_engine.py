@@ -155,7 +155,7 @@ class RebalancingEngine:
         estimated_costs = self._calculate_transaction_costs(trades)
         
         rebalancing_plan = {
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "trades": trades,
             "trade_count": len(trades),
             "total_trade_value": total_trade_value,
@@ -199,7 +199,7 @@ class RebalancingEngine:
                 # In production, this would call actual trading API
                 trade_result = {
                     **trade,
-                    "executed_at": datetime.utcnow().isoformat(),
+                    "executed_at": datetime.now(timezone.utc).isoformat(),
                     "status": "executed"
                 }
                 
@@ -223,7 +223,7 @@ class RebalancingEngine:
         # Record rebalancing
         rebalancing_record = {
             "client_id": client_id,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "plan": rebalancing_plan,
             "executed_trades": executed_trades,
             "failed_trades": failed_trades,
@@ -317,7 +317,7 @@ class RebalancingEngine:
     def _calculate_next_rebalance_date(self, schedule: str) -> datetime:
         """Calculate next rebalancing date based on schedule"""
         
-        now = datetime.utcnow()
+        now = datetime.now(timezone.utc)
         
         if schedule == "monthly":
             # Next month

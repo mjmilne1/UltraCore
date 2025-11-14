@@ -147,7 +147,7 @@ class PaymentProcessor:
     ) -> Payment:
         """Receive and process a payment"""
         
-        payment_id = f"PAY-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        payment_id = f"PAY-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         
         if payment_amount <= 0:
             raise ValueError("Payment amount must be positive")
@@ -169,7 +169,7 @@ class PaymentProcessor:
         await self._update_account_after_payment(payment, loan_account)
         
         payment.status = PaymentStatus.COMPLETED
-        payment.processed_at = datetime.utcnow()
+        payment.processed_at = datetime.now(timezone.utc)
         
         self.payments[payment_id] = payment
         
@@ -382,7 +382,7 @@ class PaymentProcessor:
         if payment.reversed:
             raise ValueError("Payment already reversed")
         
-        reversal_id = f"PAY-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        reversal_id = f"PAY-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         
         reversal = Payment(
             payment_id=reversal_id,
@@ -414,7 +414,7 @@ class PaymentProcessor:
     ) -> PaymentPlan:
         """Create payment plan for delinquent account"""
         
-        plan_id = f"PLAN-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        plan_id = f"PLAN-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         
         scheduled_payments = []
         payment_date = plan_start_date

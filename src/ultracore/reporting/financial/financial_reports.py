@@ -25,8 +25,8 @@ from decimal import Decimal
 from enum import Enum
 import json
 
-from ultracore.general_ledger.ledger import GeneralLedger
-from ultracore.general_ledger.chart_of_accounts import ChartOfAccounts, AccountType
+from ultracore.modules.accounting.general_ledger.ledger import GeneralLedger
+from ultracore.modules.accounting.general_ledger.chart_of_accounts import ChartOfAccounts, AccountType
 from ultracore.infrastructure.kafka_event_store.production_store import get_production_kafka_store
 from ultracore.data_mesh.integration import DataMeshPublisher
 
@@ -64,7 +64,7 @@ class BalanceSheetReport:
     
     def __init__(self, as_of_date: datetime):
         self.as_of_date = as_of_date
-        self.generated_at = datetime.utcnow()
+        self.generated_at = datetime.now(timezone.utc)
         
         # Assets
         self.current_assets = Decimal('0')
@@ -212,7 +212,7 @@ class ProfitLossReport:
     def __init__(self, start_date: datetime, end_date: datetime):
         self.start_date = start_date
         self.end_date = end_date
-        self.generated_at = datetime.utcnow()
+        self.generated_at = datetime.now(timezone.utc)
         
         # Revenue
         self.total_revenue = Decimal('0')
@@ -296,7 +296,7 @@ class CashFlowReport:
     def __init__(self, start_date: datetime, end_date: datetime):
         self.start_date = start_date
         self.end_date = end_date
-        self.generated_at = datetime.utcnow()
+        self.generated_at = datetime.now(timezone.utc)
         
         # Cash flows
         self.operating_cash_flow = Decimal('0')
@@ -458,7 +458,7 @@ class FinancialReportingService:
     async def generate_balance_sheet(as_of_date: Optional[datetime] = None) -> Dict:
         """Generate balance sheet"""
         if as_of_date is None:
-            as_of_date = datetime.utcnow()
+            as_of_date = datetime.now(timezone.utc)
         
         report = BalanceSheetReport(as_of_date)
         await report.generate()
@@ -482,7 +482,7 @@ class FinancialReportingService:
     ) -> Dict:
         """Generate P&L statement"""
         if end_date is None:
-            end_date = datetime.utcnow()
+            end_date = datetime.now(timezone.utc)
         
         if start_date is None:
             # Default to current month
@@ -510,7 +510,7 @@ class FinancialReportingService:
     ) -> Dict:
         """Generate cash flow statement"""
         if end_date is None:
-            end_date = datetime.utcnow()
+            end_date = datetime.now(timezone.utc)
         
         if start_date is None:
             start_date = end_date.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
@@ -532,7 +532,7 @@ class FinancialReportingService:
         - Financial Ratios
         """
         if as_of_date is None:
-            as_of_date = datetime.utcnow()
+            as_of_date = datetime.now(timezone.utc)
         
         # Generate all reports
         balance_sheet_data = await FinancialReportingService.generate_balance_sheet(as_of_date)
@@ -556,7 +556,7 @@ class FinancialReportingService:
         package = {
             'package_name': 'Financial Package',
             'as_of_date': as_of_date.isoformat(),
-            'generated_at': datetime.utcnow().isoformat(),
+            'generated_at': datetime.now(timezone.utc).isoformat(),
             'balance_sheet': balance_sheet_data,
             'profit_loss': profit_loss_data,
             'cash_flow': cash_flow_data,

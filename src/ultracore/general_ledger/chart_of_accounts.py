@@ -93,7 +93,7 @@ class Account:
         self.parent_account = parent_account
         self.balance: float = 0.0
         self.is_active: bool = True
-        self.created_at = datetime.utcnow()
+        self.created_at = datetime.now(timezone.utc)
 
 
 class ChartOfAccounts:

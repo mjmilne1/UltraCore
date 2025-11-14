@@ -6,7 +6,7 @@ from openai import OpenAI
 import os
 import datetime
 
-from ultracore.domains.client.compliance import (
+# from ultracore.domains.client.compliance import (  # TODO: Fix import path
     ComplianceService, AustralianKYCRequirements
 )
 
@@ -100,7 +100,7 @@ Provide JSON analysis (respond ONLY with valid JSON):
             result['aml_assessment'] = aml_assessment
             result['tfn_valid'] = tfn_valid
             result['compliance_framework'] = 'AML/CTF Act 2006, AUSTRAC, ASIC'
-            result['verification_timestamp'] = datetime.datetime.utcnow().isoformat()
+            result['verification_timestamp'] = datetime.datetime.now(timezone.utc).isoformat()
             
             # Enforce 100 point check
             if id_points < 100:

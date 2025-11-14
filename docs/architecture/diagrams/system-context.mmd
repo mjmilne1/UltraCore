@@ -1,0 +1,83 @@
+```mermaid
+graph TB
+    %% External Actors
+    Client[👤 Client Applications<br/>Web, Mobile, Desktop]
+    Admin[👨‍💼 System Administrators<br/>Operations, DevOps]
+    Regulator[🏛️ Regulators<br/>ASIC, APRA, ATO]
+    
+    %% UltraCore System
+    subgraph UltraCore["🏦 UltraCore Banking Platform"]
+        API[FastAPI REST API<br/>Authentication, Authorization]
+        Kafka[Apache Kafka<br/>Event Bus]
+        Consumers[Event Consumers<br/>Materialization]
+        DB[(PostgreSQL<br/>Projections)]
+        Cache[(Redis<br/>Cache)]
+    end
+    
+    %% External Systems
+    UltraOptimiser[🤖 UltraOptimiser<br/>Portfolio Optimization<br/>8.89% return, 0.66 Sharpe]
+    YahooFinance[📊 Yahoo Finance<br/>Market Data<br/>100+ Australian ETFs]
+    OpenMarkets[📈 OpenMarkets<br/>Trading Broker<br/>Order Execution]
+    EmailService[📧 Email Service<br/>SendGrid/SES]
+    SMSService[📱 SMS Service<br/>Twilio]
+    
+    %% Client Interactions
+    Client -->|HTTPS| API
+    Admin -->|HTTPS| API
+    
+    %% Internal Flow
+    API -->|Publish Events| Kafka
+    Kafka -->|Subscribe| Consumers
+    Consumers -->|Write| DB
+    Consumers -->|Cache| Cache
+    API -->|Read| DB
+    API -->|Read| Cache
+    
+    %% External Integrations
+    API -->|Optimize Portfolio| UltraOptimiser
+    API -->|Get Market Data| YahooFinance
+    API -->|Execute Trades| OpenMarkets
+    Consumers -->|Send Emails| EmailService
+    Consumers -->|Send SMS| SMSService
+    
+    %% Regulatory Reporting
+    API -->|Regulatory Reports| Regulator
+    
+    %% Styling
+    style UltraCore fill:#e1f5ff,stroke:#01579b,stroke-width:3px
+    style Kafka fill:#ff9900,stroke:#ff6600,stroke-width:2px
+    style DB fill:#336791,stroke:#1a3a52,stroke-width:2px
+    style UltraOptimiser fill:#4CAF50,stroke:#2e7d32,stroke-width:2px
+    style YahooFinance fill:#6001d2,stroke:#4a00a0,stroke-width:2px
+    style OpenMarkets fill:#ff5722,stroke:#d32f2f,stroke-width:2px
+```
+
+**System Context Diagram**
+
+This diagram shows UltraCore in its ecosystem:
+
+**External Actors:**
+- **Clients** - Web, mobile, desktop applications
+- **Administrators** - Operations, DevOps teams
+- **Regulators** - ASIC, APRA, ATO (Australian regulators)
+
+**UltraCore Components:**
+- **FastAPI REST API** - Authentication, authorization, business logic
+- **Apache Kafka** - Event bus for event sourcing
+- **Event Consumers** - Materialize events into projections
+- **PostgreSQL** - Relational database for projections
+- **Redis** - In-memory cache for performance
+
+**External Systems:**
+- **UltraOptimiser** - AI-powered portfolio optimization (8.89% return, 0.66 Sharpe ratio)
+- **Yahoo Finance** - Free market data for 100+ Australian ETFs
+- **OpenMarkets** - Trading broker for order execution
+- **Email/SMS Services** - Notifications (SendGrid, Twilio)
+
+**Key Flows:**
+1. Clients interact with UltraCore via HTTPS REST API
+2. All state changes flow through Kafka (event sourcing)
+3. Event consumers materialize events into PostgreSQL projections
+4. API reads from PostgreSQL and Redis for performance
+5. External integrations for optimization, market data, trading
+6. Regulatory reports sent to Australian regulators

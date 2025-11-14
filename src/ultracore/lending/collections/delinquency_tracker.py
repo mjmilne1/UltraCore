@@ -196,7 +196,7 @@ class DelinquencyTracker:
         Calculate days past due, aging bucket, etc.
         """
         
-        status_id = f"DEL-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        status_id = f"DEL-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         calc_date = as_of_date or date.today()
         
         # Get next payment due date from account
@@ -350,7 +350,7 @@ class DelinquencyTracker:
     ) -> MissedPayment:
         """Record a missed payment"""
         
-        missed_id = f"MISS-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        missed_id = f"MISS-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         
         missed = MissedPayment(
             missed_payment_id=missed_id,
@@ -377,12 +377,12 @@ class DelinquencyTracker:
     ) -> ContactAttempt:
         """Record contact attempt with customer"""
         
-        attempt_id = f"CNT-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        attempt_id = f"CNT-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         
         attempt = ContactAttempt(
             attempt_id=attempt_id,
             loan_account_id=loan_account_id,
-            contact_date=datetime.utcnow(),
+            contact_date=datetime.now(timezone.utc),
             contact_type=contact_type,
             outcome=outcome,
             notes=notes,
@@ -437,7 +437,7 @@ class DelinquencyTracker:
     ) -> List[ContactAttempt]:
         """Get contact history for account"""
         
-        cutoff = datetime.utcnow() - timedelta(days=days)
+        cutoff = datetime.now(timezone.utc) - timedelta(days=days)
         
         attempts = [
             a for a in self.contact_attempts.values()

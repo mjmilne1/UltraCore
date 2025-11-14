@@ -171,7 +171,7 @@ class PricePredictionModel(BaseMLModel):
         return {
             "symbol": self.symbol,
             "predicted_price": predicted_price,
-            "prediction_date": datetime.utcnow() + timedelta(days=steps_ahead),
+            "prediction_date": datetime.now(timezone.utc) + timedelta(days=steps_ahead),
             "confidence": 0.85,  # Would calculate actual confidence intervals
             "model_version": self.version
         }

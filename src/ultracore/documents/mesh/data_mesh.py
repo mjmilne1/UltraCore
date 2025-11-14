@@ -208,7 +208,7 @@ class DocumentDataMesh:
             raise ValueError(f"Domain {domain} has no owner assigned")
         
         # Generate product ID
-        product_id = f"DP-{domain.value.upper()}-{datetime.utcnow().strftime('%Y%m%d%H%M%S')}"
+        product_id = f"DP-{domain.value.upper()}-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}"
         
         # Create data product
         product = DocumentDataProduct(
@@ -268,7 +268,7 @@ class DocumentDataMesh:
             # Update metrics
             latest_version = document.versions[-1]
             product.total_size_bytes += latest_version.file_size_bytes
-            product.last_updated = datetime.utcnow()
+            product.last_updated = datetime.now(timezone.utc)
             
             # Publish event
             kafka_store = get_production_kafka_store()
@@ -383,7 +383,7 @@ class DocumentDataMesh:
         
         old_quality = product.quality_level
         product.quality_level = new_quality
-        product.last_updated = datetime.utcnow()
+        product.last_updated = datetime.now(timezone.utc)
         
         # Publish event
         kafka_store = get_production_kafka_store()

@@ -14,15 +14,13 @@ from sqlalchemy import pool
 
 from alembic import context
 
-# Add src to path
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+# Add ultracore to path
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
-# Import models
-from ultracore.database.config import get_settings
-from ultracore.database.models import Base
-
-# Import all models to ensure they're registered
-from ultracore.database.models import *
+# Import base and models directly
+from ultracore.database.base import Base
+import ultracore.database.models.security
+import ultracore.database.models.savings
 
 # Alembic Config object
 config = context.config
@@ -34,9 +32,11 @@ if config.config_file_name is not None:
 # Metadata for autogenerate
 target_metadata = Base.metadata
 
-# Get database URL from settings
-settings = get_settings()
-database_url = settings.database_url or "sqlite:///./ultracore.db"
+# Get database URL from environment or config
+database_url = os.getenv(
+    "DATABASE_URL",
+    config.get_main_option("sqlalchemy.url") or "postgresql+asyncpg://ultracore:ultracore_password@localhost:5432/ultracore"
+)
 
 # Override alembic.ini database URL with environment settings
 config.set_main_option('sqlalchemy.url', database_url)

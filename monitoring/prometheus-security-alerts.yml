@@ -1,0 +1,320 @@
+# Prometheus Security Monitoring Alerts
+# Deploy this configuration to your Prometheus instance
+
+groups:
+- name: security_alerts
+  interval: 30s
+  rules:
+  
+  # ============================================================================
+  # Authentication & Authorization Alerts
+  # ============================================================================
+  - alert: HighFailedLoginRate
+    expr: rate(failed_login_attempts_total[5m]) > 10
+    for: 5m
+    labels:
+      severity: warning
+      category: authentication
+    annotations:
+      summary: "High failed login rate detected"
+      description: "More than 10 failed login attempts per minute for the last 5 minutes. Possible brute force attack."
+      runbook_url: "https://docs.ultracore.com/runbooks/high-failed-logins"
+  
+  - alert: CriticalFailedLoginRate
+    expr: rate(failed_login_attempts_total[5m]) > 50
+    for: 2m
+    labels:
+      severity: critical
+      category: authentication
+    annotations:
+      summary: "CRITICAL: Very high failed login rate"
+      description: "More than 50 failed login attempts per minute. Active brute force attack in progress."
+      action: "Block source IPs immediately"
+  
+  - alert: UnauthorizedAccessAttempt
+    expr: unauthorized_access_attempts_total > 0
+    for: 1m
+    labels:
+      severity: high
+      category: authorization
+    annotations:
+      summary: "Unauthorized access attempt detected"
+      description: "User attempted to access resources without proper authorization"
+  
+  - alert: JWTValidationFailures
+    expr: rate(jwt_validation_failures_total[5m]) > 5
+    for: 5m
+    labels:
+      severity: warning
+      category: authentication
+    annotations:
+      summary: "High JWT validation failure rate"
+      description: "Possible token manipulation or expired tokens being reused"
+  
+  # ============================================================================
+  # Database Security Alerts
+  # ============================================================================
+  - alert: SQLInjectionAttempt
+    expr: sql_injection_attempts_total > 0
+    for: 1m
+    labels:
+      severity: critical
+      category: database
+    annotations:
+      summary: "SQL injection attempt detected"
+      description: "Potential SQL injection attack detected. Immediate investigation required."
+      action: "Review logs, block source IP, verify input validation"
+  
+  - alert: UnauthorizedDatabaseConnection
+    expr: unauthorized_db_connections_total > 0
+    for: 1m
+    labels:
+      severity: critical
+      category: database
+    annotations:
+      summary: "Unauthorized database connection attempt"
+      description: "Connection attempt from unauthorized IP or with invalid credentials"
+      action: "Verify pg_hba.conf, check firewall rules"
+  
+  - alert: DatabaseConnectionSpike
+    expr: rate(database_connections_total[5m]) > 100
+    for: 5m
+    labels:
+      severity: warning
+      category: database
+    annotations:
+      summary: "Unusual database connection spike"
+      description: "Sudden increase in database connections. Possible connection pool exhaustion or attack."
+  
+  # ============================================================================
+  # API Security Alerts
+  # ============================================================================
+  - alert: HighAPIErrorRate
+    expr: rate(http_requests_total{status=~"5.."}[5m]) > 0.05
+    for: 5m
+    labels:
+      severity: warning
+      category: api
+    annotations:
+      summary: "High API error rate"
+      description: "More than 5% of API requests are failing. Possible attack or system issue."
+  
+  - alert: RateLimitViolations
+    expr: rate(rate_limit_exceeded_total[5m]) > 10
+    for: 5m
+    labels:
+      severity: warning
+      category: api
+    annotations:
+      summary: "High rate limit violation rate"
+      description: "Multiple clients exceeding rate limits. Possible DDoS or scraping attempt."
+  
+  - alert: SuspiciousUserAgent
+    expr: suspicious_user_agent_requests_total > 0
+    for: 1m
+    labels:
+      severity: info
+      category: api
+    annotations:
+      summary: "Suspicious user agent detected"
+      description: "Request from known malicious or suspicious user agent"
+  
+  # ============================================================================
+  # Infrastructure Security Alerts
+  # ============================================================================
+  - alert: KafkaAuthenticationFailures
+    expr: rate(kafka_authentication_failures_total[5m]) > 5
+    for: 5m
+    labels:
+      severity: warning
+      category: infrastructure
+    annotations:
+      summary: "Kafka authentication failures"
+      description: "Multiple failed Kafka authentication attempts"
+  
+  - alert: RedisAuthenticationFailures
+    expr: rate(redis_authentication_failures_total[5m]) > 5
+    for: 5m
+    labels:
+      severity: warning
+      category: infrastructure
+    annotations:
+      summary: "Redis authentication failures"
+      description: "Multiple failed Redis authentication attempts"
+  
+  - alert: ContainerRestartLoop
+    expr: rate(kube_pod_container_status_restarts_total[15m]) > 3
+    for: 5m
+    labels:
+      severity: warning
+      category: infrastructure
+    annotations:
+      summary: "Container restart loop detected"
+      description: "Pod {{ $labels.pod }} is restarting frequently. Possible security issue or misconfiguration."
+  
+  # ============================================================================
+  # Data Exfiltration Alerts
+  # ============================================================================
+  - alert: UnusualDataTransferVolume
+    expr: rate(bytes_sent_total[5m]) > 100000000  # 100MB/s
+    for: 5m
+    labels:
+      severity: warning
+      category: data_exfiltration
+    annotations:
+      summary: "Unusual data transfer volume"
+      description: "Abnormally high data transfer rate detected. Possible data exfiltration."
+  
+  - alert: LargeQueryResults
+    expr: query_result_size_bytes > 10000000  # 10MB
+    for: 1m
+    labels:
+      severity: info
+      category: data_exfiltration
+    annotations:
+      summary: "Large query result returned"
+      description: "Query returned unusually large result set"
+  
+  # ============================================================================
+  # Encryption & Secrets Alerts
+  # ============================================================================
+  - alert: UnencryptedConnection
+    expr: unencrypted_connections_total > 0
+    for: 1m
+    labels:
+      severity: high
+      category: encryption
+    annotations:
+      summary: "Unencrypted connection detected"
+      description: "Connection established without TLS/SSL encryption"
+      action: "Enforce SSL/TLS for all connections"
+  
+  - alert: WeakCipherUsed
+    expr: weak_cipher_connections_total > 0
+    for: 1m
+    labels:
+      severity: warning
+      category: encryption
+    annotations:
+      summary: "Weak cipher suite used"
+      description: "Connection using deprecated or weak cipher suite"
+  
+  - alert: SecretAccessSpike
+    expr: rate(secrets_accessed_total[5m]) > 100
+    for: 5m
+    labels:
+      severity: warning
+      category: secrets
+    annotations:
+      summary: "Unusual secret access pattern"
+      description: "Abnormally high rate of secret access. Possible credential harvesting."
+  
+  # ============================================================================
+  # Compliance & Audit Alerts
+  # ============================================================================
+  - alert: AuditLogFailure
+    expr: audit_log_write_failures_total > 0
+    for: 1m
+    labels:
+      severity: critical
+      category: compliance
+    annotations:
+      summary: "Audit log write failure"
+      description: "Failed to write to audit log. Compliance violation."
+      action: "Investigate immediately, ensure audit log integrity"
+  
+  - alert: PrivilegeEscalation
+    expr: privilege_escalation_attempts_total > 0
+    for: 1m
+    labels:
+      severity: critical
+      category: compliance
+    annotations:
+      summary: "Privilege escalation attempt detected"
+      description: "User attempted to escalate privileges"
+      action: "Investigate user activity, review access controls"
+  
+  # ============================================================================
+  # Application Security Alerts
+  # ============================================================================
+  - alert: XSSAttempt
+    expr: xss_attempts_total > 0
+    for: 1m
+    labels:
+      severity: high
+      category: application
+    annotations:
+      summary: "Cross-site scripting (XSS) attempt"
+      description: "Potential XSS attack detected in user input"
+  
+  - alert: CSRFTokenMismatch
+    expr: csrf_token_mismatches_total > 0
+    for: 1m
+    labels:
+      severity: high
+      category: application
+    annotations:
+      summary: "CSRF token mismatch"
+      description: "Possible cross-site request forgery attack"
+  
+  - alert: PathTraversalAttempt
+    expr: path_traversal_attempts_total > 0
+    for: 1m
+    labels:
+      severity: high
+      category: application
+    annotations:
+      summary: "Path traversal attempt detected"
+      description: "Attempt to access files outside allowed directory"
+  
+  # ============================================================================
+  # Behavioral Anomalies
+  # ============================================================================
+  - alert: UnusualAccessPattern
+    expr: unusual_access_patterns_total > 0
+    for: 5m
+    labels:
+      severity: info
+      category: behavioral
+    annotations:
+      summary: "Unusual access pattern detected"
+      description: "User behavior deviates significantly from baseline"
+  
+  - alert: OffHoursActivity
+    expr: (hour() < 6 or hour() > 22) and rate(api_requests_total[5m]) > 10
+    for: 10m
+    labels:
+      severity: info
+      category: behavioral
+    annotations:
+      summary: "Unusual off-hours activity"
+      description: "Significant activity detected outside business hours"
+  
+  - alert: NewIPAddress
+    expr: new_ip_address_logins_total > 0
+    for: 1m
+    labels:
+      severity: info
+      category: behavioral
+    annotations:
+      summary: "Login from new IP address"
+      description: "User logged in from previously unseen IP address"
+
+# ============================================================================
+# Alerting Rules for Specific Metrics
+# ============================================================================
+- name: security_metrics
+  interval: 30s
+  rules:
+  
+  - record: security:failed_logins:rate5m
+    expr: rate(failed_login_attempts_total[5m])
+  
+  - record: security:unauthorized_access:rate5m
+    expr: rate(unauthorized_access_attempts_total[5m])
+  
+  - record: security:api_errors:rate5m
+    expr: rate(http_requests_total{status=~"5.."}[5m])
+  
+  - record: security:data_transfer:rate5m
+    expr: rate(bytes_sent_total[5m])

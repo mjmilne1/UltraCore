@@ -439,10 +439,10 @@ class CurrencyManager:
                 rate_type=rate_type,
                 rate_source=RateSource.MANUAL,
                 effective_date=date.today(),
-                effective_time=datetime.utcnow()
+                effective_time=datetime.now(timezone.utc)
             )
         
-        as_of_dt = as_of or datetime.utcnow()
+        as_of_dt = as_of or datetime.now(timezone.utc)
         
         # Look for existing rate
         rate_key = f"{from_currency.value}/{to_currency.value}/{rate_type.value}"
@@ -514,7 +514,7 @@ class CurrencyManager:
                     return None
         
         # Create rate object
-        rate_id = f"RATE-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        rate_id = f"RATE-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         exchange_rate = ExchangeRate(
             rate_id=rate_id,
             from_currency=from_currency,
@@ -579,7 +579,7 @@ class CurrencyManager:
     ) -> ExchangeRate:
         """Manually set an exchange rate"""
         
-        rate_id = f"RATE-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        rate_id = f"RATE-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         eff_date = effective_date or date.today()
         
         exchange_rate = ExchangeRate(
@@ -591,7 +591,7 @@ class CurrencyManager:
             rate_type=rate_type,
             rate_source=rate_source,
             effective_date=eff_date,
-            effective_time=datetime.utcnow(),
+            effective_time=datetime.now(timezone.utc),
             created_by=created_by
         )
         

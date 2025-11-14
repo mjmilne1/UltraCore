@@ -65,7 +65,7 @@ class CompleteAccountAggregate:
             'account_type': account_type.value,
             'currency': self.currency,
             'initial_deposit': str(initial_deposit),
-            'opened_at': datetime.utcnow().isoformat()
+            'opened_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -91,7 +91,7 @@ class CompleteAccountAggregate:
         
         event_data = {
             'account_id': self.account_id,
-            'activated_at': datetime.utcnow().isoformat()
+            'activated_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -123,7 +123,7 @@ class CompleteAccountAggregate:
             'new_balance': str(new_balance),
             'description': description,
             'reference': reference,
-            'timestamp': datetime.utcnow().isoformat()
+            'timestamp': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -136,8 +136,8 @@ class CompleteAccountAggregate:
         
         # Post to ledger
         await ledger.post_journal_entry(
-            entry_id=f'JE-DEP-{self.account_id}-{datetime.utcnow().timestamp()}',
-            date=datetime.utcnow().isoformat(),
+            entry_id=f'JE-DEP-{self.account_id}-{datetime.now(timezone.utc).timestamp()}',
+            date=datetime.now(timezone.utc).isoformat(),
             description=description,
             reference=reference or self.account_id,
             debits=[{'account': '1000', 'amount': float(amount)}],
@@ -177,7 +177,7 @@ class CompleteAccountAggregate:
             'new_balance': str(new_balance),
             'description': description,
             'reference': reference,
-            'timestamp': datetime.utcnow().isoformat()
+            'timestamp': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -189,8 +189,8 @@ class CompleteAccountAggregate:
         )
         
         await ledger.post_journal_entry(
-            entry_id=f'JE-WD-{self.account_id}-{datetime.utcnow().timestamp()}',
-            date=datetime.utcnow().isoformat(),
+            entry_id=f'JE-WD-{self.account_id}-{datetime.now(timezone.utc).timestamp()}',
+            date=datetime.now(timezone.utc).isoformat(),
             description=description,
             reference=reference or self.account_id,
             debits=[{'account': '2000', 'amount': float(amount)}],
@@ -214,7 +214,7 @@ class CompleteAccountAggregate:
             'hold_id': hold_id,
             'amount': str(amount),
             'reason': reason,
-            'placed_at': datetime.utcnow().isoformat()
+            'placed_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -238,7 +238,7 @@ class CompleteAccountAggregate:
             'account_id': self.account_id,
             'hold_id': hold_id,
             'amount': str(self.holds[hold_id]),
-            'released_at': datetime.utcnow().isoformat()
+            'released_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -282,7 +282,7 @@ class CompleteAccountAggregate:
         event_data = {
             'account_id': self.account_id,
             'reason': reason,
-            'frozen_at': datetime.utcnow().isoformat()
+            'frozen_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -304,7 +304,7 @@ class CompleteAccountAggregate:
         event_data = {
             'account_id': self.account_id,
             'reason': reason,
-            'closed_at': datetime.utcnow().isoformat()
+            'closed_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(

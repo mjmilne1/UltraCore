@@ -1,0 +1,45 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    postgresql-client \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements
+COPY requirements.txt /app/
+COPY src/requirements.txt /app/src-requirements.txt
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r src-requirements.txt
+
+# Additional dependencies for UltraWealth
+RUN pip install --no-cache-dir \
+    fastapi==0.104.1 \
+    uvicorn[standard]==0.24.0 \
+    sqlalchemy==2.0.23 \
+    psycopg2-binary==2.9.9 \
+    alembic==1.12.1 \
+    pydantic==2.5.0 \
+    python-jose[cryptography]==3.3.0 \
+    passlib[bcrypt]==1.7.4 \
+    python-multipart==0.0.6 \
+    redis==5.0.1
+
+# Copy application code
+COPY ultrawealth /app/ultrawealth
+COPY ultracore /app/ultracore
+COPY src /app/src
+
+# Set Python path
+ENV PYTHONPATH=/app
+
+# Expose port
+EXPOSE 8891
+
+# Initialize database and run application
+CMD python -m ultrawealth.database.init_db && \
+    python -m uvicorn ultrawealth.api.app:app --host 0.0.0.0 --port 8891

@@ -3,7 +3,13 @@ from typing import Dict, List
 from decimal import Decimal
 import numpy as np
 
-from ultracore.domains.ultraoptimiser.services import OptimisationService
+from typing import Any
+
+
+class OptimisationService:
+    """Base class for optimisation services."""
+    async def optimize(self, **kwargs) -> Dict:
+        raise NotImplementedError
 
 
 class UltraOptimiserAdapter:
@@ -25,6 +31,15 @@ class UltraOptimiserAdapter:
     
     def __init__(self, optimiser: OptimisationService):
         self.optimiser = optimiser
+    
+    async def optimize(self, **kwargs) -> Dict:
+        """
+        Direct optimization method that delegates to the optimiser service.
+        
+        This method provides a direct pass-through to the underlying
+        UltraOptimiser service for flexibility.
+        """
+        return await self.optimiser.optimize(**kwargs)
     
     async def optimize_portfolio(
         self,

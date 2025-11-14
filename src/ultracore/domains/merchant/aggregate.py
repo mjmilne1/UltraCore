@@ -48,7 +48,7 @@ class MerchantAggregate:
             'merchant_id': self.merchant_id,
             'business_name': business_name,
             'abn': abn,
-            'registered_at': datetime.utcnow().isoformat()
+            'registered_at': datetime.now(timezone.utc).isoformat()
         }
         
         await store.append(

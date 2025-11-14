@@ -53,9 +53,9 @@ class CashKafkaProducer:
         """Publish account created event"""
         
         event = {
-            "event_id": f"evt_{datetime.utcnow().timestamp()}",
+            "event_id": f"evt_{datetime.now(timezone.utc).timestamp()}",
             "event_type": CashEventType.ACCOUNT_CREATED,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "account_id": account_id,
             "client_id": client_id,
             "account_type": account_type,
@@ -79,9 +79,9 @@ class CashKafkaProducer:
         """Publish deposit initiated event"""
         
         event = {
-            "event_id": f"evt_{datetime.utcnow().timestamp()}",
+            "event_id": f"evt_{datetime.now(timezone.utc).timestamp()}",
             "event_type": CashEventType.DEPOSIT_INITIATED,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "account_id": account_id,
             "transaction_id": transaction_id,
             "amount": amount,
@@ -106,9 +106,9 @@ class CashKafkaProducer:
         """Publish deposit completed event"""
         
         event = {
-            "event_id": f"evt_{datetime.utcnow().timestamp()}",
+            "event_id": f"evt_{datetime.now(timezone.utc).timestamp()}",
             "event_type": CashEventType.DEPOSIT_COMPLETED,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "account_id": account_id,
             "transaction_id": transaction_id,
             "amount": amount,
@@ -133,9 +133,9 @@ class CashKafkaProducer:
         """Publish withdrawal initiated event"""
         
         event = {
-            "event_id": f"evt_{datetime.utcnow().timestamp()}",
+            "event_id": f"evt_{datetime.now(timezone.utc).timestamp()}",
             "event_type": CashEventType.WITHDRAWAL_INITIATED,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "account_id": account_id,
             "transaction_id": transaction_id,
             "amount": amount,
@@ -160,9 +160,9 @@ class CashKafkaProducer:
         """Publish withdrawal completed event"""
         
         event = {
-            "event_id": f"evt_{datetime.utcnow().timestamp()}",
+            "event_id": f"evt_{datetime.now(timezone.utc).timestamp()}",
             "event_type": CashEventType.WITHDRAWAL_COMPLETED,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "account_id": account_id,
             "transaction_id": transaction_id,
             "amount": amount,
@@ -186,9 +186,9 @@ class CashKafkaProducer:
         """Publish balance reserved event"""
         
         event = {
-            "event_id": f"evt_{datetime.utcnow().timestamp()}",
+            "event_id": f"evt_{datetime.now(timezone.utc).timestamp()}",
             "event_type": CashEventType.BALANCE_RESERVED,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "account_id": account_id,
             "reservation_id": reservation_id,
             "amount": amount,
@@ -210,9 +210,9 @@ class CashKafkaProducer:
         """Publish balance released event"""
         
         event = {
-            "event_id": f"evt_{datetime.utcnow().timestamp()}",
+            "event_id": f"evt_{datetime.now(timezone.utc).timestamp()}",
             "event_type": CashEventType.BALANCE_RELEASED,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "account_id": account_id,
             "reservation_id": reservation_id,
             "amount": amount,
@@ -235,9 +235,9 @@ class CashKafkaProducer:
         """Publish interest credited event"""
         
         event = {
-            "event_id": f"evt_{datetime.utcnow().timestamp()}",
+            "event_id": f"evt_{datetime.now(timezone.utc).timestamp()}",
             "event_type": CashEventType.INTEREST_CREDITED,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "account_id": account_id,
             "amount": amount,
             "interest_rate": interest_rate,
@@ -262,9 +262,9 @@ class CashKafkaProducer:
         """Publish fee debited event"""
         
         event = {
-            "event_id": f"evt_{datetime.utcnow().timestamp()}",
+            "event_id": f"evt_{datetime.now(timezone.utc).timestamp()}",
             "event_type": CashEventType.FEE_DEBITED,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "account_id": account_id,
             "fee_id": fee_id,
             "amount": amount,
@@ -288,9 +288,9 @@ class CashKafkaProducer:
         """Publish fraud detected event"""
         
         event = {
-            "event_id": f"evt_{datetime.utcnow().timestamp()}",
+            "event_id": f"evt_{datetime.now(timezone.utc).timestamp()}",
             "event_type": CashEventType.FRAUD_DETECTED,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "account_id": account_id,
             "transaction_id": transaction_id,
             "fraud_score": fraud_score,
@@ -314,9 +314,9 @@ class CashKafkaProducer:
         """Publish reconciliation completed event"""
         
         event = {
-            "event_id": f"evt_{datetime.utcnow().timestamp()}",
+            "event_id": f"evt_{datetime.now(timezone.utc).timestamp()}",
             "event_type": CashEventType.RECONCILIATION_COMPLETED,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "reconciliation_id": reconciliation_id,
             "accounts_reconciled": accounts_reconciled,
             "discrepancies_found": discrepancies_found,

@@ -33,7 +33,7 @@ class CompleteRiskAggregate:
             'risk_type': 'CREDIT',
             'risk_score': credit_result['credit_score'],
             'risk_category': credit_result['risk_category'],
-            'assessed_at': datetime.utcnow().isoformat()
+            'assessed_at': datetime.now(timezone.utc).isoformat()
         }
         
         await kafka_store.append_event(
@@ -58,7 +58,7 @@ class CompleteRiskAggregate:
                 'alert_type': 'DEFAULT_RISK',
                 'default_probability': default_result['default_probability'],
                 'recommended_action': default_result['recommended_action'],
-                'triggered_at': datetime.utcnow().isoformat()
+                'triggered_at': datetime.now(timezone.utc).isoformat()
             }
             
             await kafka_store.append_event(

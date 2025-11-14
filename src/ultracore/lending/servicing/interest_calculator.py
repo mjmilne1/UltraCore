@@ -144,7 +144,7 @@ class InterestCalculator:
         Calculate daily interest accrual
         """
         
-        accrual_id = f"ACC-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        accrual_id = f"ACC-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         
         calc_method = method or self.default_method
         day_convention = convention or self.default_convention
@@ -245,7 +245,7 @@ class InterestCalculator:
         Creates transaction and updates balance
         """
         
-        posting_id = f"POST-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        posting_id = f"POST-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         
         # Get unposted accruals for period
         interest_amount = loan_account.current_balance.interest_accrued

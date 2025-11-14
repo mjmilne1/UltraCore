@@ -1,0 +1,93 @@
+```mermaid
+sequenceDiagram
+    participant Client
+    participant API as UltraCore API
+    participant Kafka as Kafka Event Bus
+    participant Consumer as Event Consumer
+    participant DB as PostgreSQL
+    participant Cache as Redis
+    
+    %% Command Flow
+    Client->>+API: POST /accounts/transfer
+    Note over API: Validate request<br/>Check permissions<br/>Check balance
+    
+    API->>+Kafka: Publish TransferInitiated event
+    Note over Kafka: Event stored<br/>Partition by account_id<br/>acks='all'
+    Kafka-->>-API: Event acknowledged
+    
+    API-->>-Client: 202 Accepted<br/>{"transfer_id": "123"}
+    
+    %% Event Processing
+    Kafka->>+Consumer: Subscribe to events
+    Note over Consumer: Idempotent processing<br/>Check event_id
+    
+    Consumer->>+DB: BEGIN TRANSACTION
+    Consumer->>DB: INSERT INTO transfers
+    Consumer->>DB: UPDATE account_balance
+    Consumer->>DB: INSERT INTO audit_log
+    Consumer->>DB: COMMIT TRANSACTION
+    DB-->>-Consumer: Transaction committed
+    
+    Consumer->>+Cache: SET account:123:balance
+    Cache-->>-Consumer: Cached
+    
+    Consumer->>+Kafka: Publish TransferCompleted event
+    Kafka-->>-Consumer: Event acknowledged
+    
+    %% Query Flow
+    Client->>+API: GET /accounts/123/balance
+    API->>+Cache: GET account:123:balance
+    alt Cache Hit
+        Cache-->>API: Balance from cache
+    else Cache Miss
+        Cache-->>API: Cache miss
+        API->>+DB: SELECT balance FROM accounts
+        DB-->>-API: Balance from DB
+        API->>Cache: SET account:123:balance
+    end
+    API-->>-Client: 200 OK<br/>{"balance": 1000.00}
+    
+    %% Event Replay (Time Travel)
+    Note over Client,Cache: Event Replay / Time Travel Query
+    Client->>+API: GET /accounts/123/balance?as_of=2024-01-01
+    API->>+Kafka: Query events until timestamp
+    Kafka-->>-API: Historical events
+    Note over API: Reconstruct state<br/>from event stream
+    API-->>-Client: 200 OK<br/>{"balance": 500.00}
+```
+
+**Event Flow Diagram**
+
+This sequence diagram shows the complete event sourcing flow:
+
+**1. Command Flow (Write Path):**
+- Client sends POST request to API
+- API validates request and checks permissions
+- API publishes event to Kafka with `acks='all'` for durability
+- Client receives 202 Accepted immediately (async processing)
+
+**2. Event Processing:**
+- Event consumer subscribes to Kafka topics
+- Consumer processes events idempotently (checks event_id)
+- Consumer materializes event into PostgreSQL projection
+- Consumer updates Redis cache for performance
+- Consumer publishes completion event to Kafka
+
+**3. Query Flow (Read Path):**
+- Client sends GET request to API
+- API checks Redis cache first (cache-aside pattern)
+- If cache miss, API reads from PostgreSQL
+- API returns data to client
+
+**4. Event Replay (Time Travel):**
+- Client requests historical state with `as_of` parameter
+- API queries Kafka for events until timestamp
+- API reconstructs state by replaying events
+- API returns historical balance
+
+**Key Benefits:**
+- **Complete audit trail** - All state changes are events
+- **Event replay** - Reconstruct state at any point in time
+- **Async processing** - Client doesn't wait for materialization
+- **Idempotency** - Safe to replay events
+- **Performance** - Redis cache for fast reads

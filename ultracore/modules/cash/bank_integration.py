@@ -78,7 +78,7 @@ class BankIntegration:
             "amount": float(amount),
             "reference": reference,
             "status": PaymentStatus.INITIATED,
-            "initiated_at": datetime.utcnow().isoformat(),
+            "initiated_at": datetime.now(timezone.utc).isoformat(),
             "cleared_at": None,
             "settlement_time": "Real-time (seconds)",
             "fee": 0.0  # NPP typically no fee for retail
@@ -89,11 +89,11 @@ class BankIntegration:
         
         # NPP is real-time - immediate clearing
         payment["status"] = PaymentStatus.CLEARED
-        payment["cleared_at"] = datetime.utcnow().isoformat()
+        payment["cleared_at"] = datetime.now(timezone.utc).isoformat()
         
         # Immediate settlement
         payment["status"] = PaymentStatus.SETTLED
-        payment["settled_at"] = datetime.utcnow().isoformat()
+        payment["settled_at"] = datetime.now(timezone.utc).isoformat()
         
         self.processed_payments.append(payment)
         
@@ -144,8 +144,8 @@ class BankIntegration:
             "reference_number": reference_number,
             "amount": float(amount),
             "status": PaymentStatus.INITIATED,
-            "initiated_at": datetime.utcnow().isoformat(),
-            "expected_settlement": (datetime.utcnow() + timedelta(days=1)).isoformat(),
+            "initiated_at": datetime.now(timezone.utc).isoformat(),
+            "expected_settlement": (datetime.now(timezone.utc) + timedelta(days=1)).isoformat(),
             "settlement_time": "1-3 business days",
             "fee": 0.0  # BPAY typically no fee
         }
@@ -197,8 +197,8 @@ class BankIntegration:
             "amount": float(amount),
             "description": description,
             "status": PaymentStatus.INITIATED,
-            "initiated_at": datetime.utcnow().isoformat(),
-            "expected_settlement": (datetime.utcnow() + timedelta(days=2)).isoformat(),
+            "initiated_at": datetime.now(timezone.utc).isoformat(),
+            "expected_settlement": (datetime.now(timezone.utc) + timedelta(days=2)).isoformat(),
             "settlement_time": "1-2 business days",
             "fee": 0.0
         }
@@ -259,10 +259,10 @@ class BankIntegration:
             "mandate_id": mandate_id,
             "reference": reference,
             "status": PaymentStatus.INITIATED,
-            "initiated_at": datetime.utcnow().isoformat(),
-            "expected_settlement": (datetime.utcnow() + timedelta(days=5)).isoformat(),
+            "initiated_at": datetime.now(timezone.utc).isoformat(),
+            "expected_settlement": (datetime.now(timezone.utc) + timedelta(days=5)).isoformat(),
             "settlement_time": "3-5 business days",
-            "dispute_period_ends": (datetime.utcnow() + timedelta(days=12)).isoformat(),
+            "dispute_period_ends": (datetime.now(timezone.utc) + timedelta(days=12)).isoformat(),
             "fee": 0.0
         }
         
@@ -284,25 +284,25 @@ class BankIntegration:
             if payment["payment_method"] == "BPAY":
                 # BPAY takes 1-3 days
                 initiated = datetime.fromisoformat(payment["initiated_at"])
-                if (datetime.utcnow() - initiated).days >= 1:
+                if (datetime.now(timezone.utc) - initiated).days >= 1:
                     payment["status"] = PaymentStatus.SETTLED
-                    payment["settled_at"] = datetime.utcnow().isoformat()
+                    payment["settled_at"] = datetime.now(timezone.utc).isoformat()
                     processed.append(payment)
             
             elif payment["payment_method"] == "DIRECT_CREDIT":
                 # Direct credit takes 1-2 days
                 initiated = datetime.fromisoformat(payment["initiated_at"])
-                if (datetime.utcnow() - initiated).days >= 2:
+                if (datetime.now(timezone.utc) - initiated).days >= 2:
                     payment["status"] = PaymentStatus.SETTLED
-                    payment["settled_at"] = datetime.utcnow().isoformat()
+                    payment["settled_at"] = datetime.now(timezone.utc).isoformat()
                     processed.append(payment)
             
             elif payment["payment_method"] == "DIRECT_DEBIT":
                 # Direct debit takes 3-5 days
                 initiated = datetime.fromisoformat(payment["initiated_at"])
-                if (datetime.utcnow() - initiated).days >= 5:
+                if (datetime.now(timezone.utc) - initiated).days >= 5:
                     payment["status"] = PaymentStatus.SETTLED
-                    payment["settled_at"] = datetime.utcnow().isoformat()
+                    payment["settled_at"] = datetime.now(timezone.utc).isoformat()
                     processed.append(payment)
         
         # Move processed payments

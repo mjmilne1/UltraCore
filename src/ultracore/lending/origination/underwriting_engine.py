@@ -318,7 +318,7 @@ class CreditBureauService:
             raise ValueError("Credit check consent not provided")
         
         # Generate reference
-        bureau_ref = f"CBR-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        bureau_ref = f"CBR-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         
         # In production, would call actual bureau API
         # For now, return simulated response
@@ -329,7 +329,7 @@ class CreditBureauService:
         
         response = CreditBureauResponse(
             bureau_reference=bureau_ref,
-            check_date=datetime.utcnow(),
+            check_date=datetime.now(timezone.utc),
             credit_score=simulated_score,
             credit_grade=self._score_to_grade(simulated_score),
             number_of_enquiries_6m=2,
@@ -610,7 +610,7 @@ class AffordabilityCalculator:
     ) -> AffordabilityAssessment:
         """Perform affordability assessment"""
         
-        assessment_id = f"AFF-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        assessment_id = f"AFF-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         
         # Calculate income
         gross_annual = application.total_household_income()
@@ -799,7 +799,7 @@ class RiskAssessmentEngine:
     ) -> RiskAssessment:
         """Perform comprehensive risk assessment"""
         
-        assessment_id = f"RISK-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        assessment_id = f"RISK-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         
         # Credit score
         credit_score = credit_bureau.credit_score if credit_bureau else None
@@ -1017,7 +1017,7 @@ class UnderwritingEngine:
         Perform complete underwriting assessment
         """
         
-        decision_id = f"DEC-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        decision_id = f"DEC-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         
         # Get application
         application = await self.app_manager.get_application(application_id)
@@ -1101,7 +1101,7 @@ class UnderwritingEngine:
             )
             application.decline_reason = '; '.join(decision.decline_reasons)
         
-        application.decision_date = datetime.utcnow()
+        application.decision_date = datetime.now(timezone.utc)
         
         # Audit log
         await self.audit_store.log_event(

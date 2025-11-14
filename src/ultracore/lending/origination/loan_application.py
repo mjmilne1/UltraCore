@@ -470,7 +470,7 @@ class LoanApplication:
         """Change application status and record history"""
         old_status = self.status
         self.status = new_status
-        self.updated_at = datetime.utcnow()
+        self.updated_at = datetime.now(timezone.utc)
         
         self.status_history.append({
             'from_status': old_status.value,
@@ -540,7 +540,7 @@ class LoanApplicationManager:
     ) -> LoanApplication:
         """Create a new loan application"""
         
-        application_id = f"APP-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        application_id = f"APP-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         applicant_id = f"APL-{uuid.uuid4().hex[:12].upper()}"
         employment_id = f"EMP-{uuid.uuid4().hex[:12].upper()}"
         financial_id = f"FIN-{uuid.uuid4().hex[:12].upper()}"
@@ -568,7 +568,7 @@ class LoanApplicationManager:
             primary_employment=primary_employment,
             primary_financial=primary_financial,
             created_by=created_by,
-            application_date=datetime.utcnow()
+            application_date=datetime.now(timezone.utc)
         )
         
         # Store
@@ -616,7 +616,7 @@ class LoanApplicationManager:
         application.joint_applicant = joint_applicant
         application.joint_employment = joint_employment
         application.joint_financial = joint_financial
-        application.updated_at = datetime.utcnow()
+        application.updated_at = datetime.now(timezone.utc)
         
         # Store
         self.applicants[applicant_id] = joint_applicant
@@ -649,7 +649,7 @@ class LoanApplicationManager:
         )
         
         application.securities.append(security)
-        application.updated_at = datetime.utcnow()
+        application.updated_at = datetime.now(timezone.utc)
         
         return security
     
@@ -683,7 +683,7 @@ class LoanApplicationManager:
         )
         
         application.documents.append(document)
-        application.updated_at = datetime.utcnow()
+        application.updated_at = datetime.now(timezone.utc)
         
         return document
     
@@ -712,7 +712,7 @@ class LoanApplicationManager:
             submitted_by,
             "Application submitted for review"
         )
-        application.submission_date = datetime.utcnow()
+        application.submission_date = datetime.now(timezone.utc)
         
         return application
     

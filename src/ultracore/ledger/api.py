@@ -50,7 +50,7 @@ async def post_journal_entry(request: PostJournalEntryRequest):
     
     entry = JournalEntry(
         entry_id=f'JE-{str(uuid.uuid4())[:8]}',
-        date=__import__('datetime').datetime.utcnow().isoformat(),
+        date=__import__('datetime').datetime.now(timezone.utc).isoformat(),
         description=request.description,
         reference=request.reference,
         debits=request.debits,

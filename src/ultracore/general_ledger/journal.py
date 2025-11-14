@@ -9,7 +9,7 @@ from enum import Enum
 import uuid
 
 from ultracore.infrastructure.kafka_event_store.production_store import get_production_kafka_store
-from ultracore.general_ledger.chart_of_accounts import get_chart_of_accounts, NormalBalance
+from ultracore.modules.accounting.general_ledger.chart_of_accounts import get_chart_of_accounts, NormalBalance
 
 
 class EntryType(str, Enum):
@@ -49,7 +49,7 @@ class JournalEntry:
     
     def __init__(self, entry_id: Optional[str] = None):
         self.entry_id = entry_id or f'JE-{uuid.uuid4().hex[:12].upper()}'
-        self.entry_date = datetime.utcnow()
+        self.entry_date = datetime.now(timezone.utc)
         self.entry_type: EntryType = EntryType.STANDARD
         self.description: str = ''
         self.lines: List[JournalEntryLine] = []
@@ -108,7 +108,7 @@ class JournalEntry:
         self.validate()
         
         self.is_posted = True
-        self.posted_at = datetime.utcnow()
+        self.posted_at = datetime.now(timezone.utc)
         
         # Publish to Kafka (event-sourced)
         kafka_store = get_production_kafka_store()

@@ -169,7 +169,7 @@ class InterestService:
             "interest_amount": float(interest),
             "method": method.value,
             "breakdown": breakdown,
-            "credited_at": datetime.utcnow().isoformat()
+            "credited_at": datetime.now(timezone.utc).isoformat()
         }
         
         self.interest_history.append(interest_record)

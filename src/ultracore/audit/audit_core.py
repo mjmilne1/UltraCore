@@ -218,7 +218,7 @@ class AuditTrailStore:
         """Log an audit event with integrity checking"""
         
         # Generate audit ID
-        audit_id = f"AUD-{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}"
+        audit_id = f"AUD-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
         
         # Create event
         event = AuditEvent(
@@ -226,7 +226,7 @@ class AuditTrailStore:
             event_type=event_type,
             category=category,
             severity=severity,
-            timestamp=datetime.utcnow(),
+            timestamp=datetime.now(timezone.utc),
             user_id=user_id,
             user_email=user_email,
             user_role=user_role,
@@ -551,7 +551,7 @@ class AuditTrailStore:
         
         return {
             'regulator': regulator,
-            'export_date': datetime.utcnow().isoformat(),
+            'export_date': datetime.now(timezone.utc).isoformat(),
             'period_start': start_date.isoformat(),
             'period_end': end_date.isoformat(),
             'total_events': len(events),

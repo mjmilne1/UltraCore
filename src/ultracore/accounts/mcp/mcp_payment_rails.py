@@ -277,7 +277,7 @@ class BasePaymentConnector:
             return False
         
         # Check if reset time has passed
-        if self.circuit_reset_time and datetime.utcnow() >= self.circuit_reset_time:
+        if self.circuit_reset_time and datetime.now(timezone.utc) >= self.circuit_reset_time:
             self.circuit_open = False
             self.failure_count = 0
             return False
@@ -290,7 +290,7 @@ class BasePaymentConnector:
         
         if self.failure_count >= self.failure_threshold:
             self.circuit_open = True
-            self.circuit_reset_time = datetime.utcnow() + timedelta(minutes=5)
+            self.circuit_reset_time = datetime.now(timezone.utc) + timedelta(minutes=5)
     
     def _record_success(self):
         """Record success - reset circuit breaker"""
@@ -417,8 +417,8 @@ class NPPConnector(BasePaymentConnector):
             status=PaymentStatus.COMPLETED,
             external_reference=external_ref,
             rail_transaction_id=external_ref,
-            submitted_at=datetime.utcnow(),
-            completed_at=datetime.utcnow(),  # Instant settlement
+            submitted_at=datetime.now(timezone.utc),
+            completed_at=datetime.now(timezone.utc),  # Instant settlement
             processing_fee=Decimal('0.00'),  # NPP typically free
             metadata={
                 'settlement_time': 'INSTANT',
@@ -462,7 +462,7 @@ class NPPConnector(BasePaymentConnector):
         self.payid_registry[payid] = {
             'account_id': account_id,
             'payid_type': payid_type,
-            'registered_at': datetime.utcnow().isoformat()
+            'registered_at': datetime.now(timezone.utc).isoformat()
         }
         
         return {
@@ -558,7 +558,7 @@ class BPAYConnector(BasePaymentConnector):
             status=PaymentStatus.PROCESSING,  # Not instant
             external_reference=external_ref,
             rail_transaction_id=external_ref,
-            submitted_at=datetime.utcnow(),
+            submitted_at=datetime.now(timezone.utc),
             processing_fee=Decimal('0.50'),  # Typical BPAY fee
             metadata={
                 'biller_name': biller['name'],
@@ -670,7 +670,7 @@ class SWIFTConnector(BasePaymentConnector):
             status=PaymentStatus.PROCESSING,
             external_reference=external_ref,
             rail_transaction_id=external_ref,
-            submitted_at=datetime.utcnow(),
+            submitted_at=datetime.now(timezone.utc),
             processing_fee=total_fee,
             metadata={
                 'swift_code': request.swift_code,

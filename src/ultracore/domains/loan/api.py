@@ -5,7 +5,7 @@ from fastapi import APIRouter, HTTPException
 from decimal import Decimal
 import uuid
 
-from ultracore.domains.loan.aggregate import LoanAggregate, LoanApplicationRequest
+# from ultracore.domains.loan.aggregate import LoanAggregate, LoanApplicationRequest  # TODO: Fix import path
 from ultracore.agentic_ai.agents.anya import anya
 
 router = APIRouter()

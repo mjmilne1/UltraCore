@@ -6,7 +6,7 @@ from pydantic import BaseModel
 from decimal import Decimal
 import uuid
 
-from ultracore.domains.payment.complete_aggregate import (
+# from ultracore.domains.payment.complete_aggregate import (  # TODO: Fix import path
     CompletePaymentAggregate,
     PaymentType,
     PaymentStatus

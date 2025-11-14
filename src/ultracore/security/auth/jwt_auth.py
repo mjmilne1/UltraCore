@@ -15,7 +15,16 @@ from ultracore.infrastructure.kafka_event_store.production_store import get_prod
 
 
 # Security configuration
-SECRET_KEY = "ultracore-secret-key-change-in-production-use-env-var"  # TODO: Move to env
+# SECURITY FIX: Load JWT secret from environment variable
+import os
+
+SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
+if not SECRET_KEY:
+    raise ValueError("JWT_SECRET_KEY environment variable must be set")
+
+if len(SECRET_KEY) < 32:
+    raise ValueError("JWT_SECRET_KEY must be at least 32 characters for security")
+
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 REFRESH_TOKEN_EXPIRE_DAYS = 7
@@ -51,13 +60,13 @@ class TokenManager:
         to_encode = data.copy()
         
         if expires_delta:
-            expire = datetime.utcnow() + expires_delta
+            expire = datetime.now(timezone.utc) + expires_delta
         else:
-            expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+            expire = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
         
         to_encode.update({
             "exp": expire,
-            "iat": datetime.utcnow(),
+            "iat": datetime.now(timezone.utc),
             "type": "access"
         })
         
@@ -71,12 +80,12 @@ class TokenManager:
         
         Long-lived token for obtaining new access tokens
         """
-        expire = datetime.utcnow() + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
+        expire = datetime.now(timezone.utc) + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
         
         to_encode = {
             "sub": user_id,
             "exp": expire,
-            "iat": datetime.utcnow(),
+            "iat": datetime.now(timezone.utc),
             "type": "refresh",
             "jti": str(uuid.uuid4())  # JWT ID for revocation
         }
@@ -122,7 +131,7 @@ class User:
         self.roles = roles or []
         self.is_active = is_active
         self.mfa_enabled = mfa_enabled
-        self.created_at = datetime.utcnow()
+        self.created_at = datetime.now(timezone.utc)
         self.last_login: Optional[datetime] = None
 
 
@@ -231,7 +240,7 @@ class AuthenticationService:
             return None
         
         # Update last login
-        user.last_login = datetime.utcnow()
+        user.last_login = datetime.now(timezone.utc)
         
         # Log successful login
         await self._log_successful_login(user.user_id)
@@ -355,7 +364,7 @@ class AuthenticationService:
             event_type='login_successful',
             event_data={
                 'user_id': user_id,
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=user_id
         )
@@ -368,7 +377,7 @@ class AuthenticationService:
             event_type='login_failed',
             event_data={
                 'username': username,
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=username
         )
@@ -381,7 +390,7 @@ class AuthenticationService:
             event_type='logout',
             event_data={
                 'user_id': user_id,
-                'timestamp': datetime.utcnow().isoformat()
+                'timestamp': datetime.now(timezone.utc).isoformat()
             },
             aggregate_id=user_id
         )

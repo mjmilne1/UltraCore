@@ -30,7 +30,7 @@ class ModelVersion:
         self.model_type = model_type
         self.status: ModelStatus = ModelStatus.DEVELOPMENT
         self.metrics: Dict[str, float] = {}
-        self.created_at: str = datetime.utcnow().isoformat()
+        self.created_at: str = datetime.now(timezone.utc).isoformat()
         self.deployed_at: Optional[str] = None
         self.traffic_percentage: float = 0.0
     
@@ -46,7 +46,7 @@ class ModelVersion:
         """Promote model to production with traffic split"""
         self.status = ModelStatus.PRODUCTION
         self.traffic_percentage = traffic_percentage
-        self.deployed_at = datetime.utcnow().isoformat()
+        self.deployed_at = datetime.now(timezone.utc).isoformat()
     
     def deprecate(self):
         """Deprecate model"""

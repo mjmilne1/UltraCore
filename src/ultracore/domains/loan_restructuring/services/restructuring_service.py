@@ -89,7 +89,7 @@ class LoanRestructuringService:
             current_arrears_amount=Decimal(str(kwargs.get("arrears", 0))),
             days_in_arrears=kwargs.get("days_in_arrears", 0),
             requested_relief_types=requested_relief,
-            submitted_at=datetime.utcnow(),
+            submitted_at=datetime.now(timezone.utc),
             **kwargs
         )
         
@@ -195,7 +195,7 @@ class LoanRestructuringService:
             resumption_payment_amount=resumption_payment,
             resumption_date=end_date,
             granted_by=kwargs.get("granted_by", "system"),
-            granted_at=datetime.utcnow()
+            granted_at=datetime.now(timezone.utc)
         )
         
         await self.kafka.publish(event)

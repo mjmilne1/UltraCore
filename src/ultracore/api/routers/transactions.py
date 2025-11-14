@@ -226,7 +226,7 @@ async def get_account_statement(
     
     # Default to last 30 days if no dates provided
     if not end_date:
-        end_date = datetime.utcnow()
+        end_date = datetime.now(timezone.utc)
     if not start_date:
         start_date = end_date - timedelta(days=30)
     

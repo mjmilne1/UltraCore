@@ -52,7 +52,7 @@ class OnboardingService:
         Start new onboarding session
         """
         
-        session_id = f"ONB-{int(datetime.utcnow().timestamp())}"
+        session_id = f"ONB-{int(datetime.now(timezone.utc).timestamp())}"
         
         session = {
             "session_id": session_id,
@@ -60,7 +60,7 @@ class OnboardingService:
             "workflow_type": workflow_type,
             "current_step": OnboardingStep.REGISTRATION,
             "steps_completed": [],
-            "started_at": datetime.utcnow().isoformat(),
+            "started_at": datetime.now(timezone.utc).isoformat(),
             "completed_at": None,
             "client_id": None,
             "kyc_id": None,
@@ -349,7 +349,7 @@ class OnboardingService:
         
         # Store agreements
         session["data"]["agreements"] = {
-            "signed_at": datetime.utcnow().isoformat(),
+            "signed_at": datetime.now(timezone.utc).isoformat(),
             "agreements": agreements_signed,
             "signature": signature_data
         }
@@ -393,7 +393,7 @@ class OnboardingService:
         # Complete onboarding
         session["status"] = OnboardingStatus.COMPLETED
         session["current_step"] = OnboardingStep.COMPLETED
-        session["completed_at"] = datetime.utcnow().isoformat()
+        session["completed_at"] = datetime.now(timezone.utc).isoformat()
         session["steps_completed"].append(OnboardingStep.ACCOUNT_ACTIVATION)
         
         # Record in Data Mesh
@@ -467,7 +467,7 @@ class OnboardingService:
         
         session["status"] = OnboardingStatus.ABANDONED
         session["data"]["abandonment_reason"] = reason
-        session["data"]["abandoned_at"] = datetime.utcnow().isoformat()
+        session["data"]["abandoned_at"] = datetime.now(timezone.utc).isoformat()
         
         # Record in Data Mesh
         client_data_mesh._record_event("ONBOARDING_ABANDONED", {
@@ -498,7 +498,7 @@ class OnboardingService:
         
         notification = {
             "type": notification_type,
-            "sent_at": datetime.utcnow().isoformat(),
+            "sent_at": datetime.now(timezone.utc).isoformat(),
             "data": data
         }
         

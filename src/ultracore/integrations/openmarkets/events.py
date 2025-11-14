@@ -175,7 +175,7 @@ class OpenMarketsEventStore:
             event_data=event.dict(),
             metadata={
                 "source": "openmarkets",
-                "timestamp": datetime.utcnow().isoformat()
+                "timestamp": datetime.now(timezone.utc).isoformat()
             }
         )
     
