@@ -1,16 +1,112 @@
-name: CI
+﻿name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.11', '3.12']
+    
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: ultracore
+          POSTGRES_PASSWORD: ultracore_test
+          POSTGRES_DB: ultracore_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+      
+      redis:
+        image: redis:7
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.9'
-    - name: Test
+        python-version: ${{ matrix.python-version }}
+        cache: 'pip'
+
+    - name: Install dependencies
       run: |
-        python -c "print('UltraCore: System Operational')"
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -r requirements-dev.txt
+
+    - name: Run black
+      run: black --check ultracore/ tests/
+
+    - name: Run isort
+      run: isort --check-only ultracore/ tests/
+
+    - name: Run flake8
+      run: flake8 ultracore/ tests/ --max-line-length=100 --extend-ignore=E203,W503
+
+    - name: Run pylint
+      run: pylint ultracore/ --max-line-length=100 --disable=C0111,R0903
+      continue-on-error: true
+
+    - name: Run mypy
+      run: mypy ultracore/ --ignore-missing-imports
+      continue-on-error: true
+
+    - name: Run bandit
+      run: bandit -r ultracore/ -f json -o bandit-report.json
+      continue-on-error: true
+
+    - name: Run safety
+      run: safety check --json
+      continue-on-error: true
+
+    - name: Run tests with coverage
+      env:
+        DATABASE_URL: postgresql://ultracore:ultracore_test@localhost:5432/ultracore_test
+        REDIS_URL: redis://localhost:6379/0
+        ENVIRONMENT: test
+      run: |
+        pytest -v --cov=ultracore --cov-report=xml --cov-report=html --cov-report=term -n auto
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        file: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+        fail_ci_if_error: false
+
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results-${{ matrix.python-version }}
+        path: |
+          htmlcov/
+          bandit-report.json
+          coverage.xml
+
+    - name: Comment coverage on PR
+      if: github.event_name == 'pull_request'
+      uses: py-cov-action/python-coverage-comment-action@v3
+      with:
+        GITHUB_TOKEN: ${{ github.token }}

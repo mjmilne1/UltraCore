@@ -1,0 +1,47 @@
+﻿[run]
+source = ultracore
+omit =
+    */tests/*
+    */test_*.py
+    */__pycache__/*
+    */venv/*
+    */env/*
+    */.venv/*
+    */site-packages/*
+    */migrations/*
+    */alembic/*
+    */__init__.py
+    */conftest.py
+branch = True
+parallel = True
+
+[report]
+precision = 2
+show_missing = True
+skip_covered = False
+sort = Cover
+
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    def __str__
+    raise AssertionError
+    raise NotImplementedError
+    if __name__ == .__main__.:
+    if TYPE_CHECKING:
+    @abstractmethod
+    @abc.abstractmethod
+    class .*\bProtocol\):
+    @overload
+
+[html]
+directory = htmlcov
+title = UltraCore Coverage Report
+
+[xml]
+output = coverage.xml
+
+[paths]
+source =
+    ultracore/
+    */site-packages/ultracore/

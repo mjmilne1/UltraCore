@@ -1,0 +1,79 @@
+﻿version: 2
+
+updates:
+  # Python dependencies
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "TuringDynamics3000"
+    assignees:
+      - "TuringDynamics3000"
+    labels:
+      - "dependencies"
+      - "python"
+      - "security"
+    commit-message:
+      prefix: "deps"
+      prefix-development: "deps-dev"
+      include: "scope"
+    groups:
+      production-dependencies:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "tensorflow*"
+          - "scikit-learn*"
+        update-types:
+          - "minor"
+          - "patch"
+      ml-dependencies:
+        patterns:
+          - "tensorflow*"
+          - "scikit-learn*"
+          - "xgboost*"
+        update-types:
+          - "minor"
+          - "patch"
+    ignore:
+      - dependency-name: "fastapi"
+        update-types: ["version-update:semver-major"]
+    versioning-strategy: increase
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "TuringDynamics3000"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+
+  # Docker dependencies
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "TuringDynamics3000"
+    labels:
+      - "dependencies"
+      - "docker"
+    commit-message:
+      prefix: "docker"
+      include: "scope"
