@@ -7,6 +7,7 @@ import DashboardLayout from "./components/DashboardLayout";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Portfolios from "./pages/Portfolios";
+import PortfolioDetail from "./pages/PortfolioDetail";
 import ESG from "./pages/ESG";
 import Loans from "./pages/Loans";
 import Agents from "./pages/Agents";
@@ -26,6 +27,11 @@ function Router() {
       <Route path="/portfolios">
         <DashboardLayout>
           <Portfolios />
+        </DashboardLayout>
+      </Route>
+      <Route path="/portfolios/:id">
+        <DashboardLayout>
+          <PortfolioDetail />
         </DashboardLayout>
       </Route>
       <Route path="/esg">

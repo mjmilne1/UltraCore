@@ -12,8 +12,8 @@
 ## Phase 2: Portfolio Management Module
 - [x] Create portfolio database schema
 - [x] Build Portfolio Dashboard with KPI cards
-- [ ] Implement Portfolio List view
-- [ ] Build Portfolio Detail page
+- [x] Implement Portfolio List view
+- [x] Build Portfolio Detail page with holdings and performance charts
 - [ ] Add Agent Control interface (Alpha, Beta, Gamma, Delta, Epsilon)
 - [ ] Implement portfolio rebalancing functionality
 - [ ] Add real-time portfolio value updates
