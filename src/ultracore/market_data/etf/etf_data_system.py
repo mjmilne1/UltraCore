@@ -59,17 +59,80 @@ class ETFDataSystem:
         # In production, this would connect to a real event store
         # For now, return a mock or in-memory store
         # Use a simple in-memory implementation
-        from ultracore.event_sourcing.base import EventStore
+        from ultracore.event_sourcing.base import EventStore, Event, ConcurrencyError
+        from typing import Dict
         
         class SimpleEventStore(EventStore):
+            """Simple in-memory event store for development/testing"""
+            
             def __init__(self):
-                self.events = []
+                self.events: Dict[str, List[Event]] = {}
+                self.versions: Dict[str, int] = {}
             
-            def append(self, event):
-                self.events.append(event)
+            async def save_events(
+                self,
+                aggregate_id: str,
+                events: List[Event],
+                expected_version: Optional[int] = None
+            ) -> None:
+                """Save events to in-memory store"""
+                current_version = self.versions.get(aggregate_id, 0)
+                
+                if expected_version is not None and current_version != expected_version:
+                    raise ConcurrencyError(
+                        f"Expected version {expected_version}, got {current_version}"
+                    )
+                
+                if aggregate_id not in self.events:
+                    self.events[aggregate_id] = []
+                
+                self.events[aggregate_id].extend(events)
+                self.versions[aggregate_id] = current_version + len(events)
             
-            def get_events(self, aggregate_id, after_version=0):
-                return [e for e in self.events if e.metadata.aggregate_id == aggregate_id and e.metadata.version > after_version]
+            async def get_events(
+                self,
+                aggregate_id: str,
+                from_version: int = 0,
+                to_version: Optional[int] = None
+            ) -> List[Event]:
+                """Get events for aggregate"""
+                events = self.events.get(aggregate_id, [])
+                
+                filtered = [
+                    e for e in events
+                    if e.metadata.version >= from_version
+                ]
+                
+                if to_version is not None:
+                    filtered = [e for e in filtered if e.metadata.version <= to_version]
+                
+                return filtered
+            
+            async def get_events_by_type(
+                self,
+                event_type,
+                from_timestamp: Optional[datetime] = None,
+                to_timestamp: Optional[datetime] = None,
+                limit: int = 100
+            ) -> List[Event]:
+                """Get events by type"""
+                all_events = []
+                for events in self.events.values():
+                    all_events.extend(events)
+                
+                filtered = [e for e in all_events if e.metadata.event_type == event_type]
+                
+                if from_timestamp:
+                    filtered = [e for e in filtered if e.metadata.timestamp >= from_timestamp]
+                
+                if to_timestamp:
+                    filtered = [e for e in filtered if e.metadata.timestamp <= to_timestamp]
+                
+                return filtered[:limit]
+            
+            async def get_aggregate_version(self, aggregate_id: str) -> int:
+                """Get current aggregate version"""
+                return self.versions.get(aggregate_id, 0)
         
         return SimpleEventStore()
     
