@@ -35,12 +35,79 @@ class ETFDataProvider:
         Args:
             data_dir: Directory where ETF data is stored
         """
-        self.system = get_etf_system(data_dir=data_dir)
-        self.data_product = self.system.get_data_product()
+        from pathlib import Path
+        
+        # Support both event-sourced system and direct Parquet loading
+        self.data_dir = Path(data_dir)
+        self.historical_dir = self.data_dir / "historical"
+        
+        # Try to initialize event sourcing system
+        try:
+            self.system = get_etf_system(data_dir=str(self.data_dir))
+            self.data_product = self.system.get_data_product()
+            self.use_event_sourcing = True
+            logger.info("ETF Data Provider initialized with event sourcing")
+        except Exception as e:
+            logger.warning(f"Event sourcing not available: {e}. Using direct Parquet loading.")
+            self.system = None
+            self.data_product = None
+            self.use_event_sourcing = False
         
         # Cache for frequently accessed data
         self._cache: Dict[str, pd.DataFrame] = {}
         
+        # Discover available ETFs from Parquet files
+        if self.historical_dir.exists():
+            self.available_etfs = [f.stem for f in self.historical_dir.glob("*.parquet")]
+            logger.info(f"Found {len(self.available_etfs)} ETFs in {self.historical_dir}")
+        else:
+            self.available_etfs = []
+            logger.warning(f"Historical data directory not found: {self.historical_dir}")
+        
+    def load_etf_data(self, ticker: str) -> pd.DataFrame:
+        """
+        Load ETF data from Parquet file or event sourcing system
+        
+        Args:
+            ticker: ETF ticker (without .AX suffix)
+        
+        Returns:
+            DataFrame with columns: Date, Open, High, Low, Close, Adj Close, Volume
+        """
+        # Check cache first
+        if ticker in self._cache:
+            return self._cache[ticker]
+        
+        # Try loading from Parquet file
+        file_path = self.historical_dir / f"{ticker}.parquet"
+        
+        if file_path.exists():
+            try:
+                df = pd.read_parquet(file_path)
+                df['Date'] = pd.to_datetime(df['Date'])
+                df = df.set_index('Date').sort_index()
+                
+                # Cache it
+                self._cache[ticker] = df
+                
+                return df
+            except Exception as e:
+                logger.error(f"Error loading Parquet data for {ticker}: {e}")
+        
+        # Fallback to event sourcing system if available
+        if self.use_event_sourcing and self.data_product:
+            try:
+                df = self.data_product.get_price_data_df(ticker)
+                if not df.empty:
+                    df = df.set_index('date').sort_index()
+                    self._cache[ticker] = df
+                    return df
+            except Exception as e:
+                logger.error(f"Error loading from event sourcing for {ticker}: {e}")
+        
+        logger.warning(f"No data found for {ticker}")
+        return pd.DataFrame()
+    
     def get_returns(
         self,
         tickers: List[str],
@@ -68,21 +135,28 @@ class ETFDataProvider:
         returns_dict = {}
         
         for ticker in tickers:
-            try:
-                df = self.data_product.get_returns_df(
-                    ticker=ticker,
-                    start_date=start_date,
-                    end_date=end_date,
-                    period=period
-                )
-                
-                if not df.empty:
-                    returns_dict[ticker] = df['returns']
-                else:
-                    logger.warning(f"No data for {ticker}")
-                    
-            except Exception as e:
-                logger.error(f"Error getting returns for {ticker}: {e}")
+            df = self.load_etf_data(ticker)
+            
+            if df.empty:
+                logger.warning(f"No data for {ticker}")
+                continue
+            
+            # Filter by date range
+            df = df[(df.index.date >= start_date) & (df.index.date <= end_date)]
+            
+            if df.empty:
+                continue
+            
+            # Calculate returns using Adj Close
+            returns = df['Adj Close'].pct_change().dropna()
+            
+            # Resample if needed
+            if period == "weekly":
+                returns = returns.resample('W').apply(lambda x: (1 + x).prod() - 1)
+            elif period == "monthly":
+                returns = returns.resample('M').apply(lambda x: (1 + x).prod() - 1)
+            
+            returns_dict[ticker] = returns
         
         if not returns_dict:
             return pd.DataFrame()
@@ -208,24 +282,20 @@ class ETFDataProvider:
             Dictionary with volatility, sharpe, sortino, max_drawdown, etc.
         """
         start_date = date.today() - timedelta(days=lookback_years * 365)
+        returns_df = self.get_returns([ticker], start_date=start_date)
         
-        df = self.data_product.get_returns_df(
-            ticker=ticker,
-            start_date=start_date,
-            period="daily"
-        )
-        
-        if df.empty:
+        if returns_df.empty or ticker not in returns_df.columns:
             return {
                 "volatility": 0.20,
                 "sharpe_ratio": 0.5,
                 "sortino_ratio": 0.6,
                 "max_drawdown": -0.20,
                 "var_95": -0.02,
-                "cvar_95": -0.03
+                "cvar_95": -0.03,
+                "mean_return": 0.08
             }
         
-        returns = df['returns'].dropna()
+        returns = returns_df[ticker].dropna()
         
         # Volatility (annualized)
         volatility = returns.std() * np.sqrt(252)
@@ -252,13 +322,17 @@ class ETFDataProvider:
         # Conditional Value at Risk (CVaR)
         cvar_95 = returns[returns <= var_95].mean()
         
+        # Mean return (annualized)
+        mean_return = returns.mean() * 252
+        
         return {
             "volatility": float(volatility),
             "sharpe_ratio": float(sharpe_ratio),
             "sortino_ratio": float(sortino_ratio),
             "max_drawdown": float(max_drawdown),
             "var_95": float(var_95),
-            "cvar_95": float(cvar_95)
+            "cvar_95": float(cvar_95),
+            "mean_return": float(mean_return)
         }
     
     def get_efficient_frontier_data(
@@ -410,12 +484,31 @@ class ETFDataProvider:
     
     def get_available_etfs(self) -> List[str]:
         """Get list of all available ETF tickers"""
-        return self.data_product.get_all_tickers()
+        if self.use_event_sourcing and self.data_product:
+            return self.data_product.get_all_tickers()
+        return self.available_etfs
     
     def check_data_availability(self, tickers: List[str]) -> Dict[str, bool]:
         """Check which tickers have data available"""
         availability = {}
         for ticker in tickers:
-            etf = self.data_product.get_etf(ticker)
-            availability[ticker] = etf is not None and len(etf.price_history) > 0
+            # Check Parquet file first
+            file_path = self.historical_dir / f"{ticker}.parquet"
+            if file_path.exists():
+                availability[ticker] = True
+            elif self.use_event_sourcing and self.data_product:
+                # Fallback to event sourcing
+                etf = self.data_product.get_etf(ticker)
+                availability[ticker] = etf is not None and len(etf.price_history) > 0
+            else:
+                availability[ticker] = False
         return availability
+    
+    def get_latest_prices(self, tickers: List[str]) -> Dict[str, float]:
+        """Get latest closing prices for ETFs"""
+        prices = {}
+        for ticker in tickers:
+            df = self.load_etf_data(ticker)
+            if not df.empty:
+                prices[ticker] = float(df['Close'].iloc[-1])
+        return prices
