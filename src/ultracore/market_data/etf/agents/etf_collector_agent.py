@@ -10,8 +10,8 @@ from uuid import uuid4, UUID
 import logging
 
 # Simplified to standalone service - no Agent inheritance needed
-from ultracore.market_data.etf.services.yahoo_finance_collector import (
-    YahooFinanceCollector,
+from ultracore.market_data.etf.services.alpha_vantage_collector import (
+    AlphaVantageCollector,
     CollectionResult
 )
 from ultracore.market_data.etf.aggregates.etf_aggregate import ETFAggregate, ETFMetadata
@@ -37,12 +37,13 @@ class ETFCollectorAgent:
     def __init__(
         self,
         event_store: EventStore,
-        collector: Optional[YahooFinanceCollector] = None
+        api_key: str,
+        collector: Optional[AlphaVantageCollector] = None
     ):
         self.agent_id = str(uuid4())
         self.name = "ETF Data Collector Agent"
         self.event_store = event_store
-        self.collector = collector or YahooFinanceCollector()
+        self.collector = collector or AlphaVantageCollector(api_key=api_key)
         self.etf_aggregates: Dict[str, ETFAggregate] = {}
         
         # Agent state
@@ -193,14 +194,14 @@ class ETFCollectorAgent:
                     result = await asyncio.to_thread(
                         self.collector.download_historical_data,
                         ticker=ticker,
-                        period="max"
+                        outputsize="full"
                     )
                 else:
-                    # Daily update - get last 5 days
+                    # Daily update - get last 100 days (compact)
                     result = await asyncio.to_thread(
-                        self.collector.download_latest_data,
+                        self.collector.download_historical_data,
                         ticker=ticker,
-                        days_back=5
+                        outputsize="compact"
                     )
                 
                 if result.success:
