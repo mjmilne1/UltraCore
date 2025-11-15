@@ -1,0 +1,951 @@
+{
+  "success": [
+    {
+      "symbol": "A200",
+      "rows": 394,
+      "start_date": "2018-05-06 10:00:00",
+      "end_date": "2025-11-14 00:17:45",
+      "file": "data/etf/historical/A200.parquet"
+    },
+    {
+      "symbol": "AAA",
+      "rows": 165,
+      "start_date": "2012-03-31 09:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/AAA.parquet"
+    },
+    {
+      "symbol": "ASAO",
+      "rows": 162,
+      "start_date": "2022-10-16 09:00:00",
+      "end_date": "2025-11-13 23:20:34",
+      "file": "data/etf/historical/ASAO.parquet"
+    },
+    {
+      "symbol": "ASIA",
+      "rows": 375,
+      "start_date": "2018-09-16 10:00:00",
+      "end_date": "2025-11-14 00:16:13",
+      "file": "data/etf/historical/ASIA.parquet"
+    },
+    {
+      "symbol": "ATEC",
+      "rows": 299,
+      "start_date": "2020-03-01 08:00:00",
+      "end_date": "2025-11-14 00:17:47",
+      "file": "data/etf/historical/ATEC.parquet"
+    },
+    {
+      "symbol": "AYLD",
+      "rows": 147,
+      "start_date": "2023-01-29 08:00:00",
+      "end_date": "2025-11-13 23:02:06",
+      "file": "data/etf/historical/AYLD.parquet"
+    },
+    {
+      "symbol": "BBOZ",
+      "rows": 128,
+      "start_date": "2015-04-30 10:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/BBOZ.parquet"
+    },
+    {
+      "symbol": "BBUS",
+      "rows": 124,
+      "start_date": "2015-08-31 10:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/BBUS.parquet"
+    },
+    {
+      "symbol": "BEAR",
+      "rows": 161,
+      "start_date": "2012-07-31 10:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/BEAR.parquet"
+    },
+    {
+      "symbol": "BILL",
+      "rows": 443,
+      "start_date": "2017-05-28 10:00:00",
+      "end_date": "2025-11-13 23:52:21",
+      "file": "data/etf/historical/BILL.parquet"
+    },
+    {
+      "symbol": "BNDS",
+      "rows": 368,
+      "start_date": "2018-11-04 08:00:00",
+      "end_date": "2025-11-13 23:38:09",
+      "file": "data/etf/historical/BNDS.parquet"
+    },
+    {
+      "symbol": "CETF",
+      "rows": 126,
+      "start_date": "2015-06-30 10:00:00",
+      "end_date": "2025-11-13 23:57:00",
+      "file": "data/etf/historical/CETF.parquet"
+    },
+    {
+      "symbol": "CLDD",
+      "rows": 248,
+      "start_date": "2021-02-21 08:00:00",
+      "end_date": "2025-11-13 23:37:54",
+      "file": "data/etf/historical/CLDD.parquet"
+    },
+    {
+      "symbol": "CRED",
+      "rows": 391,
+      "start_date": "2018-05-27 10:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/CRED.parquet"
+    },
+    {
+      "symbol": "DHHF",
+      "rows": 312,
+      "start_date": "2019-12-01 08:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/DHHF.parquet"
+    },
+    {
+      "symbol": "DJRE",
+      "rows": 146,
+      "start_date": "2013-10-31 09:00:00",
+      "end_date": "2025-11-13 23:45:59",
+      "file": "data/etf/historical/DJRE.parquet"
+    },
+    {
+      "symbol": "DRGN",
+      "rows": 139,
+      "start_date": "2025-05-05 20:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/DRGN.parquet"
+    },
+    {
+      "symbol": "DRIV",
+      "rows": 206,
+      "start_date": "2021-12-12 08:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/DRIV.parquet"
+    },
+    {
+      "symbol": "DRUG",
+      "rows": 486,
+      "start_date": "2016-07-31 10:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/DRUG.parquet"
+    },
+    {
+      "symbol": "DVDY",
+      "rows": 272,
+      "start_date": "2020-09-06 10:00:00",
+      "end_date": "2025-11-13 23:55:48",
+      "file": "data/etf/historical/DVDY.parquet"
+    },
+    {
+      "symbol": "DZZF",
+      "rows": 311,
+      "start_date": "2019-12-08 08:00:00",
+      "end_date": "2025-11-13 23:34:31",
+      "file": "data/etf/historical/DZZF.parquet"
+    },
+    {
+      "symbol": "EAFZ",
+      "rows": 128,
+      "start_date": "2023-06-04 10:00:00",
+      "end_date": "2025-11-13 23:17:00",
+      "file": "data/etf/historical/EAFZ.parquet"
+    },
+    {
+      "symbol": "EEU",
+      "rows": 149,
+      "start_date": "2011-07-31 10:00:00",
+      "end_date": "2023-11-30 08:00:00",
+      "file": "data/etf/historical/EEU.parquet"
+    },
+    {
+      "symbol": "EIGA",
+      "rows": 394,
+      "start_date": "2018-05-06 10:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/EIGA.parquet"
+    },
+    {
+      "symbol": "EINC",
+      "rows": 364,
+      "start_date": "2018-02-11 08:00:00",
+      "end_date": "2025-01-26 08:00:00",
+      "file": "data/etf/historical/EINC.parquet"
+    },
+    {
+      "symbol": "ERTH",
+      "rows": 246,
+      "start_date": "2021-03-07 08:00:00",
+      "end_date": "2025-11-13 23:53:23",
+      "file": "data/etf/historical/ERTH.parquet"
+    },
+    {
+      "symbol": "ESGI",
+      "rows": 403,
+      "start_date": "2018-03-04 08:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/ESGI.parquet"
+    },
+    {
+      "symbol": "ETHI",
+      "rows": 464,
+      "start_date": "2017-01-01 08:00:00",
+      "end_date": "2025-11-13 23:59:54",
+      "file": "data/etf/historical/ETHI.parquet"
+    },
+    {
+      "symbol": "ETPMAG",
+      "rows": 203,
+      "start_date": "2009-01-01 00:00:00",
+      "end_date": "2025-11-01 00:00:00",
+      "file": "data/etf/historical/ETPMAG.parquet"
+    },
+    {
+      "symbol": "ETPMPD",
+      "rows": 203,
+      "start_date": "2009-01-01 00:00:00",
+      "end_date": "2025-11-01 00:00:00",
+      "file": "data/etf/historical/ETPMPD.parquet"
+    },
+    {
+      "symbol": "ETPMPM",
+      "rows": 203,
+      "start_date": "2009-01-01 00:00:00",
+      "end_date": "2025-11-01 00:00:00",
+      "file": "data/etf/historical/ETPMPM.parquet"
+    },
+    {
+      "symbol": "ETPMPT",
+      "rows": 203,
+      "start_date": "2009-01-01 00:00:00",
+      "end_date": "2025-11-01 00:00:00",
+      "file": "data/etf/historical/ETPMPT.parquet"
+    },
+    {
+      "symbol": "FAIR",
+      "rows": 417,
+      "start_date": "2017-11-26 08:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/FAIR.parquet"
+    },
+    {
+      "symbol": "FANG",
+      "rows": 300,
+      "start_date": "2020-02-23 08:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/FANG.parquet"
+    },
+    {
+      "symbol": "FASI",
+      "rows": 263,
+      "start_date": "2024-05-30 20:00:00",
+      "end_date": "2025-11-13 23:56:53",
+      "file": "data/etf/historical/FASI.parquet"
+    },
+    {
+      "symbol": "FEMX",
+      "rows": 369,
+      "start_date": "2018-10-28 09:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/FEMX.parquet"
+    },
+    {
+      "symbol": "FIIN",
+      "rows": 349,
+      "start_date": "2024-05-30 20:00:00",
+      "end_date": "2025-11-13 21:16:24",
+      "file": "data/etf/historical/FIIN.parquet"
+    },
+    {
+      "symbol": "FOOD",
+      "rows": 486,
+      "start_date": "2016-07-31 10:00:00",
+      "end_date": "2025-11-13 23:24:00",
+      "file": "data/etf/historical/FOOD.parquet"
+    },
+    {
+      "symbol": "FUEL",
+      "rows": 114,
+      "start_date": "2016-06-30 10:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/FUEL.parquet"
+    },
+    {
+      "symbol": "GBND",
+      "rows": 313,
+      "start_date": "2019-11-24 08:00:00",
+      "end_date": "2025-11-13 23:46:28",
+      "file": "data/etf/historical/GBND.parquet"
+    },
+    {
+      "symbol": "GEAR",
+      "rows": 140,
+      "start_date": "2014-04-30 10:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/GEAR.parquet"
+    },
+    {
+      "symbol": "GGOV",
+      "rows": 290,
+      "start_date": "2020-05-03 10:00:00",
+      "end_date": "2025-11-13 22:55:07",
+      "file": "data/etf/historical/GGOV.parquet"
+    },
+    {
+      "symbol": "GGUS",
+      "rows": 124,
+      "start_date": "2015-08-31 10:00:00",
+      "end_date": "2025-11-13 23:59:25",
+      "file": "data/etf/historical/GGUS.parquet"
+    },
+    {
+      "symbol": "GOLD",
+      "rows": 216,
+      "start_date": "2007-12-31 08:00:00",
+      "end_date": "2025-11-14 00:10:17",
+      "file": "data/etf/historical/GOLD.parquet"
+    },
+    {
+      "symbol": "GRIN",
+      "rows": 145,
+      "start_date": "2025-04-23 20:00:00",
+      "end_date": "2025-11-13 22:26:54",
+      "file": "data/etf/historical/GRIN.parquet"
+    },
+    {
+      "symbol": "HACK",
+      "rows": 482,
+      "start_date": "2016-08-28 10:00:00",
+      "end_date": "2025-11-13 23:59:27",
+      "file": "data/etf/historical/HACK.parquet"
+    },
+    {
+      "symbol": "HBRD",
+      "rows": 419,
+      "start_date": "2017-11-12 08:00:00",
+      "end_date": "2025-11-13 23:51:57",
+      "file": "data/etf/historical/HBRD.parquet"
+    },
+    {
+      "symbol": "HEUR",
+      "rows": 115,
+      "start_date": "2016-05-31 10:00:00",
+      "end_date": "2025-11-13 23:43:09",
+      "file": "data/etf/historical/HEUR.parquet"
+    },
+    {
+      "symbol": "HJPN",
+      "rows": 115,
+      "start_date": "2016-05-31 10:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/HJPN.parquet"
+    },
+    {
+      "symbol": "HNDQ",
+      "rows": 279,
+      "start_date": "2020-07-19 10:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/HNDQ.parquet"
+    },
+    {
+      "symbol": "HVST",
+      "rows": 134,
+      "start_date": "2014-10-31 09:00:00",
+      "end_date": "2025-11-13 23:47:58",
+      "file": "data/etf/historical/HVST.parquet"
+    },
+    {
+      "symbol": "IAA",
+      "rows": 207,
+      "start_date": "2008-09-30 10:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/IAA.parquet"
+    },
+    {
+      "symbol": "IAF",
+      "rows": 165,
+      "start_date": "2012-03-31 09:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/IAF.parquet"
+    },
+    {
+      "symbol": "IEM",
+      "rows": 215,
+      "start_date": "2008-01-31 08:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/IEM.parquet"
+    },
+    {
+      "symbol": "IEU",
+      "rows": 215,
+      "start_date": "2008-01-31 08:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/IEU.parquet"
+    },
+    {
+      "symbol": "IFRA",
+      "rows": 116,
+      "start_date": "2016-04-30 10:00:00",
+      "end_date": "2025-11-13 23:59:53",
+      "file": "data/etf/historical/IFRA.parquet"
+    },
+    {
+      "symbol": "IHD",
+      "rows": 180,
+      "start_date": "2010-12-31 08:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/IHD.parquet"
+    },
+    {
+      "symbol": "IHEB",
+      "rows": 120,
+      "start_date": "2015-12-31 08:00:00",
+      "end_date": "2025-11-13 23:36:32",
+      "file": "data/etf/historical/IHEB.parquet"
+    },
+    {
+      "symbol": "IHHY",
+      "rows": 120,
+      "start_date": "2015-12-31 08:00:00",
+      "end_date": "2025-11-13 23:50:18",
+      "file": "data/etf/historical/IHHY.parquet"
+    },
+    {
+      "symbol": "IHVV",
+      "rows": 132,
+      "start_date": "2014-12-31 08:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/IHVV.parquet"
+    },
+    {
+      "symbol": "IIND",
+      "rows": 330,
+      "start_date": "2019-07-28 10:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/IIND.parquet"
+    },
+    {
+      "symbol": "IJP",
+      "rows": 215,
+      "start_date": "2008-01-31 08:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/IJP.parquet"
+    },
+    {
+      "symbol": "IKO",
+      "rows": 215,
+      "start_date": "2008-01-31 08:00:00",
+      "end_date": "2025-11-13 23:59:19",
+      "file": "data/etf/historical/IKO.parquet"
+    },
+    {
+      "symbol": "ILB",
+      "rows": 165,
+      "start_date": "2012-03-31 09:00:00",
+      "end_date": "2025-11-13 23:49:51",
+      "file": "data/etf/historical/ILB.parquet"
+    },
+    {
+      "symbol": "IMLC",
+      "rows": 115,
+      "start_date": "2023-09-10 10:00:00",
+      "end_date": "2025-11-10 23:07:05",
+      "file": "data/etf/historical/IMLC.parquet"
+    },
+    {
+      "symbol": "INIF",
+      "rows": 388,
+      "start_date": "2018-06-17 10:00:00",
+      "end_date": "2025-11-13 19:02:04",
+      "file": "data/etf/historical/INIF.parquet"
+    },
+    {
+      "symbol": "IOO",
+      "rows": 215,
+      "start_date": "2008-01-31 08:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/IOO.parquet"
+    },
+    {
+      "symbol": "IOZ",
+      "rows": 180,
+      "start_date": "2010-12-31 08:00:00",
+      "end_date": "2025-11-14 00:11:11",
+      "file": "data/etf/historical/IOZ.parquet"
+    },
+    {
+      "symbol": "IVV",
+      "rows": 215,
+      "start_date": "2008-01-31 08:00:00",
+      "end_date": "2025-11-14 00:21:15",
+      "file": "data/etf/historical/IVV.parquet"
+    },
+    {
+      "symbol": "IXJ",
+      "rows": 201,
+      "start_date": "2009-03-31 09:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/IXJ.parquet"
+    },
+    {
+      "symbol": "IZZ",
+      "rows": 215,
+      "start_date": "2008-01-31 08:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/IZZ.parquet"
+    },
+    {
+      "symbol": "MA1",
+      "rows": 178,
+      "start_date": "2025-03-04 18:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/MA1.parquet"
+    },
+    {
+      "symbol": "MNRS",
+      "rows": 487,
+      "start_date": "2016-07-24 10:00:00",
+      "end_date": "2025-11-13 23:59:13",
+      "file": "data/etf/historical/MNRS.parquet"
+    },
+    {
+      "symbol": "MVA",
+      "rows": 146,
+      "start_date": "2013-10-31 09:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/MVA.parquet"
+    },
+    {
+      "symbol": "MVB",
+      "rows": 146,
+      "start_date": "2013-10-31 09:00:00",
+      "end_date": "2025-11-13 23:59:22",
+      "file": "data/etf/historical/MVB.parquet"
+    },
+    {
+      "symbol": "MVE",
+      "rows": 146,
+      "start_date": "2013-10-31 09:00:00",
+      "end_date": "2025-11-13 23:47:54",
+      "file": "data/etf/historical/MVE.parquet"
+    },
+    {
+      "symbol": "MVR",
+      "rows": 146,
+      "start_date": "2013-10-31 09:00:00",
+      "end_date": "2025-11-13 23:58:01",
+      "file": "data/etf/historical/MVR.parquet"
+    },
+    {
+      "symbol": "MVW",
+      "rows": 141,
+      "start_date": "2014-03-31 09:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/MVW.parquet"
+    },
+    {
+      "symbol": "NDIA",
+      "rows": 336,
+      "start_date": "2019-06-16 10:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/NDIA.parquet"
+    },
+    {
+      "symbol": "NDQ",
+      "rows": 127,
+      "start_date": "2015-05-31 10:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/NDQ.parquet"
+    },
+    {
+      "symbol": "OOO",
+      "rows": 169,
+      "start_date": "2011-11-30 08:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/OOO.parquet"
+    },
+    {
+      "symbol": "OZF",
+      "rows": 176,
+      "start_date": "2011-04-30 10:00:00",
+      "end_date": "2025-11-13 23:16:28",
+      "file": "data/etf/historical/OZF.parquet"
+    },
+    {
+      "symbol": "OZR",
+      "rows": 176,
+      "start_date": "2011-04-30 10:00:00",
+      "end_date": "2025-11-13 23:55:51",
+      "file": "data/etf/historical/OZR.parquet"
+    },
+    {
+      "symbol": "PAXX",
+      "rows": 428,
+      "start_date": "2017-09-10 10:00:00",
+      "end_date": "2025-11-13 23:15:18",
+      "file": "data/etf/historical/PAXX.parquet"
+    },
+    {
+      "symbol": "PLUS",
+      "rows": 446,
+      "start_date": "2017-05-07 10:00:00",
+      "end_date": "2025-11-13 23:15:43",
+      "file": "data/etf/historical/PLUS.parquet"
+    },
+    {
+      "symbol": "PMGOLD",
+      "rows": 202,
+      "start_date": "2009-01-31 08:00:00",
+      "end_date": "2025-10-31 09:00:00",
+      "file": "data/etf/historical/PMGOLD.parquet"
+    },
+    {
+      "symbol": "POU",
+      "rows": 149,
+      "start_date": "2011-07-31 10:00:00",
+      "end_date": "2023-11-30 08:00:00",
+      "file": "data/etf/historical/POU.parquet"
+    },
+    {
+      "symbol": "QAG",
+      "rows": 110,
+      "start_date": "2011-11-30 08:00:00",
+      "end_date": "2020-12-31 08:00:00",
+      "file": "data/etf/historical/QAG.parquet"
+    },
+    {
+      "symbol": "QAU",
+      "rows": 175,
+      "start_date": "2011-05-31 10:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/QAU.parquet"
+    },
+    {
+      "symbol": "QFN",
+      "rows": 180,
+      "start_date": "2010-12-31 08:00:00",
+      "end_date": "2025-11-13 23:17:09",
+      "file": "data/etf/historical/QFN.parquet"
+    },
+    {
+      "symbol": "QLTY",
+      "rows": 368,
+      "start_date": "2018-11-04 08:00:00",
+      "end_date": "2025-11-13 23:59:54",
+      "file": "data/etf/historical/QLTY.parquet"
+    },
+    {
+      "symbol": "QPON",
+      "rows": 443,
+      "start_date": "2017-05-28 10:00:00",
+      "end_date": "2025-11-13 23:41:33",
+      "file": "data/etf/historical/QPON.parquet"
+    },
+    {
+      "symbol": "QUAL",
+      "rows": 134,
+      "start_date": "2014-10-31 09:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/QUAL.parquet"
+    },
+    {
+      "symbol": "QUS",
+      "rows": 132,
+      "start_date": "2014-12-31 08:00:00",
+      "end_date": "2025-11-13 23:40:36",
+      "file": "data/etf/historical/QUS.parquet"
+    },
+    {
+      "symbol": "RARI",
+      "rows": 129,
+      "start_date": "2015-03-31 09:00:00",
+      "end_date": "2025-11-13 22:41:23",
+      "file": "data/etf/historical/RARI.parquet"
+    },
+    {
+      "symbol": "RDV",
+      "rows": 187,
+      "start_date": "2010-05-31 10:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/RDV.parquet"
+    },
+    {
+      "symbol": "REIT",
+      "rows": 348,
+      "start_date": "2019-03-24 09:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/REIT.parquet"
+    },
+    {
+      "symbol": "RINC",
+      "rows": 365,
+      "start_date": "2018-02-11 08:00:00",
+      "end_date": "2025-02-02 08:00:00",
+      "file": "data/etf/historical/RINC.parquet"
+    },
+    {
+      "symbol": "ROBO",
+      "rows": 428,
+      "start_date": "2017-09-10 10:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/ROBO.parquet"
+    },
+    {
+      "symbol": "SEMI",
+      "rows": 222,
+      "start_date": "2021-08-22 10:00:00",
+      "end_date": "2025-11-14 00:20:20",
+      "file": "data/etf/historical/SEMI.parquet"
+    },
+    {
+      "symbol": "SMLL",
+      "rows": 451,
+      "start_date": "2017-04-02 10:00:00",
+      "end_date": "2025-11-13 23:43:54",
+      "file": "data/etf/historical/SMLL.parquet"
+    },
+    {
+      "symbol": "SPY",
+      "rows": 134,
+      "start_date": "2014-10-31 09:00:00",
+      "end_date": "2025-11-13 23:58:55",
+      "file": "data/etf/historical/SPY.parquet"
+    },
+    {
+      "symbol": "STW",
+      "rows": 216,
+      "start_date": "2007-12-31 08:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/STW.parquet"
+    },
+    {
+      "symbol": "SYI",
+      "rows": 183,
+      "start_date": "2010-09-30 10:00:00",
+      "end_date": "2025-11-13 23:59:57",
+      "file": "data/etf/historical/SYI.parquet"
+    },
+    {
+      "symbol": "UMAX",
+      "rows": 135,
+      "start_date": "2014-09-30 10:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/UMAX.parquet"
+    },
+    {
+      "symbol": "USD",
+      "rows": 179,
+      "start_date": "2011-01-31 08:00:00",
+      "end_date": "2025-11-13 18:20:33",
+      "file": "data/etf/historical/USD.parquet"
+    },
+    {
+      "symbol": "VAE",
+      "rows": 120,
+      "start_date": "2015-12-31 08:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/VAE.parquet"
+    },
+    {
+      "symbol": "VAF",
+      "rows": 158,
+      "start_date": "2012-10-31 09:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/VAF.parquet"
+    },
+    {
+      "symbol": "VAP",
+      "rows": 182,
+      "start_date": "2010-10-31 09:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/VAP.parquet"
+    },
+    {
+      "symbol": "VAS",
+      "rows": 200,
+      "start_date": "2009-04-30 10:00:00",
+      "end_date": "2025-11-14 00:21:17",
+      "file": "data/etf/historical/VAS.parquet"
+    },
+    {
+      "symbol": "VBND",
+      "rows": 424,
+      "start_date": "2017-10-08 09:00:00",
+      "end_date": "2025-11-13 23:49:05",
+      "file": "data/etf/historical/VBND.parquet"
+    },
+    {
+      "symbol": "VDBA",
+      "rows": 418,
+      "start_date": "2017-11-19 08:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/VDBA.parquet"
+    },
+    {
+      "symbol": "VDCO",
+      "rows": 418,
+      "start_date": "2017-11-19 08:00:00",
+      "end_date": "2025-11-13 23:16:35",
+      "file": "data/etf/historical/VDCO.parquet"
+    },
+    {
+      "symbol": "VDGR",
+      "rows": 418,
+      "start_date": "2017-11-19 08:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/VDGR.parquet"
+    },
+    {
+      "symbol": "VDHG",
+      "rows": 418,
+      "start_date": "2017-11-19 08:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/VDHG.parquet"
+    },
+    {
+      "symbol": "VEQ",
+      "rows": 120,
+      "start_date": "2015-12-31 08:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/VEQ.parquet"
+    },
+    {
+      "symbol": "VESG",
+      "rows": 376,
+      "start_date": "2018-09-09 10:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/VESG.parquet"
+    },
+    {
+      "symbol": "VETH",
+      "rows": 267,
+      "start_date": "2020-10-11 09:00:00",
+      "end_date": "2025-11-13 23:57:59",
+      "file": "data/etf/historical/VETH.parquet"
+    },
+    {
+      "symbol": "VGAD",
+      "rows": 133,
+      "start_date": "2014-11-30 08:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/VGAD.parquet"
+    },
+    {
+      "symbol": "VGB",
+      "rows": 164,
+      "start_date": "2012-04-30 10:00:00",
+      "end_date": "2025-11-13 23:38:11",
+      "file": "data/etf/historical/VGB.parquet"
+    },
+    {
+      "symbol": "VGE",
+      "rows": 145,
+      "start_date": "2013-11-30 08:00:00",
+      "end_date": "2025-11-13 23:56:11",
+      "file": "data/etf/historical/VGE.parquet"
+    },
+    {
+      "symbol": "VGS",
+      "rows": 133,
+      "start_date": "2014-11-30 08:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/VGS.parquet"
+    },
+    {
+      "symbol": "VHY",
+      "rows": 175,
+      "start_date": "2011-05-31 10:00:00",
+      "end_date": "2025-11-14 00:17:03",
+      "file": "data/etf/historical/VHY.parquet"
+    },
+    {
+      "symbol": "VIF",
+      "rows": 120,
+      "start_date": "2015-12-31 08:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/VIF.parquet"
+    },
+    {
+      "symbol": "VSO",
+      "rows": 175,
+      "start_date": "2011-05-31 10:00:00",
+      "end_date": "2025-11-14 00:20:43",
+      "file": "data/etf/historical/VSO.parquet"
+    },
+    {
+      "symbol": "VTS",
+      "rows": 199,
+      "start_date": "2009-05-31 10:00:00",
+      "end_date": "2025-11-14 00:14:24",
+      "file": "data/etf/historical/VTS.parquet"
+    },
+    {
+      "symbol": "WMX",
+      "rows": 138,
+      "start_date": "2025-05-04 20:00:00",
+      "end_date": "2025-11-13 23:40:59",
+      "file": "data/etf/historical/WMX.parquet"
+    },
+    {
+      "symbol": "WXOZ",
+      "rows": 153,
+      "start_date": "2013-03-31 09:00:00",
+      "end_date": "2025-11-13 23:43:19",
+      "file": "data/etf/historical/WXOZ.parquet"
+    },
+    {
+      "symbol": "XARO",
+      "rows": 364,
+      "start_date": "2018-12-02 08:00:00",
+      "end_date": "2025-11-14 00:10:18",
+      "file": "data/etf/historical/XARO.parquet"
+    },
+    {
+      "symbol": "YANK",
+      "rows": 469,
+      "start_date": "2016-11-27 08:00:00",
+      "end_date": "2025-11-13 19:24:41",
+      "file": "data/etf/historical/YANK.parquet"
+    },
+    {
+      "symbol": "YMAX",
+      "rows": 157,
+      "start_date": "2012-11-30 08:00:00",
+      "end_date": "2025-11-13 23:59:16",
+      "file": "data/etf/historical/YMAX.parquet"
+    },
+    {
+      "symbol": "ZYAU",
+      "rows": 126,
+      "start_date": "2015-06-30 10:00:00",
+      "end_date": "2025-11-13 23:37:28",
+      "file": "data/etf/historical/ZYAU.parquet"
+    },
+    {
+      "symbol": "ZYUS",
+      "rows": 126,
+      "start_date": "2015-06-30 10:00:00",
+      "end_date": "2025-11-13 23:59:44",
+      "file": "data/etf/historical/ZYUS.parquet"
+    }
+  ],
+  "failed": [
+    "DIFF",
+    "DIVI",
+    "EQIN",
+    "HYLD",
+    "USA",
+    "WSMG"
+  ],
+  "errors": {
+    "DIFF": "No data returned",
+    "DIVI": "No data returned",
+    "EQIN": "No data returned",
+    "HYLD": "No data returned",
+    "USA": "No data returned",
+    "WSMG": "No data returned"
+  }
+}
