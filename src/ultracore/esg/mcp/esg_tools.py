@@ -15,6 +15,7 @@ from datetime import datetime
 
 from ultracore.esg.data.esg_data_loader import EsgDataLoader
 from ultracore.esg.agents.epsilon_agent import EpsilonAgent
+from ultracore.esg.mcp.portfolio_optimizer import EsgPortfolioOptimizer
 
 
 class EsgMcpTools:
@@ -28,9 +29,20 @@ class EsgMcpTools:
     4. Generate ESG reports
     """
     
-    def __init__(self, esg_data_loader: EsgDataLoader, epsilon_agent: Optional[EpsilonAgent] = None):
+    def __init__(self, esg_data_loader: EsgDataLoader, epsilon_agent: Optional[EpsilonAgent] = None, asset_universe: Optional[List[str]] = None):
         self.esg_data_loader = esg_data_loader
         self.epsilon_agent = epsilon_agent
+        self.asset_universe = asset_universe or []
+        
+        # Initialize optimizer if agent is provided
+        if epsilon_agent and asset_universe:
+            self.optimizer = EsgPortfolioOptimizer(
+                esg_data_loader=esg_data_loader,
+                epsilon_agent=epsilon_agent,
+                asset_universe=asset_universe
+            )
+        else:
+            self.optimizer = None
     
     def get_esg_profile(self, isin: str, as_of_date: Optional[str] = None) -> Dict[str, Any]:
         """
@@ -277,23 +289,19 @@ class EsgMcpTools:
                 ]
             }
         """
-        if not self.epsilon_agent:
+        if not self.optimizer:
             return {
-                "error": "Epsilon Agent not initialized. Portfolio optimization requires a trained RL agent."
+                "error": "Portfolio optimizer not initialized. Requires a trained Epsilon Agent and asset universe."
             }
         
-        # TODO: Implement full optimization using Epsilon Agent
-        # This would involve:
-        # 1. Converting current portfolio to state representation
-        # 2. Running the agent to select optimal actions
-        # 3. Applying ESG constraints
-        # 4. Calculating expected metrics
-        # 5. Generating trade list
+        # Run full RL-powered optimization
+        result = self.optimizer.optimize(
+            current_portfolio=current_portfolio,
+            objectives=objectives,
+            constraints=constraints
+        )
         
-        return {
-            "status": "not_implemented",
-            "message": "Full portfolio optimization will be implemented in Phase 3"
-        }
+        return result
     
     def generate_esg_report(
         self,

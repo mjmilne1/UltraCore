@@ -1,0 +1,61 @@
+{
+  "optimized_portfolio": {
+    "AU000000ETHI": 1.0
+  },
+  "current_metrics": {
+    "total_weight": 1.0,
+    "expected_return": 0.1037,
+    "expected_volatility": 0.1034,
+    "sharpe_ratio": 1.0,
+    "esg_rating": "AA",
+    "carbon_intensity": 134.72,
+    "board_diversity": 33.31,
+    "controversy_score": 2.43
+  },
+  "optimized_metrics": {
+    "total_weight": 1.0,
+    "expected_return": 0.0684,
+    "expected_volatility": 0.1219,
+    "sharpe_ratio": 0.56,
+    "esg_rating": "AAA",
+    "carbon_intensity": 45.2,
+    "board_diversity": 42.8,
+    "controversy_score": 0.5
+  },
+  "improvement": {
+    "return_improvement": -3.53,
+    "volatility_change": 1.85,
+    "sharpe_improvement": -0.44,
+    "carbon_reduction_pct": 66.45,
+    "esg_rating_change": "AA \u2192 AAA",
+    "board_diversity_change": 9.49
+  },
+  "trade_list": [
+    {
+      "isin": "AU000000ETHI",
+      "name": "BetaShares Global Sustainability Leaders ETF",
+      "action": "buy",
+      "current_weight": 0.0,
+      "target_weight": 1.0,
+      "delta": 1.0
+    },
+    {
+      "isin": "AU000000VAS3",
+      "name": "Vanguard Australian Shares Index ETF",
+      "action": "sell",
+      "current_weight": 0.7,
+      "target_weight": 0.0,
+      "delta": 0.7
+    },
+    {
+      "isin": "AU000000VGS3",
+      "name": "Vanguard MSCI Index International Shares ETF",
+      "action": "sell",
+      "current_weight": 0.3,
+      "target_weight": 0.0,
+      "delta": 0.3
+    }
+  ],
+  "optimization_timestamp": "2025-11-15T01:03:02.875428",
+  "agent_version": "epsilon-v0.1.0"
+}

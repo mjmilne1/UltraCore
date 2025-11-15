@@ -49,7 +49,8 @@ class EsgAwareQNetwork(nn.Module):
         
         # Layer normalization for stability
         self.ln1 = nn.LayerNorm(256)
-        self.ln2 = nn.LayerNorm(128)
+        self.ln2 = nn.LayerNorm(256)  # Match fusion_fc1 output
+        self.ln3 = nn.LayerNorm(128)  # Match fusion_fc2 output
         
     def forward(self, state: torch.Tensor, financial_dim: int) -> torch.Tensor:
         """Forward pass through the network"""
@@ -71,6 +72,7 @@ class EsgAwareQNetwork(nn.Module):
         x = F.relu(self.fusion_fc1(x))
         x = self.ln2(x)
         x = F.relu(self.fusion_fc2(x))
+        x = self.ln3(x)
         
         # Output Q-values
         return self.output(x)
