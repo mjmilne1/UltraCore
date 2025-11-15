@@ -1,0 +1,814 @@
+{
+  "updated": [
+    {
+      "symbol": "A200",
+      "new_rows": 5,
+      "total_rows": 399,
+      "latest_date": "2025-11-14 00:17:45"
+    },
+    {
+      "symbol": "AAA",
+      "new_rows": 5,
+      "total_rows": 170,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "ASAO",
+      "new_rows": 5,
+      "total_rows": 167,
+      "latest_date": "2025-11-13 23:20:34"
+    },
+    {
+      "symbol": "ASIA",
+      "new_rows": 5,
+      "total_rows": 380,
+      "latest_date": "2025-11-14 00:16:13"
+    },
+    {
+      "symbol": "ATEC",
+      "new_rows": 5,
+      "total_rows": 304,
+      "latest_date": "2025-11-14 00:17:47"
+    },
+    {
+      "symbol": "AYLD",
+      "new_rows": 5,
+      "total_rows": 152,
+      "latest_date": "2025-11-13 23:02:06"
+    },
+    {
+      "symbol": "BBOZ",
+      "new_rows": 5,
+      "total_rows": 133,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "BBUS",
+      "new_rows": 5,
+      "total_rows": 129,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "BEAR",
+      "new_rows": 5,
+      "total_rows": 166,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "BILL",
+      "new_rows": 5,
+      "total_rows": 448,
+      "latest_date": "2025-11-13 23:52:21"
+    },
+    {
+      "symbol": "BNDS",
+      "new_rows": 5,
+      "total_rows": 373,
+      "latest_date": "2025-11-13 23:38:09"
+    },
+    {
+      "symbol": "CETF",
+      "new_rows": 5,
+      "total_rows": 131,
+      "latest_date": "2025-11-13 23:57:00"
+    },
+    {
+      "symbol": "CLDD",
+      "new_rows": 5,
+      "total_rows": 253,
+      "latest_date": "2025-11-13 23:37:54"
+    },
+    {
+      "symbol": "CRED",
+      "new_rows": 5,
+      "total_rows": 396,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "DHHF",
+      "new_rows": 5,
+      "total_rows": 317,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "DJRE",
+      "new_rows": 5,
+      "total_rows": 151,
+      "latest_date": "2025-11-13 23:45:59"
+    },
+    {
+      "symbol": "DRGN",
+      "new_rows": 0,
+      "total_rows": 139,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "DRIV",
+      "new_rows": 5,
+      "total_rows": 211,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "DRUG",
+      "new_rows": 5,
+      "total_rows": 491,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "DVDY",
+      "new_rows": 5,
+      "total_rows": 277,
+      "latest_date": "2025-11-13 23:55:48"
+    },
+    {
+      "symbol": "DZZF",
+      "new_rows": 5,
+      "total_rows": 316,
+      "latest_date": "2025-11-13 23:34:31"
+    },
+    {
+      "symbol": "EAFZ",
+      "new_rows": 4,
+      "total_rows": 132,
+      "latest_date": "2025-11-13 23:17:00"
+    },
+    {
+      "symbol": "EIGA",
+      "new_rows": 5,
+      "total_rows": 399,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "ERTH",
+      "new_rows": 5,
+      "total_rows": 251,
+      "latest_date": "2025-11-13 23:53:23"
+    },
+    {
+      "symbol": "ESGI",
+      "new_rows": 5,
+      "total_rows": 408,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "ETHI",
+      "new_rows": 5,
+      "total_rows": 469,
+      "latest_date": "2025-11-13 23:59:54"
+    },
+    {
+      "symbol": "ETPMAG",
+      "new_rows": 4,
+      "total_rows": 207,
+      "latest_date": "2025-11-13 09:30:00"
+    },
+    {
+      "symbol": "ETPMPD",
+      "new_rows": 4,
+      "total_rows": 207,
+      "latest_date": "2025-11-13 09:30:00"
+    },
+    {
+      "symbol": "ETPMPM",
+      "new_rows": 4,
+      "total_rows": 207,
+      "latest_date": "2025-11-13 09:30:00"
+    },
+    {
+      "symbol": "ETPMPT",
+      "new_rows": 4,
+      "total_rows": 207,
+      "latest_date": "2025-11-13 09:30:00"
+    },
+    {
+      "symbol": "FAIR",
+      "new_rows": 5,
+      "total_rows": 422,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "FANG",
+      "new_rows": 5,
+      "total_rows": 305,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "FASI",
+      "new_rows": 0,
+      "total_rows": 263,
+      "latest_date": "2025-11-13 23:56:53"
+    },
+    {
+      "symbol": "FEMX",
+      "new_rows": 5,
+      "total_rows": 374,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "FIIN",
+      "new_rows": 0,
+      "total_rows": 349,
+      "latest_date": "2025-11-13 21:16:24"
+    },
+    {
+      "symbol": "FOOD",
+      "new_rows": 5,
+      "total_rows": 491,
+      "latest_date": "2025-11-13 23:24:00"
+    },
+    {
+      "symbol": "FUEL",
+      "new_rows": 5,
+      "total_rows": 119,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "GBND",
+      "new_rows": 5,
+      "total_rows": 318,
+      "latest_date": "2025-11-13 23:46:28"
+    },
+    {
+      "symbol": "GEAR",
+      "new_rows": 5,
+      "total_rows": 145,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "GGOV",
+      "new_rows": 5,
+      "total_rows": 295,
+      "latest_date": "2025-11-13 22:55:07"
+    },
+    {
+      "symbol": "GGUS",
+      "new_rows": 5,
+      "total_rows": 129,
+      "latest_date": "2025-11-13 23:59:25"
+    },
+    {
+      "symbol": "GOLD",
+      "new_rows": 5,
+      "total_rows": 221,
+      "latest_date": "2025-11-14 00:10:17"
+    },
+    {
+      "symbol": "GRIN",
+      "new_rows": 0,
+      "total_rows": 145,
+      "latest_date": "2025-11-13 22:26:54"
+    },
+    {
+      "symbol": "HACK",
+      "new_rows": 5,
+      "total_rows": 487,
+      "latest_date": "2025-11-13 23:59:27"
+    },
+    {
+      "symbol": "HBRD",
+      "new_rows": 5,
+      "total_rows": 424,
+      "latest_date": "2025-11-13 23:51:57"
+    },
+    {
+      "symbol": "HEUR",
+      "new_rows": 5,
+      "total_rows": 120,
+      "latest_date": "2025-11-13 23:43:09"
+    },
+    {
+      "symbol": "HJPN",
+      "new_rows": 5,
+      "total_rows": 120,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "HNDQ",
+      "new_rows": 5,
+      "total_rows": 284,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "HVST",
+      "new_rows": 5,
+      "total_rows": 139,
+      "latest_date": "2025-11-13 23:47:58"
+    },
+    {
+      "symbol": "IAA",
+      "new_rows": 5,
+      "total_rows": 212,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "IAF",
+      "new_rows": 5,
+      "total_rows": 170,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "IEM",
+      "new_rows": 5,
+      "total_rows": 220,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "IEU",
+      "new_rows": 5,
+      "total_rows": 220,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "IFRA",
+      "new_rows": 5,
+      "total_rows": 121,
+      "latest_date": "2025-11-13 23:59:53"
+    },
+    {
+      "symbol": "IHD",
+      "new_rows": 5,
+      "total_rows": 185,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "IHEB",
+      "new_rows": 5,
+      "total_rows": 125,
+      "latest_date": "2025-11-13 23:36:32"
+    },
+    {
+      "symbol": "IHHY",
+      "new_rows": 5,
+      "total_rows": 125,
+      "latest_date": "2025-11-13 23:50:18"
+    },
+    {
+      "symbol": "IHVV",
+      "new_rows": 5,
+      "total_rows": 137,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "IIND",
+      "new_rows": 5,
+      "total_rows": 335,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "IJP",
+      "new_rows": 5,
+      "total_rows": 220,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "IKO",
+      "new_rows": 5,
+      "total_rows": 220,
+      "latest_date": "2025-11-13 23:59:19"
+    },
+    {
+      "symbol": "ILB",
+      "new_rows": 5,
+      "total_rows": 170,
+      "latest_date": "2025-11-13 23:49:51"
+    },
+    {
+      "symbol": "IMLC",
+      "new_rows": 5,
+      "total_rows": 120,
+      "latest_date": "2025-11-13 18:00:00"
+    },
+    {
+      "symbol": "INIF",
+      "new_rows": 5,
+      "total_rows": 393,
+      "latest_date": "2025-11-13 19:02:04"
+    },
+    {
+      "symbol": "IOO",
+      "new_rows": 5,
+      "total_rows": 220,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "IOZ",
+      "new_rows": 5,
+      "total_rows": 185,
+      "latest_date": "2025-11-14 00:11:11"
+    },
+    {
+      "symbol": "IVV",
+      "new_rows": 5,
+      "total_rows": 220,
+      "latest_date": "2025-11-14 00:21:15"
+    },
+    {
+      "symbol": "IXJ",
+      "new_rows": 5,
+      "total_rows": 206,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "IZZ",
+      "new_rows": 5,
+      "total_rows": 220,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "MA1",
+      "new_rows": 0,
+      "total_rows": 178,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "MNRS",
+      "new_rows": 5,
+      "total_rows": 492,
+      "latest_date": "2025-11-13 23:59:13"
+    },
+    {
+      "symbol": "MVA",
+      "new_rows": 5,
+      "total_rows": 151,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "MVB",
+      "new_rows": 5,
+      "total_rows": 151,
+      "latest_date": "2025-11-13 23:59:22"
+    },
+    {
+      "symbol": "MVE",
+      "new_rows": 5,
+      "total_rows": 151,
+      "latest_date": "2025-11-13 23:47:54"
+    },
+    {
+      "symbol": "MVR",
+      "new_rows": 5,
+      "total_rows": 151,
+      "latest_date": "2025-11-13 23:58:01"
+    },
+    {
+      "symbol": "MVW",
+      "new_rows": 5,
+      "total_rows": 146,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "NDIA",
+      "new_rows": 5,
+      "total_rows": 341,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "NDQ",
+      "new_rows": 5,
+      "total_rows": 132,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "OOO",
+      "new_rows": 5,
+      "total_rows": 174,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "OZF",
+      "new_rows": 5,
+      "total_rows": 181,
+      "latest_date": "2025-11-13 23:16:28"
+    },
+    {
+      "symbol": "OZR",
+      "new_rows": 5,
+      "total_rows": 181,
+      "latest_date": "2025-11-13 23:55:51"
+    },
+    {
+      "symbol": "PAXX",
+      "new_rows": 5,
+      "total_rows": 433,
+      "latest_date": "2025-11-13 23:15:18"
+    },
+    {
+      "symbol": "PLUS",
+      "new_rows": 5,
+      "total_rows": 451,
+      "latest_date": "2025-11-13 23:15:43"
+    },
+    {
+      "symbol": "PMGOLD",
+      "new_rows": 5,
+      "total_rows": 207,
+      "latest_date": "2025-11-13 18:00:00"
+    },
+    {
+      "symbol": "QAU",
+      "new_rows": 5,
+      "total_rows": 180,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "QFN",
+      "new_rows": 5,
+      "total_rows": 185,
+      "latest_date": "2025-11-13 23:17:09"
+    },
+    {
+      "symbol": "QLTY",
+      "new_rows": 5,
+      "total_rows": 373,
+      "latest_date": "2025-11-13 23:59:54"
+    },
+    {
+      "symbol": "QPON",
+      "new_rows": 5,
+      "total_rows": 448,
+      "latest_date": "2025-11-13 23:41:33"
+    },
+    {
+      "symbol": "QUAL",
+      "new_rows": 5,
+      "total_rows": 139,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "QUS",
+      "new_rows": 5,
+      "total_rows": 137,
+      "latest_date": "2025-11-13 23:40:36"
+    },
+    {
+      "symbol": "RARI",
+      "new_rows": 5,
+      "total_rows": 134,
+      "latest_date": "2025-11-13 22:41:23"
+    },
+    {
+      "symbol": "RDV",
+      "new_rows": 5,
+      "total_rows": 192,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "REIT",
+      "new_rows": 5,
+      "total_rows": 353,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "ROBO",
+      "new_rows": 5,
+      "total_rows": 433,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "SEMI",
+      "new_rows": 5,
+      "total_rows": 227,
+      "latest_date": "2025-11-14 00:20:20"
+    },
+    {
+      "symbol": "SMLL",
+      "new_rows": 5,
+      "total_rows": 456,
+      "latest_date": "2025-11-13 23:43:54"
+    },
+    {
+      "symbol": "SPY",
+      "new_rows": 5,
+      "total_rows": 139,
+      "latest_date": "2025-11-13 23:58:55"
+    },
+    {
+      "symbol": "STW",
+      "new_rows": 5,
+      "total_rows": 221,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "SYI",
+      "new_rows": 5,
+      "total_rows": 188,
+      "latest_date": "2025-11-13 23:59:57"
+    },
+    {
+      "symbol": "UMAX",
+      "new_rows": 5,
+      "total_rows": 140,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "USD",
+      "new_rows": 5,
+      "total_rows": 184,
+      "latest_date": "2025-11-13 18:20:33"
+    },
+    {
+      "symbol": "VAE",
+      "new_rows": 5,
+      "total_rows": 125,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "VAF",
+      "new_rows": 5,
+      "total_rows": 163,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "VAP",
+      "new_rows": 5,
+      "total_rows": 187,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "VAS",
+      "new_rows": 5,
+      "total_rows": 205,
+      "latest_date": "2025-11-14 00:21:17"
+    },
+    {
+      "symbol": "VBND",
+      "new_rows": 5,
+      "total_rows": 429,
+      "latest_date": "2025-11-13 23:49:05"
+    },
+    {
+      "symbol": "VDBA",
+      "new_rows": 5,
+      "total_rows": 423,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "VDCO",
+      "new_rows": 5,
+      "total_rows": 423,
+      "latest_date": "2025-11-13 23:16:35"
+    },
+    {
+      "symbol": "VDGR",
+      "new_rows": 5,
+      "total_rows": 423,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "VDHG",
+      "new_rows": 5,
+      "total_rows": 423,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "VEQ",
+      "new_rows": 5,
+      "total_rows": 125,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "VESG",
+      "new_rows": 5,
+      "total_rows": 381,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "VETH",
+      "new_rows": 5,
+      "total_rows": 272,
+      "latest_date": "2025-11-13 23:57:59"
+    },
+    {
+      "symbol": "VGAD",
+      "new_rows": 5,
+      "total_rows": 138,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "VGB",
+      "new_rows": 5,
+      "total_rows": 169,
+      "latest_date": "2025-11-13 23:38:11"
+    },
+    {
+      "symbol": "VGE",
+      "new_rows": 5,
+      "total_rows": 150,
+      "latest_date": "2025-11-13 23:56:11"
+    },
+    {
+      "symbol": "VGS",
+      "new_rows": 5,
+      "total_rows": 138,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "VHY",
+      "new_rows": 5,
+      "total_rows": 180,
+      "latest_date": "2025-11-14 00:17:03"
+    },
+    {
+      "symbol": "VIF",
+      "new_rows": 5,
+      "total_rows": 125,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "VSO",
+      "new_rows": 5,
+      "total_rows": 180,
+      "latest_date": "2025-11-14 00:20:43"
+    },
+    {
+      "symbol": "VTS",
+      "new_rows": 5,
+      "total_rows": 204,
+      "latest_date": "2025-11-14 00:14:24"
+    },
+    {
+      "symbol": "WMX",
+      "new_rows": 0,
+      "total_rows": 138,
+      "latest_date": "2025-11-13 23:40:59"
+    },
+    {
+      "symbol": "WXOZ",
+      "new_rows": 5,
+      "total_rows": 158,
+      "latest_date": "2025-11-13 23:43:19"
+    },
+    {
+      "symbol": "XARO",
+      "new_rows": 5,
+      "total_rows": 369,
+      "latest_date": "2025-11-14 00:10:18"
+    },
+    {
+      "symbol": "YANK",
+      "new_rows": 5,
+      "total_rows": 474,
+      "latest_date": "2025-11-13 19:24:41"
+    },
+    {
+      "symbol": "YMAX",
+      "new_rows": 5,
+      "total_rows": 162,
+      "latest_date": "2025-11-13 23:59:16"
+    },
+    {
+      "symbol": "ZYAU",
+      "new_rows": 5,
+      "total_rows": 131,
+      "latest_date": "2025-11-13 23:37:28"
+    },
+    {
+      "symbol": "ZYUS",
+      "new_rows": 5,
+      "total_rows": 131,
+      "latest_date": "2025-11-13 23:59:44"
+    }
+  ],
+  "created": [
+    {
+      "symbol": "DIFF",
+      "rows": 5,
+      "latest_date": "2025-11-13 21:33:56"
+    },
+    {
+      "symbol": "DIVI",
+      "rows": 5,
+      "latest_date": "2025-11-13 23:54:50"
+    },
+    {
+      "symbol": "EQIN",
+      "rows": 5,
+      "latest_date": "2025-11-13 20:56:55"
+    },
+    {
+      "symbol": "HYLD",
+      "rows": 5,
+      "latest_date": "2025-11-13 23:46:20"
+    }
+  ],
+  "failed": [
+    "EEU",
+    "EINC",
+    "POU",
+    "QAG",
+    "RINC",
+    "USA",
+    "VGS",
+    "WSMG"
+  ],
+  "errors": {
+    "EEU": "No new data returned",
+    "EINC": "No new data returned",
+    "POU": "No new data returned",
+    "QAG": "No new data returned",
+    "RINC": "No new data returned",
+    "USA": "No new data returned",
+    "VGS": "[Errno 32] Broken pipe",
+    "WSMG": "No new data returned"
+  }
+}
