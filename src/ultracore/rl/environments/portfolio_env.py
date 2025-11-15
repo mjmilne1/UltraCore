@@ -135,7 +135,8 @@ class PortfolioEnv(gym.Env):
         self.portfolio_history = [self.portfolio_value]
         self.peak_value = self.initial_capital
         
-        return self._get_state()
+        # Return (observation, info) for Gymnasium compatibility
+        return self._get_state(), {}
     
     def step(self, action: np.ndarray) -> Tuple[np.ndarray, float, bool, Dict]:
         """
@@ -185,7 +186,8 @@ class PortfolioEnv(gym.Env):
         reward = self._calculate_reward(returns)
         
         # Check if done
-        done = self.current_step >= self.max_steps
+        terminated = self.current_step >= self.max_steps
+        truncated = False  # We don't use truncation in this environment
         
         # Info dict
         info = {
@@ -195,7 +197,8 @@ class PortfolioEnv(gym.Env):
             'weights': self.portfolio_weights.copy()
         }
         
-        return self._get_state(), reward, done, info
+        # Return (observation, reward, terminated, truncated, info) for Gymnasium compatibility
+        return self._get_state(), reward, terminated, truncated, info
     
     def _get_day_returns(self, step: int) -> np.ndarray:
         """Get returns for all ETFs for a specific day"""

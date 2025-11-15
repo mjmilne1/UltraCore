@@ -79,16 +79,17 @@ class AgentTrainer:
         
         # Training loop
         for episode in range(n_episodes):
-            state = env.reset()
+            state, _ = env.reset()  # Gymnasium returns (obs, info)
             episode_reward = 0
-            done = False
+            terminated = False
             
-            while not done:
+            while not terminated:
                 # Select action
                 action = agent.select_action(state, training=True)
                 
-                # Take step
-                next_state, reward, done, info = env.step(action)
+                # Take step (Gymnasium returns 5-tuple)
+                next_state, reward, terminated, truncated, info = env.step(action)
+                done = terminated or truncated
                 
                 # Train
                 metrics = agent.train(state, action, reward, next_state, done)
@@ -148,15 +149,16 @@ class AgentTrainer:
         
         # Training loop
         for episode in range(n_episodes):
-            state = env.reset()
-            done = False
+            state, _ = env.reset()  # Gymnasium returns (obs, info)
+            terminated = False
             
-            while not done:
+            while not terminated:
                 # Select action
                 action = agent.select_action(state, training=True)
                 
-                # Take step
-                next_state, reward, done, info = env.step(action)
+                # Take step (Gymnasium returns 5-tuple)
+                next_state, reward, terminated, truncated, info = env.step(action)
+                done = terminated or truncated
                 
                 # Store reward
                 agent.store_reward(reward)
@@ -217,16 +219,17 @@ class AgentTrainer:
         
         # Training loop
         for episode in range(n_episodes):
-            state = env.reset()
+            state, _ = env.reset()  # Gymnasium returns (obs, info)
             episode_reward = 0
-            done = False
+            terminated = False
             
-            while not done:
+            while not terminated:
                 # Select action
                 action = agent.select_action(state, training=True)
                 
-                # Take step
-                next_state, reward, done, info = env.step(action)
+                # Take step (Gymnasium returns 5-tuple)
+                next_state, reward, terminated, truncated, info = env.step(action)
+                done = terminated or truncated
                 
                 # Store transition
                 agent.store_transition(state, action, reward, next_state, done)
@@ -289,15 +292,16 @@ class AgentTrainer:
         
         # Training loop
         for episode in range(n_episodes):
-            state = env.reset()
-            done = False
+            state, _ = env.reset()  # Gymnasium returns (obs, info)
+            terminated = False
             
-            while not done:
+            while not terminated:
                 # Select action
                 action = agent.select_action(state, training=True)
                 
-                # Take step
-                next_state, reward, done, info = env.step(action)
+                # Take step (Gymnasium returns 5-tuple)
+                next_state, reward, terminated, truncated, info = env.step(action)
+                done = terminated or truncated
                 
                 # Store reward
                 agent.store_reward(reward)

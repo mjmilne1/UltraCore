@@ -9,6 +9,7 @@ Target: >12% return, 25-35% volatility
 import numpy as np
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 import torch.optim as optim
 from typing import Dict, List, Tuple
 from .base_agent import BaseRLAgent
