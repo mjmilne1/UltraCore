@@ -10,13 +10,12 @@ from uuid import UUID
 import pandas as pd
 import numpy as np
 
-from ultracore.data_mesh.data_product import DataProduct
-from ultracore.data_mesh.data_quality import DataQualityMetrics
+from ultracore.data_mesh.products.base import DataProduct
 from ultracore.market_data.etf.aggregates.etf_aggregate import ETFAggregate, ETFPriceData
 
 
 @dataclass
-class ETFDataQuality(DataQualityMetrics):
+class ETFDataQuality:
     """Data quality metrics specific to ETF data"""
     completeness: float  # % of trading days with data
     timeliness: float    # Hours since last update
