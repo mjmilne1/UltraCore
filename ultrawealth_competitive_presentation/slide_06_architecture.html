@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Sourcing + Data Mesh + MCP</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'IBM Plex Mono', monospace;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background: #0A0E27;
+            position: relative;
+            overflow: hidden;
+        }
+        .grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+        .arch-pillar {
+            border: 2px solid #00FF41;
+            background: rgba(0, 255, 65, 0.03);
+            padding: 24px;
+            min-height: 400px;
+        }
+        .pillar-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #00FF41;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #00FF41;
+        }
+        .metric {
+            font-size: 32px;
+            font-weight: 700;
+            color: #00D9FF;
+            line-height: 1;
+        }
+        .metric-label {
+            font-size: 12px;
+            color: #E0E0E0;
+            margin-top: 6px;
+            margin-bottom: 16px;
+        }
+        .feature-item {
+            font-size: 13px;
+            color: #E0E0E0;
+            margin-bottom: 10px;
+            padding-left: 16px;
+            position: relative;
+        }
+        .feature-item:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #FF6B35;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container p-16">
+        <div class="grid-overlay"></div>
+        
+        <div class="relative z-10">
+            <!-- Header -->
+            <div class="mb-8">
+                <div class="text-sm mb-2" style="color: #00D9FF;">[TECHNICAL_ARCHITECTURE]</div>
+                <h1 class="text-3xl font-bold" style="color: #00FF41;">
+                    Event Sourcing + Data Mesh + MCP: Future-Ready Infrastructure
+                </h1>
+            </div>
+
+            <!-- Three-pillar architecture -->
+            <div class="grid grid-cols-3 gap-6">
+                <!-- Pillar 1: Event Sourcing -->
+                <div class="arch-pillar">
+                    <div class="pillar-title">KAFKA-FIRST EVENT SOURCING</div>
+                    
+                    <div class="metric">12</div>
+                    <div class="metric-label">DEDICATED KAFKA TOPICS</div>
+
+                    <div class="space-y-2 mb-6">
+                        <div class="feature-item">Immutable event log</div>
+                        <div class="feature-item">Complete auditability</div>
+                        <div class="feature-item">Time-travel debugging</div>
+                        <div class="feature-item">Real-time streaming</div>
+                        <div class="feature-item">Horizontal scalability</div>
+                    </div>
+
+                    <div class="text-xs p-3" style="background: rgba(0, 217, 255, 0.1); border: 1px solid #00D9FF; color: #E0E0E0;">
+                        <strong style="color: #00D9FF;">Topics:</strong> portfolio-events, optimization-requests, rebalancing-events, esg-updates, regulatory-reports
+                    </div>
+                </div>
+
+                <!-- Pillar 2: Data Mesh -->
+                <div class="arch-pillar">
+                    <div class="pillar-title">DATA MESH</div>
+                    
+                    <div class="metric">137</div>
+                    <div class="metric-label">ASX ETFs TRACKED</div>
+
+                    <div class="metric">277,312</div>
+                    <div class="metric-label">TOTAL DATA POINTS</div>
+
+                    <div class="space-y-2 mb-4">
+                        <div class="feature-item">10 years daily data</div>
+                        <div class="feature-item">Domain-owned products</div>
+                        <div class="feature-item">Unified data access</div>
+                        <div class="feature-item">ESG data integration</div>
+                    </div>
+
+                    <div class="text-xs p-3" style="background: rgba(0, 217, 255, 0.1); border: 1px solid #00D9FF; color: #E0E0E0;">
+                        <strong style="color: #00D9FF;">Products:</strong> ETF Data Product, ESG Data Product, Market Data Product, Risk Data Product
+                    </div>
+                </div>
+
+                <!-- Pillar 3: MCP Tools -->
+                <div class="arch-pillar">
+                    <div class="pillar-title">MODEL CONTEXT PROTOCOL</div>
+                    
+                    <div class="metric">4</div>
+                    <div class="metric-label">AGENTIC AI TOOLS</div>
+
+                    <div class="space-y-2 mb-6">
+                        <div class="feature-item">optimize_portfolio_esg()</div>
+                        <div class="feature-item">analyze_risk_metrics()</div>
+                        <div class="feature-item">generate_trade_list()</div>
+                        <div class="feature-item">explain_decisions()</div>
+                    </div>
+
+                    <div class="text-xs p-3" style="background: rgba(0, 217, 255, 0.1); border: 1px solid #00D9FF; color: #E0E0E0;">
+                        <strong style="color: #00D9FF;">Integration:</strong> Enables Anya AI and other agents to autonomously manage portfolios via natural language
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom insight -->
+            <div class="mt-6 p-4" style="border: 1px solid #00FF41; background: rgba(0, 255, 65, 0.05);">
+                <div class="text-sm" style="color: #E0E0E0;">
+                    <strong style="color: #00FF41;">Architectural Advantage:</strong> This infrastructure enables sub-second optimization latency, complete transparency, and horizontal scaling to millions of portfolios. Traditional robo-advisors cannot replicate without fundamental redesign.
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="absolute bottom-16 right-16 text-sm" style="color: #666;">
+                SLIDE 06/10
+            </div>
+        </div>
+    </div>
+</body>
+</html>

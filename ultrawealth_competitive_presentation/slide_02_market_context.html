@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Australian Robo-Advisory Market</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'IBM Plex Mono', monospace;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background: #0A0E27;
+            position: relative;
+            overflow: hidden;
+        }
+        .grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+        .data-box {
+            border: 1px solid #00FF41;
+            background: rgba(0, 255, 65, 0.05);
+            padding: 16px;
+        }
+        .metric-large {
+            font-size: 48px;
+            font-weight: 700;
+            color: #00FF41;
+            line-height: 1;
+        }
+        .metric-label {
+            font-size: 14px;
+            color: #E0E0E0;
+            margin-top: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            background: rgba(0, 255, 65, 0.1);
+            color: #00FF41;
+            padding: 12px;
+            text-align: left;
+            font-size: 14px;
+            border: 1px solid #00FF41;
+        }
+        td {
+            padding: 10px 12px;
+            color: #E0E0E0;
+            font-size: 14px;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+        }
+        .positive {
+            color: #00FF41;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container p-16">
+        <div class="grid-overlay"></div>
+        
+        <div class="relative z-10">
+            <!-- Header -->
+            <div class="mb-8">
+                <div class="text-sm mb-2" style="color: #00D9FF;">[MARKET_ANALYSIS]</div>
+                <h1 class="text-3xl font-bold" style="color: #00FF41;">
+                    Australian Robo-Advisory Market: USD 12.46B by 2025
+                </h1>
+            </div>
+
+            <!-- Content grid -->
+            <div class="grid grid-cols-5 gap-6">
+                <!-- Left column: Key metrics -->
+                <div class="col-span-2 space-y-6">
+                    <div class="data-box">
+                        <div class="metric-large">$12.46B</div>
+                        <div class="metric-label">PROJECTED AUM 2025</div>
+                    </div>
+
+                    <div class="data-box">
+                        <div class="metric-large">$4,300</div>
+                        <div class="metric-label">TRADITIONAL ADVICE COST (AUD/YEAR)</div>
+                    </div>
+
+                    <div class="data-box">
+                        <div class="metric-large">0.15-0.66%</div>
+                        <div class="metric-label">ROBO-ADVISOR FEE RANGE</div>
+                    </div>
+
+                    <div class="mt-6 p-4" style="border-left: 3px solid #FF6B35; background: rgba(255, 107, 53, 0.05);">
+                        <div class="text-sm" style="color: #E0E0E0;">
+                            Traditional advice costs create accessibility barrier, driving robo-advisor adoption across retail segments.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right column: Competitor performance -->
+                <div class="col-span-3">
+                    <div class="mb-4 text-sm font-semibold" style="color: #00D9FF;">
+                        COMPETITOR PERFORMANCE (FY 2024-25)
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>PLATFORM</th>
+                                <th>RETURNS</th>
+                                <th>FEE STRUCTURE</th>
+                                <th>MIN INVESTMENT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Stockspot</strong></td>
+                                <td class="positive">17.7-20.7%</td>
+                                <td>$1/mo or 0.396-0.66%</td>
+                                <td>$0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Raiz Invest</strong></td>
+                                <td class="positive">8.61-16.84%</td>
+                                <td>$5.50/mo or 0.275%</td>
+                                <td>$0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>QuietGrowth</strong></td>
+                                <td>—</td>
+                                <td>0.36-0.6%</td>
+                                <td>$3,000</td>
+                            </tr>
+                            <tr>
+                                <td><strong>InvestSMART</strong></td>
+                                <td>—</td>
+                                <td>0.55% (cap $550)</td>
+                                <td>$0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Spaceship</strong></td>
+                                <td>—</td>
+                                <td>0.15-0.50%</td>
+                                <td>$0 (free <$100)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bloom Impact</strong></td>
+                                <td>—</td>
+                                <td>$2.50/mo or 0.6%</td>
+                                <td>$500</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="mt-6 p-4" style="border: 1px solid #00D9FF; background: rgba(0, 217, 255, 0.05);">
+                        <div class="text-sm" style="color: #E0E0E0;">
+                            <strong style="color: #00D9FF;">Market Insight:</strong> Strong recent performance validates ETF-based robo-advisory model, but all platforms rely on static Modern Portfolio Theory algorithms.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="absolute bottom-16 right-16 text-sm" style="color: #666;">
+                SLIDE 02/10
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two Growth Moats</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'IBM Plex Mono', monospace;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background: #0A0E27;
+            position: relative;
+            overflow: hidden;
+        }
+        .grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+        .moat-block {
+            border: 2px solid #00FF41;
+            background: rgba(0, 255, 65, 0.03);
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 20px;
+            align-items: center;
+        }
+        .moat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: #00FF41;
+            line-height: 1;
+        }
+        .moat-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #00FF41;
+            margin-bottom: 4px;
+        }
+        .moat-content {
+            font-size: 13px;
+            color: #E0E0E0;
+            line-height: 1.6;
+        }
+        .barrier-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(255, 107, 53, 0.2);
+            border: 1px solid #FF6B35;
+            color: #FF6B35;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container p-16">
+        <div class="grid-overlay"></div>
+        
+        <div class="relative z-10">
+            <!-- Header -->
+            <div class="mb-8">
+                <div class="text-sm mb-2" style="color: #00FF41;">[COMPETITIVE_ADVANTAGE] (continued)</div>
+                <h1 class="text-3xl font-bold" style="color: #00FF41;">
+                    Two Growth Moats: Network Effects and Platform Stickiness
+                </h1>
+            </div>
+
+            <!-- Moats 4 and 5 -->
+            <div>
+                <!-- Moat 4: Network Effects -->
+                <div class="moat-block">
+                    <div>
+                        <div class="moat-number">04</div>
+                    </div>
+                    <div>
+                        <div class="moat-title">NETWORK EFFECTS</div>
+                        <div class="moat-content">
+                            More investors generate more training data, which improves agent performance, which attracts more investors. RL agents become exponentially better with scale, creating a compounding advantage that accelerates over time.
+                        </div>
+                        <div class="barrier-tag">SCALE ADVANTAGE BARRIER</div>
+                    </div>
+                </div>
+
+                <!-- Moat 5: Platform Stickiness -->
+                <div class="moat-block">
+                    <div>
+                        <div class="moat-number">05</div>
+                    </div>
+                    <div>
+                        <div class="moat-title">PLATFORM STICKINESS</div>
+                        <div class="moat-content">
+                            Investors experiencing hyper-personalized portfolio management with individual RL agents trained on their unique preferences will not want to return to template-based alternatives. Switching costs increase with time as agents learn investor behavior.
+                        </div>
+                        <div class="barrier-tag">BEHAVIORAL LOCK-IN BARRIER</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom insight -->
+            <div class="mt-6 p-4" style="border: 2px solid #00D9FF; background: rgba(0, 217, 255, 0.05);">
+                <div class="text-sm" style="color: #E0E0E0;">
+                    <strong style="color: #00D9FF;">Compounding Moats:</strong> These five moats reinforce each other. Data infrastructure enables better RL agents, which create network effects, which increase platform stickiness, which generates more data. The competitive gap widens over time.
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="absolute bottom-16 right-16 text-sm" style="color: #666;">
+                SLIDE 08B/10
+            </div>
+        </div>
+    </div>
+</body>
+</html>

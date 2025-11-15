@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UltraWealth: Next-Generation Portfolio Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'IBM Plex Mono', monospace;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background: #0A0E27;
+            position: relative;
+            overflow: hidden;
+        }
+        .grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+        .terminal-border {
+            border: 2px solid #00FF41;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+        }
+        .blink {
+            animation: blink-animation 1s steps(2, start) infinite;
+        }
+        @keyframes blink-animation {
+            to {
+                opacity: 0;
+            }
+        }
+        .accent-line {
+            height: 4px;
+            background: linear-gradient(90deg, #00FF41 0%, #00D9FF 50%, #FF6B35 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container flex items-center justify-center p-16">
+        <div class="grid-overlay"></div>
+        
+        <div class="relative z-10 w-full">
+            <!-- Top metadata bar -->
+            <div class="flex justify-between items-center mb-12 text-gray-400 text-sm">
+                <div>[ULTRACORE_SYSTEM]</div>
+                <div>2025-11-15 | COMPETITIVE_ANALYSIS.v1.0</div>
+            </div>
+
+            <!-- Main content area with terminal border -->
+            <div class="terminal-border p-12">
+                <!-- Title -->
+                <div class="mb-8">
+                    <div class="text-6xl font-bold mb-2" style="color: #00FF41; line-height: 1.1;">
+                        ULTRAWEALTH<span class="blink">_</span>
+                    </div>
+                    <div class="text-4xl font-semibold" style="color: #00D9FF;">
+                        Next-Generation Portfolio Management
+                    </div>
+                </div>
+
+                <!-- Accent line -->
+                <div class="accent-line mb-8"></div>
+
+                <!-- Subtitle -->
+                <div class="text-xl mb-6" style="color: #E0E0E0;">
+                    Reinforcement Learning-Powered Investment Platform
+                </div>
+
+                <!-- Key differentiators -->
+                <div class="grid grid-cols-2 gap-6 text-base" style="color: #E0E0E0;">
+                    <div>
+                        <span style="color: #FF6B35;">►</span> Adaptive RL Agents
+                    </div>
+                    <div>
+                        <span style="color: #FF6B35;">►</span> Event Sourcing Architecture
+                    </div>
+                    <div>
+                        <span style="color: #00D9FF;">►</span> Real-Time Optimization
+                    </div>
+                    <div>
+                        <span style="color: #00D9FF;">►</span> Integrated ESG Alpha
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom metadata -->
+            <div class="flex justify-between items-center mt-8 text-gray-500 text-sm">
+                <div>AUSTRALIAN MARKET ANALYSIS</div>
+                <div>SLIDE 01/10</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

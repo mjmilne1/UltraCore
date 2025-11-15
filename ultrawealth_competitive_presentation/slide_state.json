@@ -1,0 +1,124 @@
+{
+  "project_info": {
+    "title": "UltraWealth: Next-Generation Portfolio Management",
+    "created": 1763230597.0347118,
+    "last_updated": 1763231016.0556712,
+    "total_slides": 14
+  },
+  "slides": {
+    "slide_01_title": "edited",
+    "slide_02_market_context": "edited",
+    "slide_03_traditional_limitations": "edited",
+    "slide_03_traditional_limitations_cont": "edited",
+    "slide_04_paradigm_shift": "edited",
+    "slide_05_rl_agents": "edited",
+    "slide_06_architecture": "edited",
+    "slide_07_esg_leadership": "edited",
+    "slide_07_esg_leadership_cont": "edited",
+    "slide_08_competitive_moats": "edited",
+    "slide_08_competitive_moats_cont": "edited",
+    "slide_09_challenges_strategy": "edited",
+    "slide_09_challenges_strategy_cont": "edited",
+    "slide_10_conclusion": "edited"
+  },
+  "outline": [
+    {
+      "id": "slide_01_title",
+      "title": "UltraWealth: Next-Generation Portfolio Management",
+      "summary": "Title slide introducing UltraWealth as a paradigm shift in automated investment management for the Australian market.",
+      "image_plan": "Use a suitable image if needed",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_02_market_context",
+      "title": "Australian Robo-Advisory Market: USD 12.46B by 2025",
+      "summary": "Overview of the Australian robo-advisory market size, growth trajectory, and performance of leading platforms including Stockspot (17.7-20.7% returns), Raiz (8.61-16.84%), and others.",
+      "image_plan": "Use a suitable image if needed",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_03_traditional_limitations",
+      "title": "Traditional Robo-Advisors: Three Core Limitations",
+      "summary": "First three fundamental limitations of traditional robo-advisors: static algorithms that require manual recalibration and cannot adapt to market changes, template portfolios with only 3-7 predefined options based on risk questionnaires, and periodic rebalancing on fixed schedules rather than opportunistic timing.",
+      "image_plan": "No images needed - text-focused slide with limitation blocks",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_03_traditional_limitations_cont",
+      "title": "Traditional Robo-Advisors: Two Additional Limitations",
+      "summary": "Continuation covering the final two limitations: limited personalization beyond risk profile selection with no customization of holdings or behavioral learning, and ESG screening versus optimization where sustainability is treated as a constraint rather than an optimization objective. Includes concluding insight about the critical gap between calculators and learning systems.",
+      "slide_template_key": "",
+      "image_plan": "No images needed - continuation of text-focused limitation analysis"
+    },
+    {
+      "id": "slide_04_paradigm_shift",
+      "title": "UltraWealth's Paradigm Shift: From Rules to Learning",
+      "summary": "Comparison of traditional rule-based approaches versus UltraWealth's reinforcement learning architecture across five dimensions: algorithms, personalization, optimization timing, ESG integration, and auditability.",
+      "image_plan": "Use a suitable image if needed",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_05_rl_agents",
+      "title": "Five Specialized RL Agents for Every Investment Objective",
+      "summary": "Detailed overview of UltraWealth's five RL agents: Alpha (preservation), Beta (balanced), Gamma (growth), Delta (tactical), and Epsilon (ESG optimization) with their unique capabilities and target investors.",
+      "image_plan": "Use a suitable image if needed",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_06_architecture",
+      "title": "Event Sourcing + Data Mesh + MCP: Future-Ready Infrastructure",
+      "summary": "Explanation of UltraWealth's technological architecture including Kafka-first event sourcing with 12 topics, data mesh with 137 ASX ETFs and 277,312 data points, and MCP tools for agentic AI integration.",
+      "image_plan": "Use a suitable image if needed",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_07_esg_leadership",
+      "title": "Epsilon Agent: Traditional ESG Screening vs. UltraWealth Optimization",
+      "summary": "Side-by-side comparison of traditional ESG screening approach (filtering assets then optimizing) versus UltraWealth's Epsilon Agent approach (dual-stream Q-networks that simultaneously optimize financial and ESG objectives). Shows the flow diagrams for both approaches with traditional screening on left (universe → filters → filtered pool → MPT → portfolio) and Epsilon Agent on right (full universe → dual-stream processing → integrated decision → optimal portfolio).",
+      "image_plan": "No images - uses terminal-style flow diagrams with text boxes and arrows",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_07_esg_leadership_cont",
+      "title": "Epsilon Agent's Three Competitive Advantages in ESG",
+      "summary": "Continuation slide highlighting the three key differentiators that make Epsilon Agent superior: ESG alpha generation (maximizing both returns and ESG outcomes rather than just filtering), hyper-personalized ESG preferences (custom-trained agents for each investor's unique priorities like 70% carbon/30% social), and explainable ESG decisions (complete transparency on how ESG factors influenced investment choices). Includes comparison of limitations vs advantages between traditional screening and UltraWealth optimization.",
+      "slide_template_key": "",
+      "image_plan": "No images - continuation of text-focused ESG analysis"
+    },
+    {
+      "id": "slide_08_competitive_moats",
+      "title": "Three Foundational Moats: Expertise, Data, and Architecture",
+      "summary": "First three of UltraWealth's five structural competitive moats: (1) RL Expertise - rare interdisciplinary skills in ML, finance, and distributed systems creating a talent scarcity barrier; (2) Data Infrastructure - 137 ASX ETFs with 10 years of data (277,312 data points) and data mesh architecture creating a time and capital barrier; (3) Architectural Lock-In - synergistic event sourcing + data mesh + RL + MCP system that traditional robo-advisors cannot migrate to without complete rebuild, creating a technical debt barrier.",
+      "image_plan": "No images needed - text-focused moat analysis with numbered blocks",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_08_competitive_moats_cont",
+      "title": "Two Growth Moats: Network Effects and Platform Stickiness",
+      "summary": "Continuation covering the final two moats: (4) Network Effects - more investors generate more training data which improves agent performance which attracts more investors, creating a scale advantage barrier with compounding returns; (5) Platform Stickiness - investors experiencing hyper-personalized RL agents will not want template-based alternatives, with switching costs increasing over time as agents learn behavior, creating a behavioral lock-in barrier. Includes concluding insight about how these five moats reinforce each other and widen the competitive gap over time.",
+      "slide_template_key": "",
+      "image_plan": "No images needed - continuation of text-focused moat analysis"
+    },
+    {
+      "id": "slide_09_challenges_strategy",
+      "title": "Key Challenges: Five Critical Vulnerabilities to Address",
+      "summary": "First part focusing on the five key challenges UltraWealth faces: unproven track record (lacks multi-year live performance history), complexity risk (sophisticated RL and event sourcing stack introduces operational challenges), regulatory uncertainty (RL-based management may require additional ASIC approvals), market education (investors may not understand RL benefits or perceive as black box), and talent requirements (requires rare interdisciplinary expertise). Presented in warning-style format with coral orange accent colors.",
+      "image_plan": "No images - text-focused challenge analysis with warning indicators",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_09_challenges_strategy_cont",
+      "title": "Strategic Recommendations: Seven-Point Path to Market Leadership",
+      "summary": "Continuation slide presenting the seven strategic recommendations to address the challenges: build track record (accumulate 2-3 years of live performance data), emphasize transparency (leverage explainable AI), target sophisticated investors (focus on tech-savvy HNW individuals), develop partnerships (integrate with financial planning platforms), invest in education (create accessible RL content), regulatory engagement (proactively work with ASIC), and continuous innovation (maintain technological leadership). Includes concluding strategic insight about performance validation being the ultimate test. Presented in solution-style format with cyan blue accent colors.",
+      "slide_template_key": "",
+      "image_plan": "No images - continuation with strategic recommendations and action indicators"
+    },
+    {
+      "id": "slide_10_conclusion",
+      "title": "UltraWealth: Leading the Next Evolution of Automated Investing",
+      "summary": "Concluding slide emphasizing UltraWealth's unique positioning to redefine automated investment management in Australia through reinforcement learning, event sourcing, and agentic AI.",
+      "image_plan": "Use a suitable image if needed",
+      "slide_template_key": ""
+    }
+  ]
+}

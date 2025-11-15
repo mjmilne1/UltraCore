@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three Foundational Moats</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'IBM Plex Mono', monospace;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background: #0A0E27;
+            position: relative;
+            overflow: hidden;
+        }
+        .grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+        .moat-block {
+            border: 2px solid #00FF41;
+            background: rgba(0, 255, 65, 0.03);
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 20px;
+            align-items: center;
+        }
+        .moat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: #00FF41;
+            line-height: 1;
+        }
+        .moat-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #00FF41;
+            margin-bottom: 4px;
+        }
+        .moat-content {
+            font-size: 13px;
+            color: #E0E0E0;
+            line-height: 1.6;
+        }
+        .barrier-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(255, 107, 53, 0.2);
+            border: 1px solid #FF6B35;
+            color: #FF6B35;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container p-16">
+        <div class="grid-overlay"></div>
+        
+        <div class="relative z-10">
+            <!-- Header -->
+            <div class="mb-8">
+                <div class="text-sm mb-2" style="color: #00FF41;">[COMPETITIVE_ADVANTAGE]</div>
+                <h1 class="text-3xl font-bold" style="color: #00FF41;">
+                    Three Foundational Moats: Expertise, Data, and Architecture
+                </h1>
+            </div>
+
+            <!-- Moats 1-3 -->
+            <div>
+                <!-- Moat 1: RL Expertise -->
+                <div class="moat-block">
+                    <div>
+                        <div class="moat-number">01</div>
+                    </div>
+                    <div>
+                        <div class="moat-title">RL EXPERTISE</div>
+                        <div class="moat-content">
+                            Developing production-grade reinforcement learning agents requires rare interdisciplinary expertise in machine learning, quantitative finance, and distributed systems. Talent pool is limited globally, and training takes years.
+                        </div>
+                        <div class="barrier-tag">TALENT SCARCITY BARRIER</div>
+                    </div>
+                </div>
+
+                <!-- Moat 2: Data Infrastructure -->
+                <div class="moat-block">
+                    <div>
+                        <div class="moat-number">02</div>
+                    </div>
+                    <div>
+                        <div class="moat-title">DATA INFRASTRUCTURE</div>
+                        <div class="moat-content">
+                            137 ASX ETFs with 10 years of daily data (277,312 data points) provides training foundation competitors would need years to build. Data mesh architecture with domain-owned products creates unified access layer impossible to replicate quickly.
+                        </div>
+                        <div class="barrier-tag">TIME & CAPITAL BARRIER</div>
+                    </div>
+                </div>
+
+                <!-- Moat 3: Architectural Lock-In -->
+                <div class="moat-block">
+                    <div>
+                        <div class="moat-number">03</div>
+                    </div>
+                    <div>
+                        <div class="moat-title">ARCHITECTURAL LOCK-IN</div>
+                        <div class="moat-content">
+                            Event sourcing + data mesh + RL + MCP creates synergistic system where each component enhances others. Traditional robo-advisors built on relational databases and batch processing cannot migrate without complete rebuild.
+                        </div>
+                        <div class="barrier-tag">TECHNICAL DEBT BARRIER</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Continuation indicator -->
+            <div class="mt-12 p-4" style="border: 1px solid #666; background: rgba(102, 102, 102, 0.05);">
+                <div class="text-sm" style="color: #999;">
+                    <strong style="color: #00D9FF;">Continued on next slide:</strong> Two growth moats (Network Effects and Platform Stickiness) that create compounding competitive advantages
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="absolute bottom-16 right-16 text-sm" style="color: #666;">
+                SLIDE 08/10
+            </div>
+        </div>
+    </div>
+</body>
+</html>

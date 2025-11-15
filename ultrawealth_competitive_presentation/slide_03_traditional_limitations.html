@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traditional Robo-Advisors: Three Core Limitations</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'IBM Plex Mono', monospace;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background: #0A0E27;
+            position: relative;
+            overflow: hidden;
+        }
+        .grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+        .limitation-block {
+            border-left: 4px solid #FF6B35;
+            background: rgba(255, 107, 53, 0.05);
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+        .limitation-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #FF6B35;
+            margin-bottom: 8px;
+        }
+        .limitation-desc {
+            font-size: 14px;
+            color: #E0E0E0;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container p-16">
+        <div class="grid-overlay"></div>
+        
+        <div class="relative z-10">
+            <!-- Header -->
+            <div class="mb-10">
+                <div class="text-sm mb-2" style="color: #FF6B35;">[PROBLEM_ANALYSIS]</div>
+                <h1 class="text-3xl font-bold" style="color: #00FF41;">
+                    Traditional Robo-Advisors: Three Core Limitations
+                </h1>
+                <div class="mt-4 text-base" style="color: #E0E0E0;">
+                    Despite strong recent performance, all Australian robo-advisors share critical architectural weaknesses
+                </div>
+            </div>
+
+            <!-- Limitations (Part 1: First three) -->
+            <div class="space-y-4">
+                <div class="limitation-block">
+                    <div class="limitation-title">
+                        ► 01. STATIC ALGORITHMS
+                    </div>
+                    <div class="limitation-desc">
+                        Modern Portfolio Theory with manual recalibration. Algorithms cannot adapt to changing market conditions without human intervention. Fixed rules lag market regime changes during volatility.
+                    </div>
+                </div>
+
+                <div class="limitation-block">
+                    <div class="limitation-title">
+                        ► 02. TEMPLATE PORTFOLIOS
+                    </div>
+                    <div class="limitation-desc">
+                        3-7 predefined portfolios based on risk questionnaires. All investors with similar risk scores receive identical allocations regardless of unique circumstances, goals, or behavioral patterns.
+                    </div>
+                </div>
+
+                <div class="limitation-block">
+                    <div class="limitation-title">
+                        ► 03. PERIODIC REBALANCING
+                    </div>
+                    <div class="limitation-desc">
+                        Scheduled rebalancing (daily/weekly/monthly) rather than opportunistic. Cannot capitalize on intraday market movements or respond immediately to significant events. Transaction timing is arbitrary.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Continuation indicator -->
+            <div class="mt-12 p-4" style="border: 1px solid #666; background: rgba(102, 102, 102, 0.05);">
+                <div class="text-sm" style="color: #999;">
+                    <strong style="color: #00D9FF;">Continued on next slide:</strong> Two additional fundamental limitations (personalization constraints and ESG screening approach)
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="absolute bottom-16 right-16 text-sm" style="color: #666;">
+                SLIDE 03/10
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UltraWealth's Paradigm Shift</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'IBM Plex Mono', monospace;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background: #0A0E27;
+            position: relative;
+            overflow: hidden;
+        }
+        .grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .comparison-table th {
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            text-align: left;
+            border: 2px solid;
+        }
+        .comparison-table td {
+            padding: 14px 16px;
+            font-size: 14px;
+            line-height: 1.5;
+            border: 1px solid;
+        }
+        .dimension-header {
+            background: rgba(0, 255, 65, 0.1);
+            color: #00FF41;
+            font-weight: 700;
+            border-color: #00FF41;
+        }
+        .traditional-col {
+            background: rgba(255, 107, 53, 0.05);
+            color: #E0E0E0;
+            border-color: rgba(255, 107, 53, 0.3);
+        }
+        .ultrawealth-col {
+            background: rgba(0, 217, 255, 0.05);
+            color: #E0E0E0;
+            border-color: rgba(0, 217, 255, 0.3);
+        }
+        .traditional-header {
+            background: rgba(255, 107, 53, 0.2);
+            color: #FF6B35;
+            border-color: #FF6B35;
+        }
+        .ultrawealth-header {
+            background: rgba(0, 217, 255, 0.2);
+            color: #00D9FF;
+            border-color: #00D9FF;
+        }
+        .arrow {
+            font-size: 20px;
+            color: #00FF41;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container p-16">
+        <div class="grid-overlay"></div>
+        
+        <div class="relative z-10">
+            <!-- Header -->
+            <div class="mb-8">
+                <div class="text-sm mb-2" style="color: #00FF41;">[PARADIGM_SHIFT]</div>
+                <h1 class="text-3xl font-bold" style="color: #00FF41;">
+                    UltraWealth's Paradigm Shift: From Rules to Learning
+                </h1>
+            </div>
+
+            <!-- Comparison table -->
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th class="dimension-header" style="width: 20%;">DIMENSION</th>
+                        <th class="traditional-header" style="width: 38%;">TRADITIONAL ROBO-ADVISORS</th>
+                        <th style="width: 4%; background: #0A0E27; border: none;"></th>
+                        <th class="ultrawealth-header" style="width: 38%;">ULTRAWEALTH</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="dimension-header">ALGORITHMS</td>
+                        <td class="traditional-col">
+                            Static Modern Portfolio Theory with manual recalibration by human portfolio managers
+                        </td>
+                        <td style="background: #0A0E27; border: none; text-align: center;">
+                            <span class="arrow">→</span>
+                        </td>
+                        <td class="ultrawealth-col">
+                            Deep Reinforcement Learning agents that continuously adapt through trial and error
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dimension-header">PERSONALIZATION</td>
+                        <td class="traditional-col">
+                            3-7 template portfolios based on risk questionnaire scores
+                        </td>
+                        <td style="background: #0A0E27; border: none; text-align: center;">
+                            <span class="arrow">→</span>
+                        </td>
+                        <td class="ultrawealth-col">
+                            Individual RL agents trained for each investor's unique profile and goals
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dimension-header">OPTIMIZATION TIMING</td>
+                        <td class="traditional-col">
+                            Periodic rebalancing on fixed schedules (daily, weekly, monthly)
+                        </td>
+                        <td style="background: #0A0E27; border: none; text-align: center;">
+                            <span class="arrow">→</span>
+                        </td>
+                        <td class="ultrawealth-col">
+                            Real-time continuous optimization with opportunistic rebalancing
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dimension-header">ESG INTEGRATION</td>
+                        <td class="traditional-col">
+                            Negative/positive screening filters applied as constraints
+                        </td>
+                        <td style="background: #0A0E27; border: none; text-align: center;">
+                            <span class="arrow">→</span>
+                        </td>
+                        <td class="ultrawealth-col">
+                            Dual-objective optimization maximizing both returns and ESG outcomes
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dimension-header">AUDITABILITY</td>
+                        <td class="traditional-col">
+                            Point-in-time database snapshots with limited historical reconstruction
+                        </td>
+                        <td style="background: #0A0E27; border: none; text-align: center;">
+                            <span class="arrow">→</span>
+                        </td>
+                        <td class="ultrawealth-col">
+                            Kafka event sourcing with complete immutable audit trail and time-travel
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Bottom insight -->
+            <div class="mt-8 p-4" style="border: 2px solid #00FF41; background: rgba(0, 255, 65, 0.05);">
+                <div class="text-sm" style="color: #E0E0E0;">
+                    <strong style="color: #00FF41;">Fundamental Difference:</strong> Traditional robo-advisors execute predefined strategies efficiently. UltraWealth discovers optimal strategies through continuous learning and adaptation.
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="absolute bottom-16 right-16 text-sm" style="color: #666;">
+                SLIDE 04/10
+            </div>
+        </div>
+    </div>
+</body>
+</html>

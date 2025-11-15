@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traditional Robo-Advisors: Fundamental Limitations (Continued)</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'IBM Plex Mono', monospace;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background: #0A0E27;
+            position: relative;
+            overflow: hidden;
+        }
+        .grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+        .limitation-block {
+            border-left: 4px solid #FF6B35;
+            background: rgba(255, 107, 53, 0.05);
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+        .limitation-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #FF6B35;
+            margin-bottom: 8px;
+        }
+        .limitation-desc {
+            font-size: 14px;
+            color: #E0E0E0;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container p-16">
+        <div class="grid-overlay"></div>
+        
+        <div class="relative z-10">
+            <!-- Header -->
+            <div class="mb-10">
+                <div class="text-sm mb-2" style="color: #FF6B35;">[PROBLEM_ANALYSIS] (continued)</div>
+                <h1 class="text-3xl font-bold" style="color: #00FF41;">
+                    Traditional Robo-Advisors: Two Additional Limitations
+                </h1>
+            </div>
+
+            <!-- Limitations 4 and 5 -->
+            <div class="space-y-4">
+                <div class="limitation-block">
+                    <div class="limitation-title">
+                        ► 04. LIMITED PERSONALIZATION
+                    </div>
+                    <div class="limitation-desc">
+                        Personalization limited to risk profile selection. No customization of individual holdings, factor tilts, or tax optimization strategies. Behavioral analysis and learning from investor actions is absent.
+                    </div>
+                </div>
+
+                <div class="limitation-block">
+                    <div class="limitation-title">
+                        ► 05. ESG SCREENING VS. OPTIMIZATION
+                    </div>
+                    <div class="limitation-desc">
+                        ESG investing through negative/positive screening (filtering out "bad" assets). Treats sustainability as a constraint rather than an optimization objective. Cannot generate "ESG alpha" through integrated optimization.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom insight -->
+            <div class="mt-12 p-4" style="border: 1px solid #00D9FF; background: rgba(0, 217, 255, 0.05);">
+                <div class="text-sm" style="color: #E0E0E0;">
+                    <strong style="color: #00D9FF;">Critical Gap:</strong> Traditional robo-advisors are sophisticated calculators, not learning systems. They execute predefined strategies efficiently but cannot discover better strategies through experience.
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="absolute bottom-16 right-16 text-sm" style="color: #666;">
+                SLIDE 03B/10
+            </div>
+        </div>
+    </div>
+</body>
+</html>
