@@ -331,7 +331,22 @@ const dataMeshRouter = router({
       z.object({
         name: z.string(),
         description: z.string(),
-        category: z.enum(["portfolio", "esg", "market", "risk", "performance"]),
+        category: z.enum([
+          "australian_equities",
+          "us_equities",
+          "international",
+          "asia_pacific",
+          "technology",
+          "healthcare",
+          "financials",
+          "energy",
+          "commodities",
+          "fixed_income",
+          "dividend_income",
+          "esg_sustainable",
+          "broad_market",
+          "other"
+        ]),
         s3Path: z.string(),
         format: z.enum(["parquet", "csv", "json"]),
         schema: z.string().optional(),

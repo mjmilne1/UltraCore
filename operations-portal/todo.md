@@ -51,18 +51,21 @@
 
 ## Phase 7: RL Agent Monitoring
 - [x] Create RL metrics schema
-- [ ] Build Training Dashboard
-- [ ] Implement Agent Performance charts
+- [x] Build Training Dashboard with 5 agents (Alpha, Beta, Gamma, Delta, Epsilon)
+- [x] Implement Agent Performance charts with Chart.js
+- [x] Create Agent Detail pages with training metrics
+- [x] Add training job controls (start/pause/reset/export)
 - [ ] Add Explainable AI interface
 - [ ] Create Model Management interface
-- [ ] Add training job controls
 
 ## Phase 8: Data Mesh Integration
-- [ ] Set up DuckDB WASM client
-- [ ] Build Data Product Catalog
+- [x] Set up DuckDB WASM client
+- [x] Build Data Product Catalog with 72 real ASX ETFs
+- [x] Import UltraCore ETF data with Parquet file references
+- [x] Add data product search and filtering
+- [ ] Integrate DuckDB WASM for in-browser Parquet queries
 - [ ] Implement Data Quality dashboard
 - [ ] Create Data Lineage Viewer
-- [ ] Add data product search
 
 ## Phase 9: MCP Server & Tools
 - [ ] Set up MCP server
@@ -98,3 +101,15 @@
 - [x] Add performance charts for agent training history
 - [x] Implement agent control interface (start/stop/retrain)
 - [x] Add training job management dashboard
+
+## Current Sprint: Data Mesh Analytics Module
+- [x] Install DuckDB WASM dependencies
+- [x] Create ETF catalog page with 72 real ASX ETF products from UltraCore
+- [x] Import real UltraCore ETF data with tickers, expense ratios, and AUM
+- [x] Update schema to add ETF-specific fields (ticker, expenseRatio, aum)
+- [x] Add search and filter functionality
+- [x] Display ETF cards with ticker badges, expense ratios, and AUM values
+- [ ] Integrate DuckDB WASM to load and query Parquet files in browser
+- [ ] Build analytics dashboard with ETF comparison charts
+- [ ] Add interactive charts for performance/sector/expense analysis
+- [ ] Implement SQL query interface for power users
