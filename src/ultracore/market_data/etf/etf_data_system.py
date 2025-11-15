@@ -60,7 +60,7 @@ class ETFDataSystem:
         # For now, return a mock or in-memory store
         # Use a simple in-memory implementation
         from ultracore.event_sourcing.base import EventStore, Event, ConcurrencyError
-        from typing import Dict
+        from typing import Dict, List, Optional
         
         class SimpleEventStore(EventStore):
             """Simple in-memory event store for development/testing"""
