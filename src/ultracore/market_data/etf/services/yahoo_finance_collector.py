@@ -87,15 +87,13 @@ class YahooFinanceCollector:
                     yf_ticker,
                     start=start_date,
                     end=end_date,
-                    progress=False,
-                    show_errors=False
+                    progress=False
                 )
             else:
                 df = yf.download(
                     yf_ticker,
                     period=period,
-                    progress=False,
-                    show_errors=False
+                    progress=False
                 )
             
             if df.empty:
