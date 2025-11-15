@@ -10,7 +10,7 @@ from typing import Dict, Any, Optional
 from uuid import uuid4
 
 from ultracore.market_data.etf.agents.etf_collector_agent import ETFCollectorAgent
-from ultracore.market_data.etf.services.alpha_vantage_collector import AlphaVantageCollector
+from ultracore.market_data.etf.services.yahoo_finance_collector_v2 import YahooFinanceCollectorV2
 from ultracore.market_data.etf.data_mesh.etf_data_product import ETFDataProduct
 from ultracore.market_data.etf.asx_etf_list import get_all_etfs
 from ultracore.event_sourcing.store.event_store import EventStore
@@ -33,28 +33,17 @@ class ETFDataSystem:
     def __init__(
         self,
         data_dir: str = "/data/etf",
-        alpha_vantage_api_key: Optional[str] = None,
         event_store: Optional[EventStore] = None
     ):
         self.data_dir = Path(data_dir)
         self.data_dir.mkdir(parents=True, exist_ok=True)
         
-        # Get API key from environment if not provided
-        if alpha_vantage_api_key is None:
-            import os
-            alpha_vantage_api_key = os.getenv('ALPHA_VANTAGE_API_KEY')
-            if not alpha_vantage_api_key:
-                raise ValueError(
-                    "Alpha Vantage API key required. "
-                    "Provide via alpha_vantage_api_key parameter or ALPHA_VANTAGE_API_KEY environment variable"
-                )
-        
-        # Initialize components
-        self.collector = AlphaVantageCollector(api_key=alpha_vantage_api_key)
+        # Initialize components with Yahoo Finance V2 (improved)
+        self.collector = YahooFinanceCollectorV2(delay_seconds=2.0)
         self.event_store = event_store or self._create_event_store()
         self.agent = ETFCollectorAgent(
             event_store=self.event_store,
-            api_key=alpha_vantage_api_key
+            collector=self.collector
         )
         self.data_product = ETFDataProduct()
         

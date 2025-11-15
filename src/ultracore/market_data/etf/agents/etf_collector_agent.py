@@ -10,8 +10,8 @@ from uuid import uuid4, UUID
 import logging
 
 # Simplified to standalone service - no Agent inheritance needed
-from ultracore.market_data.etf.services.alpha_vantage_collector import (
-    AlphaVantageCollector,
+from ultracore.market_data.etf.services.yahoo_finance_collector_v2 import (
+    YahooFinanceCollectorV2,
     CollectionResult
 )
 from ultracore.market_data.etf.aggregates.etf_aggregate import ETFAggregate, ETFMetadata
@@ -37,13 +37,12 @@ class ETFCollectorAgent:
     def __init__(
         self,
         event_store: EventStore,
-        api_key: str,
-        collector: Optional[AlphaVantageCollector] = None
+        collector: Optional[YahooFinanceCollectorV2] = None
     ):
         self.agent_id = str(uuid4())
         self.name = "ETF Data Collector Agent"
         self.event_store = event_store
-        self.collector = collector or AlphaVantageCollector(api_key=api_key)
+        self.collector = collector or YahooFinanceCollectorV2(delay_seconds=2.0)
         self.etf_aggregates: Dict[str, ETFAggregate] = {}
         
         # Agent state
@@ -55,7 +54,7 @@ class ETFCollectorAgent:
         # RL parameters
         self.retry_attempts = 3
         self.retry_delay = 5  # seconds
-        self.batch_size = 10  # ETFs to process in parallel
+        self.batch_size = 1  # Process sequentially to avoid rate limiting
         
     async def initialize_all_etfs(self) -> Dict[str, Any]:
         """
@@ -194,14 +193,14 @@ class ETFCollectorAgent:
                     result = await asyncio.to_thread(
                         self.collector.download_historical_data,
                         ticker=ticker,
-                        outputsize="full"
+                        period="max"
                     )
                 else:
-                    # Daily update - get last 100 days (compact)
+                    # Daily update - get last 5 days
                     result = await asyncio.to_thread(
-                        self.collector.download_historical_data,
+                        self.collector.download_latest_data,
                         ticker=ticker,
-                        outputsize="compact"
+                        days_back=5
                     )
                 
                 if result.success:

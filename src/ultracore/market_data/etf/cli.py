@@ -29,9 +29,8 @@ def cli():
 
 @cli.command()
 @click.option('--data-dir', default='/data/etf', help='Data directory path')
-@click.option('--api-key', envvar='ALPHA_VANTAGE_API_KEY', required=True, help='Alpha Vantage API key')
 @click.option('--force', is_flag=True, help='Force re-initialization')
-def initialize(data_dir: str, api_key: str, force: bool):
+def initialize(data_dir: str, force: bool):
     """Initialize ETF data system with complete historical data"""
     click.echo("🚀 Initializing ETF Data System...")
     click.echo(f"📁 Data directory: {data_dir}")
@@ -41,7 +40,7 @@ def initialize(data_dir: str, api_key: str, force: bool):
         click.echo("⚠️  Force mode: Will re-download all data")
     
     async def run():
-        system = ETFDataSystem(data_dir=data_dir, alpha_vantage_api_key=api_key)
+        system = ETFDataSystem(data_dir=data_dir)
         result = await system.initialize(force=force)
         return result
     
@@ -61,13 +60,12 @@ def initialize(data_dir: str, api_key: str, force: bool):
 
 @cli.command()
 @click.option('--data-dir', default='/data/etf', help='Data directory path')
-@click.option('--api-key', envvar='ALPHA_VANTAGE_API_KEY', required=True, help='Alpha Vantage API key')
-def update(data_dir: str, api_key: str):
+def update(data_dir: str):
     """Update ETF data with latest prices"""
     click.echo("🔄 Updating ETF data...")
     
     async def run():
-        system = ETFDataSystem(data_dir=data_dir, alpha_vantage_api_key=api_key)
+        system = ETFDataSystem(data_dir=data_dir)
         result = await system.update()
         return result
     
