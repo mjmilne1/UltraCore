@@ -11,6 +11,7 @@ This list includes 360+ ETFs across all categories:
 - Currencies
 - Alternatives
 """
+from typing import List, Optional, Dict
 
 # Major Australian Equity ETFs
 AUSTRALIAN_EQUITY_ETFS = [
