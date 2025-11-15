@@ -109,7 +109,21 @@
 - [x] Update schema to add ETF-specific fields (ticker, expenseRatio, aum)
 - [x] Add search and filter functionality
 - [x] Display ETF cards with ticker badges, expense ratios, and AUM values
-- [ ] Integrate DuckDB WASM to load and query Parquet files in browser
+- [x] Integrate DuckDB WASM to load and query Parquet files in browser
 - [ ] Build analytics dashboard with ETF comparison charts
 - [ ] Add interactive charts for performance/sector/expense analysis
 - [ ] Implement SQL query interface for power users
+
+## Current Sprint: DuckDB WASM Integration
+- [x] Initialize DuckDB WASM in browser on button click
+- [x] Load Parquet files from S3 (72 ETFs uploaded to production storage)
+- [x] Fetch and register Parquet files as ArrayBuffers in DuckDB WASM
+- [x] Query OHLCV data with SQL (tested with VTS - 100 rows loaded successfully)
+- [x] Display query results in data table with pagination
+- [x] Add explainer toasts and user guidance throughout the flow
+- [x] Implement error handling for failed Parquet loads
+- [ ] Create SQL query interface with syntax highlighting
+- [ ] Build ETF comparison analytics dashboard
+- [ ] Add performance charts (price history, returns, volatility)
+- [ ] Implement sector allocation visualization
+- [ ] Add expense ratio comparison charts
