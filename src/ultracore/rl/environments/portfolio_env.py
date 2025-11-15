@@ -109,7 +109,22 @@ class PortfolioEnv(gym.Env):
         """
         # Random starting point if not specified
         if start_idx is None:
-            max_start = min(len(df) for df in self.etf_data.values()) - self.max_steps - self.lookback_window
+            # Calculate max start index with safety check
+            min_data_len = min(len(self.etf_data[ticker]) for ticker in self.etf_list)
+            max_start = min_data_len - self.max_steps - self.lookback_window
+            
+            # Ensure we have enough data
+            if max_start <= self.lookback_window:
+                # Not enough data - use shorter episode
+                self.max_steps = min(50, min_data_len - self.lookback_window - 10)
+                max_start = min_data_len - self.max_steps - self.lookback_window
+                
+                if max_start <= self.lookback_window:
+                    raise ValueError(
+                        f"Insufficient data: need at least {self.lookback_window + self.max_steps + 10} rows, "
+                        f"but shortest ETF has only {min_data_len} rows"
+                    )
+            
             self.start_idx = np.random.randint(self.lookback_window, max_start)
         else:
             self.start_idx = start_idx
