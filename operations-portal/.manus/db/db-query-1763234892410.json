@@ -1,0 +1,9 @@
+{
+  "query": "DELETE FROM mcp_executions; DELETE FROM mcp_tools; DELETE FROM data_products; DELETE FROM training_runs; DELETE FROM loan_payments; DELETE FROM loans; DELETE FROM portfolio_holdings; DELETE FROM portfolios; DELETE FROM esg_data; DELETE FROM kafka_topics; DELETE FROM rl_agents; DELETE FROM audit_log;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user Wsc1BYvUCzqij96.f72ee2e4753d --database 4DNnd6wbLbQv5kNg3a6fm8 --execute DELETE FROM mcp_executions; DELETE FROM mcp_tools; DELETE FROM data_products; DELETE FROM training_runs; DELETE FROM loan_payments; DELETE FROM loans; DELETE FROM portfolio_holdings; DELETE FROM portfolios; DELETE FROM esg_data; DELETE FROM kafka_topics; DELETE FROM rl_agents; DELETE FROM audit_log;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 4687
+}

@@ -1,0 +1,9 @@
+{
+  "query": "DELETE FROM portfolio_holdings; DELETE FROM portfolios;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user Wsc1BYvUCzqij96.f72ee2e4753d --database 4DNnd6wbLbQv5kNg3a6fm8 --execute DELETE FROM portfolio_holdings; DELETE FROM portfolios;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 1873
+}

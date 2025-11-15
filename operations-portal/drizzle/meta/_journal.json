@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1763231985768,
+      "tag": "0000_married_joshua_kane",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1763232576140,
+      "tag": "0001_mixed_bill_hollister",
+      "breakpoints": true
+    }
+  ]
+}
